@@ -363,10 +363,10 @@ html,body{height:100%;font-family:Poppins,sans-serif;background:var(--navy);colo
 function goToDashboard(){
   var btn=document.getElementById('btn-start');
   btn.disabled=true;
-  document.getElementById('btn-txt').textContent='⏳ Opening your dashboard…';
+  document.getElementById('btn-txt').textContent='⏳ Opening sign in…';
   /* Mark that welcome was seen — prevents showing it again */
   try{ localStorage.setItem('df_welcome_seen','true'); }catch(e){}
-  setTimeout(function(){ location.href='dashboard.html'; },600);
+  setTimeout(function(){ location.href='login.html'; },600);
 }
 
 /* If already registered, personalise the CTA */
@@ -377,11 +377,11 @@ function goToDashboard(){
     var first=name.trim().split(/\s+/)[0];
     document.getElementById('btn-txt').textContent='Start My Journey, '+first+'!';
   }
-  /* If they've already seen welcome before, redirect to dashboard immediately */
+  /* If they've already seen welcome before, return to login immediately */
   var seen='';
   try{ seen=localStorage.getItem('df_welcome_seen')||''; }catch(e){}
   if(seen==='true'){
-    location.href='dashboard.html';
+    location.href='login.html';
   }
 })();
 </script>
