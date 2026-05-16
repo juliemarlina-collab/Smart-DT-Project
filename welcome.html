@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Smart DT · Welcome</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#081B44;--teal:#14B8A6;--tealDk:#0F766E;--tealLt:#E6FFFB;
+  --orange:#FF6A3D;--orangeLt:#FFF7ED;
+  --yellow:#FFB81C;--yellowLt:#FFF8E6;
+  --green:#22C55E;--greenLt:#DCFCE7;
+  --bg:#EEF2F7;--white:#fff;--txt:#081B44;--sub:#475569;--border:#E8EDF5;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;font-family:Poppins,sans-serif;background:var(--navy);color:var(--txt);}
+
+/* ── Page shell: full-height single column ── */
+.page{
+  min-height:100vh;display:flex;flex-direction:column;
+  overflow-x:hidden;position:relative;
+}
+
+/* ── Background decorative blobs ── */
+.blob{position:fixed;border-radius:50%;pointer-events:none;z-index:0;}
+.blob-1{width:340px;height:340px;top:-80px;right:-100px;
+  background:radial-gradient(circle,rgba(20,184,166,.18) 0%,transparent 70%);}
+.blob-2{width:260px;height:260px;bottom:100px;left:-80px;
+  background:radial-gradient(circle,rgba(255,106,61,.12) 0%,transparent 70%);}
+.blob-3{width:180px;height:180px;top:40%;left:50%;transform:translateX(-50%);
+  background:radial-gradient(circle,rgba(255,184,28,.08) 0%,transparent 70%);}
+
+/* ── Hero section ── */
+.hero{
+  position:relative;z-index:1;
+  padding:48px 24px 32px;text-align:center;
+  flex-shrink:0;
+}
+.logo-row{
+  display:inline-flex;align-items:center;gap:10px;
+  margin-bottom:28px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:99px;padding:7px 16px;
+}
+.logo-icon{
+  width:28px;height:28px;background:var(--teal);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+}
+.logo-label{font-size:12px;font-weight:800;color:rgba(255,255,255,.8);letter-spacing:.3px;}
+
+.hero-img-wrap{
+  margin:0 auto 24px;width:160px;height:140px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.hero-img{width:100%;height:100%;object-fit:contain;}
+/* Fallback glow ring when image is missing */
+.hero-img-fallback{
+  width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle,rgba(20,184,166,.3) 0%,transparent 70%);
+  display:flex;align-items:center;justify-content:center;font-size:52px;
+}
+
+.hero-tag{
+  display:inline-block;background:rgba(20,184,166,.18);
+  border:1px solid rgba(20,184,166,.35);border-radius:99px;
+  padding:4px 14px;font-size:11px;font-weight:800;color:var(--teal);
+  margin-bottom:14px;letter-spacing:.5px;text-transform:uppercase;
+}
+.hero-title{
+  font-size:30px;font-weight:900;color:#fff;
+  line-height:1.15;letter-spacing:-.5px;margin-bottom:10px;
+}
+.hero-title em{color:var(--teal);font-style:normal;}
+.hero-sub{
+  font-size:13px;color:rgba(255,255,255,.5);line-height:1.7;
+  max-width:280px;margin:0 auto;
+}
+
+/* ── Steps indicator ── */
+.steps-row{
+  display:flex;align-items:center;justify-content:center;
+  gap:6px;margin-top:24px;
+}
+.step-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);}
+.step-dot.active{width:20px;border-radius:3px;background:var(--teal);}
+
+/* ── White card section ── */
+.card-section{
+  position:relative;z-index:1;
+  background:var(--bg);
+  border-radius:28px 28px 0 0;
+  flex:1;
+  padding:28px 20px 120px;
+}
+
+.section-eyebrow{
+  font-size:10px;font-weight:800;text-transform:uppercase;
+  letter-spacing:1.2px;color:var(--sub);text-align:center;
+  margin-bottom:18px;
+}
+
+/* ── Three pillars ── */
+.pillars{display:flex;flex-direction:column;gap:12px;margin-bottom:24px;}
+.pillar{
+  background:var(--white);border-radius:16px;padding:18px;
+  border:1.5px solid var(--border);
+  display:flex;align-items:flex-start;gap:14px;
+  opacity:0;transform:translateY(16px);
+  animation:pillarIn .5s ease both;
+}
+.pillar:nth-child(1){animation-delay:.1s;}
+.pillar:nth-child(2){animation-delay:.22s;}
+.pillar:nth-child(3){animation-delay:.34s;}
+@keyframes pillarIn{to{opacity:1;transform:translateY(0);}}
+
+.pillar-icon{
+  width:46px;height:46px;border-radius:14px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:22px;
+}
+.p1 .pillar-icon{background:var(--tealLt);}
+.p2 .pillar-icon{background:var(--orangeLt);}
+.p3 .pillar-icon{background:var(--greenLt);}
+
+.pillar-body{}
+.pillar-num{
+  font-size:9px;font-weight:800;text-transform:uppercase;
+  letter-spacing:1px;margin-bottom:3px;
+}
+.p1 .pillar-num{color:var(--teal);}
+.p2 .pillar-num{color:var(--orange);}
+.p3 .pillar-num{color:var(--green);}
+.pillar-title{font-size:15px;font-weight:900;color:var(--txt);letter-spacing:-.3px;margin-bottom:4px;}
+.pillar-desc{font-size:12px;color:var(--sub);line-height:1.6;}
+
+/* ── Phase peek strip ── */
+.phase-peek{
+  background:var(--white);border-radius:16px;padding:16px;
+  border:1.5px solid var(--border);margin-bottom:24px;
+}
+.peek-label{
+  font-size:10px;font-weight:800;text-transform:uppercase;
+  letter-spacing:1px;color:var(--sub);margin-bottom:12px;
+}
+.peek-row{display:flex;gap:6px;align-items:center;overflow-x:auto;
+  scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+.peek-row::-webkit-scrollbar{display:none;}
+.peek-chip{
+  display:flex;align-items:center;gap:6px;flex-shrink:0;
+  border-radius:99px;padding:6px 12px;border:1.5px solid;
+  font-size:11px;font-weight:700;white-space:nowrap;
+}
+.peek-chip svg{flex-shrink:0;}
+.ph1{background:var(--tealLt);border-color:rgba(20,184,166,.3);color:var(--tealDk);}
+.ph2{background:var(--orangeLt);border-color:rgba(255,106,61,.3);color:#c4501c;}
+.ph3{background:#DCFCE7;border-color:rgba(34,197,94,.3);color:#15803d;}
+.ph4{background:var(--tealLt);border-color:rgba(20,184,166,.3);color:var(--tealDk);}
+.ph5{background:#EDE9FE;border-color:rgba(139,92,246,.3);color:#6D28D9;}
+.peek-arrow{
+  font-size:11px;color:var(--sub);flex-shrink:0;
+  display:flex;align-items:center;
+}
+
+/* ── Secure note ── */
+.secure-note{
+  background:var(--greenLt);border-radius:12px;padding:12px 14px;
+  border:1px solid rgba(34,197,94,.2);margin-bottom:24px;
+  display:flex;align-items:flex-start;gap:10px;
+}
+.sn-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.sn-text strong{display:block;font-size:11px;font-weight:800;color:#15803d;margin-bottom:1px;}
+.sn-text span{font-size:11px;color:#166534;line-height:1.5;}
+
+/* ── CTA Button ── */
+.btn-primary{
+  width:100%;background:var(--navy);color:#fff;border:none;
+  border-radius:99px;padding:16px 24px;font-size:15px;font-weight:800;
+  cursor:pointer;font-family:Poppins,sans-serif;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:transform .15s,box-shadow .15s;
+  margin-bottom:12px;
+}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(8,27,68,.25);}
+.btn-primary:active{transform:translateY(0);}
+.btn-ghost{
+  width:100%;background:none;color:var(--sub);border:1.5px solid var(--border);
+  border-radius:99px;padding:12px 24px;font-size:13px;font-weight:700;
+  cursor:pointer;font-family:Poppins,sans-serif;transition:all .15s;
+}
+.btn-ghost:hover{border-color:var(--navy);color:var(--navy);}
+
+/* ── Sticky CTA footer (mobile) ── */
+.cta-footer{
+  position:fixed;bottom:0;left:0;right:0;z-index:50;
+  background:linear-gradient(to top,var(--bg) 70%,transparent);
+  padding:12px 20px 28px;
+}
+
+/* ── Responsive ── */
+@media(min-width:480px){
+  .hero-title{font-size:34px;}
+  .card-section{padding:32px 28px 120px;}
+}
+@media(min-width:640px){
+  body{display:flex;align-items:center;justify-content:center;min-height:100vh;}
+  .page{max-width:440px;width:100%;min-height:100vh;box-shadow:0 20px 60px rgba(0,0,0,.3);border-radius:32px;overflow:hidden;}
+  .cta-footer{position:absolute;}
+}
+@media(min-width:960px){
+  body{background:#060F24;}
+  .page{min-height:90vh;border-radius:32px;}
+}
+@media print{.cta-footer{display:none!important;}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- ══ HERO ══ -->
+  <div class="hero">
+    <div class="logo-row">
+      <div class="logo-icon">💡</div>
+      <span class="logo-label">Smart DT · POLIPD</span>
+    </div>
+
+    <div class="hero-img-wrap">
+      <img src="assets/heroes/welcome-hero.svg" class="hero-img"
+           alt="Welcome to Smart DT"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
+      <div class="hero-img-fallback" style="display:none">🎓</div>
+    </div>
+
+    <div class="hero-tag">Your DT Journey Starts Now</div>
+
+    <h1 class="hero-title">
+      Think.<br><em>Test.</em> Improve.
+    </h1>
+    <p class="hero-sub">
+      A guided companion through the 5-phase Design Thinking process — built for your FYP.
+    </p>
+
+    <div class="steps-row">
+      <div class="step-dot active"></div>
+      <div class="step-dot"></div>
+      <div class="step-dot"></div>
+    </div>
+  </div>
+
+  <!-- ══ CARD SECTION ══ -->
+  <div class="card-section">
+
+    <div class="section-eyebrow">How Smart DT works</div>
+
+    <!-- Three pillars -->
+    <div class="pillars">
+      <div class="pillar p1">
+        <div class="pillar-icon">🧠</div>
+        <div class="pillar-body">
+          <div class="pillar-num">Step 01 · Think</div>
+          <div class="pillar-title">Understand your user</div>
+          <div class="pillar-desc">Conduct real interviews, build empathy maps, define the problem clearly before jumping to solutions.</div>
+        </div>
+      </div>
+      <div class="pillar p2">
+        <div class="pillar-icon">⚡</div>
+        <div class="pillar-body">
+          <div class="pillar-num">Step 02 · Test</div>
+          <div class="pillar-title">Build and validate fast</div>
+          <div class="pillar-desc">Brainstorm ideas, build a rough prototype, and test it with real users to gather honest feedback.</div>
+        </div>
+      </div>
+      <div class="pillar p3">
+        <div class="pillar-icon">🚀</div>
+        <div class="pillar-body">
+          <div class="pillar-num">Step 03 · Improve</div>
+          <div class="pillar-title">Reflect and make it better</div>
+          <div class="pillar-desc">Use test results to improve your solution, document everything, and present a complete portfolio.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase peek -->
+    <div class="phase-peek">
+      <div class="peek-label">Your 5 DT Phases</div>
+      <div class="peek-row">
+        <div class="peek-chip ph1">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/></svg>
+          Empathy
+        </div>
+        <span class="peek-arrow">›</span>
+        <div class="peek-chip ph2">Define</div>
+        <span class="peek-arrow">›</span>
+        <div class="peek-chip ph3">Ideation</div>
+        <span class="peek-arrow">›</span>
+        <div class="peek-chip ph4">Prototype</div>
+        <span class="peek-arrow">›</span>
+        <div class="peek-chip ph5">Test</div>
+      </div>
+    </div>
+
+    <!-- Secure note -->
+
+    <!-- What you will produce + time estimates -->
+    <div style="margin:16px 0 0;background:var(--tealLt);border-radius:14px;padding:14px 16px;border:1px solid rgba(32,199,189,.25);">
+      <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--tealDk);margin-bottom:6px;">What you will produce by the end</div>
+      <div style="font-size:12px;color:var(--tealDk);line-height:1.65;margin-bottom:10px;">Complete all 5 phases and you will have a full DT portfolio — 15 completed templates — ready for supervisor review and your FYP submission.</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;">
+        <span style="background:var(--teal);color:#fff;border-radius:99px;padding:3px 10px;font-size:10px;font-weight:800;">5 phase reports</span>
+        <span style="background:var(--teal);color:#fff;border-radius:99px;padding:3px 10px;font-size:10px;font-weight:800;">15 templates</span>
+        <span style="background:var(--teal);color:#fff;border-radius:99px;padding:3px 10px;font-size:10px;font-weight:800;">Supervisor-reviewed</span>
+      </div>
+      <div style="font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--tealDk);margin-bottom:6px;">Estimated time per phase</div>
+      <div style="display:flex;flex-direction:column;gap:5px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:8px;padding:6px 10px;"><span style="font-size:11px;font-weight:700;color:var(--navy);">Phase 01 · Empathy</span><span style="font-size:11px;font-weight:700;color:var(--teal);">1–2 hrs</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:8px;padding:6px 10px;"><span style="font-size:11px;font-weight:700;color:var(--navy);">Phase 02 · Define</span><span style="font-size:11px;font-weight:700;color:var(--orange);">1–2 hrs</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:8px;padding:6px 10px;"><span style="font-size:11px;font-weight:700;color:var(--navy);">Phase 03 · Ideation</span><span style="font-size:11px;font-weight:700;color:var(--green);">1–3 hrs</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:8px;padding:6px 10px;"><span style="font-size:11px;font-weight:700;color:var(--navy);">Phase 04 · Prototype</span><span style="font-size:11px;font-weight:700;color:var(--teal);">2–4 hrs</span></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:8px;padding:6px 10px;"><span style="font-size:11px;font-weight:700;color:var(--navy);">Phase 05 · Test</span><span style="font-size:11px;font-weight:700;color:#8B5CF6;">2–3 hrs</span></div>
+      </div>
+    </div>
+
+    <div class="secure-note">
+      <div class="sn-icon">🔒</div>
+      <div class="sn-text">
+        <strong>Your work saves automatically</strong>
+        <span>Every template you complete is saved to your device and submitted to Google Sheets for your supervisor to review.</span>
+      </div>
+    </div>
+
+    <!-- Spacer for fixed footer -->
+    <div style="height:20px"></div>
+
+  </div><!-- /.card-section -->
+
+  <!-- ══ STICKY CTA ══ -->
+  <div class="cta-footer">
+    <button class="btn-primary" onclick="goToDashboard()" id="btn-start">
+      <span id="btn-txt">Let's Begin My FYP Journey</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white"
+           stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </button>
+    <button class="btn-ghost" onclick="location.href='login.html'">
+      ← Back to login
+    </button>
+  </div>
+
+</div><!-- /.page -->
+
+<script>
+function goToDashboard(){
+  var btn=document.getElementById('btn-start');
+  btn.disabled=true;
+  document.getElementById('btn-txt').textContent='⏳ Opening your dashboard…';
+  /* Mark that welcome was seen — prevents showing it again */
+  try{ localStorage.setItem('df_welcome_seen','true'); }catch(e){}
+  setTimeout(function(){ location.href='dashboard.html'; },600);
+}
+
+/* If already registered, personalise the CTA */
+(function(){
+  var name='';
+  try{ name=localStorage.getItem('df_student_name')||''; }catch(e){}
+  if(name){
+    var first=name.trim().split(/\s+/)[0];
+    document.getElementById('btn-txt').textContent='Start My Journey, '+first+'!';
+  }
+  /* If they've already seen welcome before, redirect to dashboard immediately */
+  var seen='';
+  try{ seen=localStorage.getItem('df_welcome_seen')||''; }catch(e){}
+  if(seen==='true'){
+    location.href='dashboard.html';
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta http-equiv="refresh" content="0;url=login.html"/>
+<title>Smart DT Project</title>
+</head>
+<body>
+<script>
+var reg=null;try{reg=localStorage.getItem('df_registered');}catch(e){}
+location.replace(reg==='true'?'progress.html':'login.html');
+</script>
+</body>
+</html>
