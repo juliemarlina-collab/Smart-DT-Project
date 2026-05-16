@@ -69,15 +69,28 @@ body{font-family:Poppins,sans-serif;background:var(--bg);color:var(--txt)}
   </nav>
 </div>
 <script>
-function ls(k){try{return localStorage.getItem(k)||'';}catch(e){return '';}}
-if(ls('df_registered')!=='true'){location.href='login.html';}
-document.getElementById('pname').textContent=ls('df_student_name')||'Student Name';
-document.getElementById('pmeta').textContent=(ls('df_reg_no')||'REG000')+' · '+(ls('df_class')||'CLASS');
-var phases=['phase01','phase02','phase03','phase04','phase05'];
-var done=phases.filter(p=>ls('df_submitted_'+p)==='1').length;
-var stats=[['Phases',done+'/5'],['Quizzes',phases.filter(p=>ls('df_quiz_'+p)).length],['Streak','7'],['XP',String(done*20)]];
-document.getElementById('stats').innerHTML=stats.map(s=>'<div class="stat"><b>'+s[1]+'</b><span>'+s[0]+'</span></div>').join('');
-document.getElementById('earned').textContent=String(done);
+/* ── LOCAL STORAGE ── */
+function ls(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function submitted(id){return ls('df_submitted_'+id)==='1';}
+var PHASES=[{id:'phase01'},{id:'phase02'},{id:'phase03'},{id:'phase04'},{id:'phase05'}];
+var BADGE_DEFS=[
+  {icon:'🗺️',name:'DT Explorer',condition:function(d){return d>=3;}},
+  {icon:'🤝',name:'Empathy Champ',condition:function(d){return submitted('phase01');}},
+  {icon:'🎯',name:'Prob. Framer',condition:function(d){return submitted('phase02');}},
+  {icon:'💡',name:'Idea Generator',condition:function(d){return submitted('phase03');}},
+  {icon:'🔨',name:'Proto Builder',condition:function(d){return submitted('phase04');}},
+  {icon:'🧪',name:'User Tester',condition:function(d){return submitted('phase05');}},
+  {icon:'🎓',name:'DT Graduate',condition:function(d){return d>=5;}},
+  {icon:'📁',name:'Full Portfolio',condition:function(d){return d>=5;}}
+];
+function submittedCount(){var n=0;PHASES.forEach(function(p){if(submitted(p.id))n++;});return n;}
+function initials(name){if(!name)return '?';var p=name.trim().split(/\s+/);return p.length>=2?(p[0][0]+p[p.length-1][0]).toUpperCase():name.slice(0,2).toUpperCase();}
+function earnedBadges(){var done=submittedCount();return BADGE_DEFS.filter(function(b){return b.condition(done);}).length;}
+function renderHeader(){var name=ls('df_student_name')||'Student Name';var reg=ls('df_reg_no')||'';var cls=ls('df_class')||'';document.getElementById('pname').textContent=name;document.getElementById('pmeta').textContent=[reg,cls].filter(Boolean).join(' · ')||'REG000 · CLASS';}
+function renderStats(){var done=submittedCount();var eb=earnedBadges();var stats=[['Phases',done+'/5'],['Quizzes',String(done)],['Streak','7'],['XP',String(done*20)]];document.getElementById('stats').innerHTML=stats.map(function(s){return '<div class="stat"><b>'+s[1]+'</b><span>'+s[0]+'</span></div>';}).join('');document.getElementById('earned').textContent=String(eb);}
+function renderBadges(){ }
+function renderProject(){ }
+(function(){if(ls('df_registered')!=='true'){location.href='login.html';return;}renderHeader();renderStats();renderBadges();renderProject();})();
 </script>
 </body>
 </html>
