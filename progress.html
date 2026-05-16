@@ -182,7 +182,7 @@ html,body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--txt)
 .dash-hero{
   position:relative;z-index:1;
   padding:4px 20px 0;
-  display:grid;grid-template-columns:1fr 170px;
+  display:grid;grid-template-columns:minmax(0,1fr) 240px;
   align-items:start;gap:0;
 }
 .dash-greeting{font-size:14px;font-weight:700;color:var(--navy);margin-bottom:6px;}
@@ -191,12 +191,12 @@ html,body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--txt)
   line-height:1.2;margin-bottom:6px;
 }
 .dash-heading span{color:var(--orange);}
-.dash-sub{font-size:12.5px;color:var(--sub);line-height:1.6;margin-bottom:0;}
+.dash-sub{font-size:12.5px;color:var(--sub);line-height:1.6;margin-bottom:0;max-width:250px;}
 .dash-illus{
   display:flex;align-items:flex-end;justify-content:flex-end;
-  height:180px;margin-top:-15px;
+  height:250px;margin-top:-28px;overflow:visible;
 }
-.dash-illus img{width:165px;height:170px;object-fit:contain;}
+.dash-illus img{width:255px;height:255px;object-fit:contain;object-position:right bottom;transform:translateX(18px);}
 
 .project-card{
   margin:14px 16px 0;
