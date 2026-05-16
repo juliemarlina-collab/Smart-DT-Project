@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Smart DT · Sign In</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Nunito:ital,wght@0,700;0,800;0,900;1,900&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --navy:#071B3D;--teal:#20C7BD;--tealDk:#147F79;--tealLt:#D9FBF8;
+  --orange:#FF633D;--orangeLt:#FFF3F0;
+  --yellow:#FDBA2D;--yellowLt:#FFFBEA;
+  --green:#22C55E;--greenLt:#DCFCE7;
+  --red:#EF4444;--redLt:#FEE2E2;
+  --purple:#8B5CF6;--purpleLt:#EDE9FE;
+  --bg:#FAFBFC;--white:#FFFFFF;--txt:#071B3D;--sub:#53617A;--border:#E8EDF5;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;}
+.frame{width:min(480px,100vw);margin:0 auto;background:var(--white);position:relative;overflow:hidden;min-height:100vh;display:flex;flex-direction:column;}
+@media(min-width:520px){
+  body{display:flex;align-items:flex-start;justify-content:center;padding:24px 0 40px;background:#EDF0F5;}
+  .frame{border-radius:32px;box-shadow:0 8px 60px rgba(7,27,61,.14);min-height:unset;}
+}
+.blob-pink{position:absolute;width:180px;height:180px;border-radius:50%;top:-60px;left:-60px;z-index:0;pointer-events:none;background:radial-gradient(circle,rgba(255,180,155,.28) 0%,transparent 70%);}
+.blob-teal{position:absolute;width:160px;height:140px;border-radius:50%;bottom:160px;right:-40px;z-index:0;pointer-events:none;background:radial-gradient(circle,rgba(32,199,189,.13) 0%,transparent 70%);}
+.dot-grid{position:absolute;top:80px;right:16px;width:90px;height:90px;z-index:0;pointer-events:none;background-image:radial-gradient(#C8D6E8 2.2px,transparent 2.2px);background-size:13px 13px;opacity:.75;}
+.logo-svg{width:52px;height:52px;border-radius:50%;background:var(--navy);flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(7,27,61,.22);}
+.topbar{position:relative;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:18px 20px 12px;flex-shrink:0;}
+.brand{display:flex;align-items:center;gap:10px;}
+.brand-name{font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;color:var(--navy);line-height:1.2;letter-spacing:-.2px;}
+.topbar-right{display:flex;align-items:center;gap:8px;}
+/* DT context banner */
+.dt-banner{background:var(--navy);margin:0 16px 16px;border-radius:16px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;position:relative;z-index:1;}
+.dt-banner-icon{width:40px;height:40px;border-radius:12px;background:var(--orange);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.dt-banner-text{}
+.dt-banner-title{font-family:'Nunito',sans-serif;font-size:13px;font-weight:900;color:#fff;margin-bottom:3px;}
+.dt-banner-sub{font-size:11px;color:rgba(255,255,255,.6);line-height:1.55;}
+.dt-phases{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap;}
+.dt-ph{background:rgba(255,255,255,.12);border-radius:99px;padding:2px 8px;font-size:10px;font-weight:700;color:rgba(255,255,255,.85);}
+/* Form */
+.login-layout{position:relative;z-index:1;padding:0 20px 20px;flex:1;overflow:hidden;}
+.login-headline{font-family:'Pacifico',cursive;font-size:56px;color:var(--navy);line-height:.95;margin-bottom:6px;}
+.login-welcome{font-size:18px;font-weight:800;color:var(--navy);font-family:'Nunito',sans-serif;margin-bottom:5px;}
+.login-sub{font-size:13px;color:var(--sub);line-height:1.6;margin-bottom:20px;max-width:250px;}
+.field-wrap{margin-bottom:10px;}
+.form-field{display:flex;align-items:center;gap:12px;border:1.5px solid var(--border);border-radius:14px;background:var(--white);padding:14px 16px;transition:border-color .15s;}
+.form-field.has-err{border-color:var(--red);background:var(--redLt);}
+.form-field.has-ok{border-color:var(--green);}
+.form-field-ico{width:22px;height:22px;display:flex;align-items:center;justify-content:center;color:var(--sub);flex-shrink:0;}
+.form-field input,.form-field select{border:none;outline:none;font-family:'Poppins',sans-serif;font-size:14px;color:var(--navy);background:transparent;width:100%;}
+.form-field input::placeholder{color:#94A3B8;}
+.field-err{font-size:11px;font-weight:700;color:var(--red);margin-top:4px;padding-left:4px;display:none;}
+.field-err.show{display:block;}
+.field-opt-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--sub);margin:14px 0 8px;padding-left:2px;}
+.btn-continue{width:100%;background:var(--navy);color:#fff;border:none;border-radius:99px;padding:17px 24px;font-size:15px;font-weight:700;font-family:'Poppins',sans-serif;display:flex;align-items:center;justify-content:space-between;cursor:pointer;box-shadow:0 8px 24px rgba(7,27,61,.24);margin-top:16px;transition:transform .15s;}
+.btn-continue:hover{transform:translateY(-1px);}
+.btn-continue:disabled{opacity:.6;cursor:not-allowed;transform:none;}
+.btn-cont-arrow{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;}
+.login-illus{position:absolute;right:-46px;top:-8px;width:clamp(240px,66vw,380px);height:clamp(240px,66vw,380px);pointer-events:none;z-index:0;}
+.login-illus img{width:100%;height:100%;object-fit:contain;object-position:right bottom;}
+.login-layout > *:not(.login-illus){position:relative;z-index:1;}
+@media(min-width:720px){.login-illus{right:-24px;top:-14px;width:300px;height:300px;}}
+.skip-link{display:block;text-align:center;margin-top:12px;font-size:13px;font-weight:700;color:var(--teal);text-decoration:none;}
+/* what-happens strip */
+.what-happens{background:var(--tealLt);border-radius:12px;padding:12px 14px;margin-top:16px;border:1px solid rgba(32,199,189,.25);}
+.wh-title{font-size:11px;font-weight:800;color:var(--tealDk);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;}
+.wh-step{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--tealDk);padding:3px 0;}
+.wh-dot{width:18px;height:18px;border-radius:50%;background:var(--teal);color:#fff;font-size:9px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.secure-row{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-top:1.5px solid var(--border);background:var(--white);flex-shrink:0;}
+.secure-left{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--sub);font-weight:600;}
+/* Online indicator */
+.online-dot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;margin-right:4px;}
+.online-dot.off{background:var(--red);}
+#online-status{font-size:11px;color:var(--sub);font-weight:700;display:flex;align-items:center;gap:4px;}
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="blob-pink"></div>
+  <div class="dot-grid"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo-svg"><svg width="28" height="32" viewBox="0 0 28 32" fill="none"><ellipse cx="14" cy="13" rx="8" ry="8" fill="#FF633D"/><path d="M10 19h8v2.5c0 .8-.7 1.5-1.5 1.5h-5c-.8 0-1.5-.7-1.5-1.5V19z" fill="#E0D8CC"/><path d="M12 23.5h4V25a2 2 0 01-2 2 2 2 0 01-2-2v-1.5z" fill="#C8C0B4"/><path d="M14 6.5V4.5M9 7.5L7.5 6M19 7.5L20.5 6M7 13H5M23 13H21" stroke="#FDBA2D" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="2" fill="rgba(255,255,255,.35)"/></svg></div>
+      <div class="brand-name">Smart DT<br>Project</div>
+    </div>
+    <div id="online-status"><span class="online-dot" id="online-dot"></span><span id="online-txt">Checking…</span></div>
+  </header>
+
+  <!-- DT context banner — Fix #1 -->
+  <div class="dt-banner">
+    <div class="dt-banner-icon">💡</div>
+    <div class="dt-banner-text">
+      <div class="dt-banner-title">Design Thinking FYP Companion</div>
+      <div class="dt-banner-sub">This app guides you step-by-step through 5 DT phases for your Final Year Project. Complete each phase, submit to your supervisor, and build a real solution.</div>
+      <div class="dt-phases">
+        <span class="dt-ph">🧠 Empathy</span>
+        <span class="dt-ph">🎯 Define</span>
+        <span class="dt-ph">💡 Ideation</span>
+        <span class="dt-ph">🔧 Prototype</span>
+        <span class="dt-ph">🧪 Test</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-layout" style="position:relative;">
+    <div class="login-illus">
+      <img src="assets/assets/registration-hero.svg" alt="" onerror="this.style.display='none'"/>
+    </div>
+    <div style="max-width:240px;">
+      <div class="login-headline" id="login-hl">Hi<br>there!</div>
+      <div class="login-welcome" id="login-welcome">Get Started!</div>
+      <p class="login-sub" id="login-sub">Fill in your details once — saved to your device, never typed again.</p>
+    </div>
+
+    <!-- Required fields -->
+    <div class="field-wrap">
+      <div class="form-field" id="ff-name">
+        <div class="form-field-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <input id="si-name" type="text" placeholder="Full Name (e.g. Nur Aisyah Ahmad)" autocomplete="name" autocapitalize="words" oninput="clearErr('name')"/>
+      </div>
+      <div class="field-err" id="err-name">Please enter your full name.</div>
+    </div>
+
+    <div class="field-wrap">
+      <div class="form-field" id="ff-reg">
+        <div class="form-field-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="7" y1="9" x2="17" y2="9"/><line x1="7" y1="13" x2="13" y2="13"/></svg></div>
+        <input id="si-reg" type="text" placeholder="Registration No. (e.g. 23DET21F1001)" autocomplete="off" autocapitalize="characters" oninput="clearErr('reg')"/>
+      </div>
+      <div class="field-err" id="err-reg">Please enter your Registration No.</div>
+    </div>
+
+    <!-- Fix #3 — class dropdown -->
+    <div class="field-wrap">
+      <div class="form-field" id="ff-class">
+        <div class="form-field-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-7 10 7"/><path d="M6 10v8a1 1 0 001 1h10a1 1 0 001-1v-8"/></svg></div>
+        <select id="si-class" onchange="clearErr('class')">
+          <option value="" disabled selected>Select your class…</option>
+          <optgroup label="Diploma Electrical Engineering">
+            <option>DET3A</option><option>DET3B</option><option>DET3C</option>
+          </optgroup>
+          <optgroup label="Diploma Computer Science">
+            <option>DCS3A</option><option>DCS3B</option><option>DCS3C</option>
+          </optgroup>
+          <optgroup label="Diploma Business Admin">
+            <option>DBA3A</option><option>DBA3B</option>
+          </optgroup>
+          <optgroup label="Diploma Information Tech">
+            <option>DIT3A</option><option>DIT3B</option>
+          </optgroup>
+          <optgroup label="Other">
+            <option>Other</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="field-err" id="err-class">Please select your class.</div>
+    </div>
+
+    <!-- Project name — required -->
+    <div class="field-wrap">
+      <div class="form-field" id="ff-proj">
+        <div class="form-field-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></div>
+        <input id="si-proj" type="text" placeholder="Project Title (e.g. Smart Campus App)" autocomplete="off" oninput="clearErr('proj')"/>
+      </div>
+      <div class="field-err" id="err-proj">Please enter your project title.</div>
+    </div>
+
+    <!-- Team name — required -->
+    <div class="field-wrap">
+      <div class="form-field" id="ff-team">
+        <div class="form-field-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <input id="si-team" type="text" placeholder="Team Name" autocomplete="off" oninput="clearErr('team')"/>
+      </div>
+      <div class="field-err" id="err-team">Please enter your team name.</div>
+    </div>
+
+    <!-- Supervisor name — required -->
+    <div class="field-wrap">
+      <div class="form-field" id="ff-super">
+        <div class="form-field-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-7 10 7"/><circle cx="12" cy="16" r="3"/><path d="M12 13V9"/></svg></div>
+        <input id="si-super" type="text" placeholder="Supervisor Name" autocomplete="off" oninput="clearErr('super')"/>
+      </div>
+      <div class="field-err" id="err-super">Please enter your supervisor's name.</div>
+    </div>
+
+    <button class="btn-continue" id="btn-login" onclick="doLogin()">
+      <span id="btn-login-txt">Continue</span>
+      <span class="btn-cont-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </button>
+    <a class="skip-link" id="skip-link" style="display:none;" href="dashboard.html">↗ Skip — go straight to my dashboard</a>
+
+    <!-- What happens next — Fix #1 -->
+    <div class="what-happens">
+      <div class="wh-title">What happens next</div>
+      <div class="wh-step"><div class="wh-dot">1</div>You read Quick Info for each DT phase</div>
+      <div class="wh-step"><div class="wh-dot">2</div>Pass a short quiz to unlock the templates</div>
+      <div class="wh-step"><div class="wh-dot">3</div>Complete templates and submit for supervisor review</div>
+      <div class="wh-step"><div class="wh-dot">4</div>Get feedback, improve, and move to the next phase</div>
+    </div>
+  </div>
+
+  <div class="secure-row">
+    <div class="secure-left">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Your data is saved locally — private to you.
+    </div>
+  </div>
+</div>
+<script>
+var APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbw-2F_NpP46FMo5p0WCm2zzbwhwTaEnWr_oi7-aB9ravEMclIJYCq-3_0MegIvHllO9/exec';
+function ls(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+
+// Fix #5 — online/offline indicator
+function updateOnline(){
+  var dot=document.getElementById('online-dot');
+  var txt=document.getElementById('online-txt');
+  if(navigator.onLine){dot.className='online-dot';txt.textContent='Online';}
+  else{dot.className='online-dot off';txt.textContent='Offline';}
+}
+updateOnline();
+window.addEventListener('online',updateOnline);
+window.addEventListener('offline',updateOnline);
+
+// Fix #2 — inline validation
+function clearErr(field){
+  var ff=document.getElementById('ff-'+field);
+  var er=document.getElementById('err-'+field);
+  if(ff)ff.classList.remove('has-err');
+  if(er)er.classList.remove('show');
+}
+function showErr(field,msg){
+  var ff=document.getElementById('ff-'+field);
+  var er=document.getElementById('err-'+field);
+  if(ff)ff.classList.add('has-err');
+  if(er){er.textContent=msg;er.classList.add('show');}
+  var inp=document.getElementById('si-'+field)||document.getElementById('ff-'+field).querySelector('input,select');
+  if(inp)inp.focus();
+  return false;
+}
+function validate(){
+  var name=(document.getElementById('si-name').value||'').trim();
+  var reg=(document.getElementById('si-reg').value||'').trim();
+  var cls=(document.getElementById('si-class').value||'').trim();
+  var proj=(document.getElementById('si-proj').value||'').trim();
+  var team=(document.getElementById('si-team').value||'').trim();
+  var sup=(document.getElementById('si-super').value||'').trim();
+  if(!name) return showErr('name','Please enter your full name.');
+  if(!reg)  return showErr('reg','Please enter your Registration No. (e.g. 23DET21F1001)');
+  if(!cls)  return showErr('class','Please select your class.');
+  if(!proj) return showErr('proj','Please enter your project title.');
+  if(!team) return showErr('team','Please enter your team name.');
+  if(!sup)  return showErr('super',"Please enter your supervisor's name.");
+  return true;
+}
+
+function doLogin(){
+  if(!validate()) return;
+  var name=(document.getElementById('si-name').value||'').trim();
+  var reg=(document.getElementById('si-reg').value||'').trim().toUpperCase();
+  var cls=(document.getElementById('si-class').value||'').trim();
+  var proj=(document.getElementById('si-proj').value||'').trim();
+  var team=(document.getElementById('si-team').value||'').trim();
+  var sup=(document.getElementById('si-super').value||'').trim();
+
+  lsSet('df_student_name',name);lsSet('df_reg_no',reg);lsSet('df_class',cls);
+  lsSet('df_project_name',proj);lsSet('df_team',team);lsSet('df_supervisor',sup);
+  lsSet('df_registered','true');
+  if(!ls('df_registered_at'))lsSet('df_registered_at',new Date().toISOString());
+
+  var btn=document.getElementById('btn-login');
+  btn.disabled=true;document.getElementById('btn-login-txt').textContent='Saving…';
+
+  // Fire-and-forget — do not block redirect on Apps Script response
+  fetch(APPS_SCRIPT_URL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      action:'register',
+      name:name,
+      reg:reg,
+      cls:cls,
+      project:proj,
+      team:team,
+      supervisor:sup,
+      registeredAt:new Date().toISOString()
+    })
+  }).catch(function(e){console.warn('Apps Script unreachable:',e);});
+
+  setTimeout(function(){ location.href='dashboard.html'; },500);
+}
+
+(function init(){
+  var name=ls('df_student_name');var reg=ls('df_reg_no');var cls=ls('df_class');
+  var proj=ls('df_project_name');var team=ls('df_team');var sup=ls('df_supervisor');
+  if(name)document.getElementById('si-name').value=name;
+  if(reg) document.getElementById('si-reg').value=reg;
+  if(cls){var sel=document.getElementById('si-class');for(var i=0;i<sel.options.length;i++){if(sel.options[i].value===cls){sel.selectedIndex=i;break;}}}
+  if(proj)document.getElementById('si-proj').value=proj;
+  if(team)document.getElementById('si-team').value=team;
+  if(sup) document.getElementById('si-super').value=sup;
+  if(name){
+    var first=name.trim().split(/\s+/)[0];
+    document.getElementById('login-hl').innerHTML='Hi,<br>'+first+'!';
+    document.getElementById('login-welcome').textContent='Welcome back!';
+    document.getElementById('login-sub').textContent='Update your details or continue to your dashboard.';
+    document.getElementById('skip-link').style.display='block';
+  }
+})();
+</script>
+</body>
+</html>
