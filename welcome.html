@@ -50,11 +50,11 @@ html,body{height:100%;font-family:Poppins,sans-serif;background:var(--navy);colo
 .logo-label{font-size:12px;font-weight:800;color:rgba(255,255,255,.8);letter-spacing:.3px;}
 
 .hero-img-wrap{
-  margin:0 auto 24px;width:160px;height:140px;
+  margin:0 auto 22px;width:min(86vw,360px);height:clamp(210px,46vw,320px);
   display:flex;align-items:center;justify-content:center;
   position:relative;
 }
-.hero-img{width:100%;height:100%;object-fit:contain;}
+.hero-img{width:100%;height:100%;object-fit:contain;transform:translateX(14%);}
 /* Fallback glow ring when image is missing */
 .hero-img-fallback{
   width:120px;height:120px;border-radius:50%;
@@ -200,7 +200,12 @@ html,body{height:100%;font-family:Poppins,sans-serif;background:var(--navy);colo
 /* ── Responsive ── */
 @media(min-width:480px){
   .hero-title{font-size:34px;}
+  .hero-img-wrap{width:min(72vw,360px);height:clamp(220px,34vw,300px);}
   .card-section{padding:32px 28px 120px;}
+}
+@media(min-width:900px){
+  .hero-img-wrap{width:340px;height:280px;}
+  .hero-img{transform:translateX(12%);}
 }
 @media(min-width:640px){
   body{display:flex;align-items:center;justify-content:center;min-height:100vh;}
@@ -230,7 +235,7 @@ html,body{height:100%;font-family:Poppins,sans-serif;background:var(--navy);colo
     </div>
 
     <div class="hero-img-wrap">
-      <img src="assets/heroes/welcome-hero.svg" class="hero-img"
+      <img src="assets/assets/welcome-hero.svg" class="hero-img"
            alt="Welcome to Smart DT"
            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"/>
       <div class="hero-img-fallback" style="display:none">🎓</div>
@@ -358,10 +363,10 @@ html,body{height:100%;font-family:Poppins,sans-serif;background:var(--navy);colo
 function goToDashboard(){
   var btn=document.getElementById('btn-start');
   btn.disabled=true;
-  document.getElementById('btn-txt').textContent='⏳ Opening your dashboard…';
+  document.getElementById('btn-txt').textContent='⏳ Opening sign in…';
   /* Mark that welcome was seen — prevents showing it again */
   try{ localStorage.setItem('df_welcome_seen','true'); }catch(e){}
-  setTimeout(function(){ location.href='dashboard.html'; },600);
+  setTimeout(function(){ location.href='login.html'; },600);
 }
 
 /* If already registered, personalise the CTA */
@@ -372,11 +377,11 @@ function goToDashboard(){
     var first=name.trim().split(/\s+/)[0];
     document.getElementById('btn-txt').textContent='Start My Journey, '+first+'!';
   }
-  /* If they've already seen welcome before, redirect to dashboard immediately */
+  /* If they've already seen welcome before, return to login immediately */
   var seen='';
   try{ seen=localStorage.getItem('df_welcome_seen')||''; }catch(e){}
   if(seen==='true'){
-    location.href='dashboard.html';
+    location.href='login.html';
   }
 })();
 </script>

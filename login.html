@@ -38,10 +38,10 @@ html,body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--txt)
 .dt-phases{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap;}
 .dt-ph{background:rgba(255,255,255,.12);border-radius:99px;padding:2px 8px;font-size:10px;font-weight:700;color:rgba(255,255,255,.85);}
 /* Form */
-.login-layout{position:relative;z-index:1;padding:0 20px 20px;flex:1;}
+.login-layout{position:relative;z-index:1;padding:0 20px 20px;flex:1;overflow:hidden;}
 .login-headline{font-family:'Pacifico',cursive;font-size:56px;color:var(--navy);line-height:.95;margin-bottom:6px;}
 .login-welcome{font-size:18px;font-weight:800;color:var(--navy);font-family:'Nunito',sans-serif;margin-bottom:5px;}
-.login-sub{font-size:13px;color:var(--sub);line-height:1.6;margin-bottom:20px;max-width:280px;}
+.login-sub{font-size:13px;color:var(--sub);line-height:1.6;margin-bottom:20px;max-width:250px;}
 .field-wrap{margin-bottom:10px;}
 .form-field{display:flex;align-items:center;gap:12px;border:1.5px solid var(--border);border-radius:14px;background:var(--white);padding:14px 16px;transition:border-color .15s;}
 .form-field.has-err{border-color:var(--red);background:var(--redLt);}
@@ -56,8 +56,10 @@ html,body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--txt)
 .btn-continue:hover{transform:translateY(-1px);}
 .btn-continue:disabled{opacity:.6;cursor:not-allowed;transform:none;}
 .btn-cont-arrow{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;}
-.login-illus{position:absolute;right:-10px;top:0;width:200px;height:200px;}
-.login-illus img{width:100%;height:100%;object-fit:contain;}
+.login-illus{position:absolute;right:-46px;top:-8px;width:clamp(240px,66vw,380px);height:clamp(240px,66vw,380px);pointer-events:none;z-index:0;}
+.login-illus img{width:100%;height:100%;object-fit:contain;object-position:right bottom;}
+.login-layout > *:not(.login-illus){position:relative;z-index:1;}
+@media(min-width:720px){.login-illus{right:-24px;top:-14px;width:300px;height:300px;}}
 .skip-link{display:block;text-align:center;margin-top:12px;font-size:13px;font-weight:700;color:var(--teal);text-decoration:none;}
 /* what-happens strip */
 .what-happens{background:var(--tealLt);border-radius:12px;padding:12px 14px;margin-top:16px;border:1px solid rgba(32,199,189,.25);}
@@ -103,7 +105,7 @@ html,body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--txt)
 
   <div class="login-layout" style="position:relative;">
     <div class="login-illus">
-      <img src="assets/heroes/registration-hero.svg" alt="" onerror="this.style.display='none'"/>
+      <img src="assets/assets/registration-hero.svg" alt="" onerror="this.style.display='none'"/>
     </div>
     <div style="max-width:240px;">
       <div class="login-headline" id="login-hl">Hi<br>there!</div>
@@ -181,7 +183,7 @@ html,body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--txt)
       <span id="btn-login-txt">Continue</span>
       <span class="btn-cont-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
     </button>
-    <a class="skip-link" id="skip-link" style="display:none;" href="progress.html">↗ Skip — go straight to my dashboard</a>
+    <a class="skip-link" id="skip-link" style="display:none;" href="dashboard.html">↗ Skip — go straight to my dashboard</a>
 
     <!-- What happens next — Fix #1 -->
     <div class="what-happens">
@@ -262,9 +264,9 @@ function doLogin(){
   fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({action:'register',name:name,reg:reg,cls:cls,project:proj,team:team,supervisor:sup,registeredAt:new Date().toISOString()})
   }).catch(function(){}).finally(function(){
-    location.href=!ls('df_welcome_seen')?'welcome.html':'progress.html';
+    location.href='dashboard.html';
   });
-  setTimeout(function(){location.href=!ls('df_welcome_seen')?'welcome.html':'progress.html';},2500);
+  setTimeout(function(){location.href='dashboard.html';},2500);
 }
 
 (function init(){
