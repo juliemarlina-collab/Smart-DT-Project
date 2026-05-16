@@ -361,7 +361,7 @@ function goToDashboard(){
   document.getElementById('btn-txt').textContent='⏳ Opening your dashboard…';
   /* Mark that welcome was seen — prevents showing it again */
   try{ localStorage.setItem('df_welcome_seen','true'); }catch(e){}
-  setTimeout(function(){ location.href='progress.html'; },600);
+  setTimeout(function(){ location.href='dashboard.html'; },600);
 }
 
 /* If already registered, personalise the CTA */
@@ -376,7 +376,7 @@ function goToDashboard(){
   var seen='';
   try{ seen=localStorage.getItem('df_welcome_seen')||''; }catch(e){}
   if(seen==='true'){
-    location.href='progress.html';
+    location.href='dashboard.html';
   }
 })();
 </script>

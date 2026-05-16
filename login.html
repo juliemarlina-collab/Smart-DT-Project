@@ -181,7 +181,7 @@ html,body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--txt)
       <span id="btn-login-txt">Continue</span>
       <span class="btn-cont-arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
     </button>
-    <a class="skip-link" id="skip-link" style="display:none;" href="progress.html">↗ Skip — go straight to my dashboard</a>
+    <a class="skip-link" id="skip-link" style="display:none;" href="dashboard.html">↗ Skip — go straight to my dashboard</a>
 
     <!-- What happens next — Fix #1 -->
     <div class="what-happens">
@@ -262,9 +262,9 @@ function doLogin(){
   fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({action:'register',name:name,reg:reg,cls:cls,project:proj,team:team,supervisor:sup,registeredAt:new Date().toISOString()})
   }).catch(function(){}).finally(function(){
-    location.href=!ls('df_welcome_seen')?'welcome.html':'progress.html';
+    location.href=!ls('df_welcome_seen')?'welcome.html':'dashboard.html';
   });
-  setTimeout(function(){location.href=!ls('df_welcome_seen')?'welcome.html':'progress.html';},2500);
+  setTimeout(function(){location.href=!ls('df_welcome_seen')?'welcome.html':'dashboard.html';},2500);
 }
 
 (function init(){

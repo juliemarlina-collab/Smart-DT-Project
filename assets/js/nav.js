@@ -42,7 +42,7 @@
   function injectBottom(){
     if(document.querySelector('.sdt-bottom-nav')) return;
     var sec=currentSection();
-    var items=[['home','🏠','Home','progress.html'],['learn','📚','Learn',PHASES[currentPhaseIndex()].file],['progress','📊','Progress','progress.html'],['profile','👤','Profile','profile.html']];
+    var items=[['home','🏠','Home','dashboard.html'],['learn','📚','Learn',PHASES[currentPhaseIndex()].file],['progress','📊','Progress','progress.html'],['profile','👤','Profile','profile.html']];
     var nav=document.createElement('nav'); nav.className='sdt-bottom-nav';
     nav.innerHTML=items.map(function(it){return '<a class="sdt-nav-item '+(sec===it[0]?'active':'')+'" href="'+it[3]+'"><span class="sdt-nav-ico">'+it[1]+'</span><span>'+it[2]+'</span></a>';}).join('');
     document.body.appendChild(nav);
@@ -50,7 +50,7 @@
   function injectSidebar(){
     if(document.querySelector('.sdt-sidebar')) return;
     var sec=currentSection();
-    var items=[['home','🏠','Home','progress.html'],['learn','📚','Learn',PHASES[currentPhaseIndex()].file],['progress','📊','Progress','progress.html'],['profile','👤','Profile','profile.html']];
+    var items=[['home','🏠','Home','dashboard.html'],['learn','📚','Learn',PHASES[currentPhaseIndex()].file],['progress','📊','Progress','progress.html'],['profile','👤','Profile','profile.html']];
     var side=document.createElement('aside'); side.className='sdt-sidebar';
     side.innerHTML='<div class="sdt-side-logo">DT</div>'+items.map(function(it){return '<a class="sdt-side-link '+(sec===it[0]?'active':'')+'" href="'+it[3]+'"><span class="sdt-nav-ico">'+it[1]+'</span><span>'+it[2]+'</span></a>';}).join('');
     document.body.appendChild(side);
