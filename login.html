@@ -261,12 +261,26 @@ function doLogin(){
   var btn=document.getElementById('btn-login');
   btn.disabled=true;document.getElementById('btn-login-txt').textContent='Saving…';
 
-  fetch(APPS_SCRIPT_URL,{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({action:'register',name:name,reg:reg,cls:cls,project:proj,team:team,supervisor:sup,registeredAt:new Date().toISOString()})
+  fetch(APPS_SCRIPT_URL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      action:'register',
+      name:name,
+      reg:reg,
+      cls:cls,
+      project:proj,
+      team:team,
+      supervisor:sup,
+      registeredAt:new Date().toISOString()
+    })
   }).catch(function(){}).finally(function(){
-    location.href='dashboard.html';
+    location.href = !ls('df_welcome_seen') ? 'welcome.html' : 'dashboard.html';
   });
-  setTimeout(function(){location.href='dashboard.html';},2500);
+
+  setTimeout(function(){
+    location.href = !ls('df_welcome_seen') ? 'welcome.html' : 'dashboard.html';
+  },2500);
 }
 
 (function init(){
