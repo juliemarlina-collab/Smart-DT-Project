@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Smart DT Project — Dashboard">
+  <title>Dashboard — Smart DT Project</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body { background-color: var(--color-bg); overflow-x: hidden; }
+
+    /* ── Language selector ─────────────────────────────────── */
+    .lang-btn {
+      display: flex; align-items: center; gap: 5px;
+      padding: 5px 10px;
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-pill);
+      font-family: var(--font-main); font-size: 12px;
+      font-weight: 500; color: var(--color-navy);
+      cursor: pointer;
+    }
+    .lang-btn svg { width:14px; height:14px; flex-shrink:0; }
+
+    /* ── Avatar + name dropdown ────────────────────────────── */
+    .avatar-group {
+      display: flex; align-items: center; gap: 6px; cursor: pointer;
+    }
+    /* These two classes are read by _updateHeaderAvatar() in ui.js */
+    .header-avatar-initials {
+      width:32px; height:32px; min-width:32px;
+      border-radius: var(--radius-circle);
+      background-color: var(--color-teal);
+      color: #FFFFFF; font-size: 12px; font-weight: 700;
+      font-family: var(--font-main);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .header-avatar-name {
+      font-size: 13px; font-weight: 600; color: var(--color-navy);
+      max-width: 64px; overflow: hidden;
+      white-space: nowrap; text-overflow: ellipsis;
+    }
+    .avatar-chevron {
+      width:12px; height:12px; stroke: var(--color-text-mid);
+      fill:none; stroke-width:2; stroke-linecap:round; flex-shrink:0;
+    }
+
+    /* ── Hero section ──────────────────────────────────────── */
+    .hero-section {
+      position: relative;
+      padding: calc(var(--header-height) + 20px) 20px 0;
+      min-height: 200px; overflow: hidden;
+    }
+    .hero-img {
+      position: absolute;
+      top: calc(var(--header-height) - 8px); right: 0;
+      width: 185px; height: auto;
+      pointer-events: none; user-select: none; z-index: 1;
+    }
+    .hero-text {
+      position: relative; z-index: 2; padding-right: 160px;
+    }
+    .greeting {
+      font-size: 15px; font-weight: 500;
+      color: var(--color-text-dark); margin-bottom: 4px;
+    }
+    .greeting strong { font-weight: 700; }
+    .headline {
+      font-size: 22px; font-weight: 700;
+      color: var(--color-navy); line-height: 1.25; margin-bottom: 5px;
+    }
+    .headline .orange { color: var(--color-orange); }
+    .subtext { font-size: 13px; color: var(--color-text-mid); line-height: 1.5; }
+
+    /* ── Scrollable content ────────────────────────────────── */
+    .dash-content {
+      padding: 16px 20px calc(var(--nav-height) + 24px);
+      position: relative; z-index: 2;
+    }
+
+    /* ── Project card footer ───────────────────────────────── */
+    .card-footer {
+      display: flex; align-items: center;
+      gap: 8px; margin-top: 10px; flex-wrap: wrap;
+    }
+    .ts { font-size: 12px; color: var(--color-text-light); }
+
+    /* ── Stepper card ──────────────────────────────────────── */
+    .stepper-card {
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      padding: 16px 18px 14px; margin-bottom: 14px;
+    }
+    /* Step lines need to align with the 30px circle centres */
+    .step-line { margin-top: 14px; }
+    .continue-row { margin: 14px 0 0; }
+
+    /* "You are in X Phase" — span inside gets teal colour from style.css */
+    .current-phase-label {
+      text-align: center; font-size: 13px;
+      color: var(--color-text-mid); margin-top: 8px;
+    }
+    .current-phase-label span {
+      color: var(--color-teal); font-weight: 600;
+    }
+
+    /* ── Accordion content styles ──────────────────────────── */
+    .accordion-wrap { margin-bottom: 8px; }
+
+    /* Body inner lists */
+    .body-list { list-style:none; padding:0; margin:0; }
+    .body-list li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 13px; color: var(--color-text-dark);
+      padding: 6px 0; border-bottom: 1px solid var(--color-border);
+      line-height: 1.45;
+    }
+    .body-list li:last-child { border-bottom: none; }
+    .bdot {
+      width:8px; height:8px; min-width:8px;
+      border-radius: var(--radius-circle);
+      margin-top:4px; flex-shrink:0;
+    }
+    .bdot.orange { background: var(--color-orange); }
+    .bdot.teal   { background: var(--color-teal);   }
+
+    /* Status pill (Gates) */
+    .status-pill {
+      margin-left: auto; font-size: 10px; font-weight: 600;
+      padding: 2px 8px; border-radius: var(--radius-pill);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .status-pill.pending { background:#FEF3C7; color:#92400E; }
+    .status-pill.done    { background:var(--color-success-bg); color:var(--color-success-text); }
+
+    .body-note {
+      font-size:12px; color:var(--color-text-mid);
+      margin-top:10px; line-height:1.55;
+    }
+    .body-empty { font-size:13px; color:var(--color-text-light); font-style:italic; }
+
+    /* Team member rows */
+    .member-row {
+      display:flex; align-items:center; gap:10px;
+      padding:7px 0; border-bottom:1px solid var(--color-border);
+    }
+    .member-row:last-child { border-bottom:none; }
+    .member-avatar {
+      width:32px; height:32px; min-width:32px;
+      border-radius:var(--radius-circle);
+      background:var(--color-teal); color:#FFFFFF;
+      font-size:11px; font-weight:700; font-family:var(--font-main);
+      display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    }
+    .member-avatar.sup { background: var(--color-orange); }
+    .member-name { font-size:13px; font-weight:600; color:var(--color-navy); }
+    .member-role { font-size:11px; color:var(--color-text-mid); }
+
+    /* Nav inline SVG sizing */
+    .nav-icon svg {
+      width:24px; height:24px; fill:none; stroke:currentColor;
+      stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
+    }
+  </style>
+</head>
+
+<body data-dots="true">
+<!-- data-dots="true" → ui.js _injectDotGrid() adds grey dot pattern top-right -->
+
+<div class="app-container">
+
+  <!-- PINK BLOB ─────────────────────────────────────────────
+       ui.js _injectBlob() also injects this, but hard-coding
+       it here means it appears instantly before JS runs.      -->
+  <img
+    src="https://res.cloudinary.com/dmj9fqkrl/image/upload/v1779027549/pink-blob_jakcn5.png"
+    class="pink-blob" alt="" aria-hidden="true"
+    onerror="this.style.display='none'"
+  >
+
+
+  <!-- FIXED HEADER ─────────────────────────────────────────
+       Left:  logo
+       Right: language selector · avatar + name · chevron    -->
+  <header class="header" role="banner">
+
+    <a href="dashboard.html" class="header-logo"
+       aria-label="Smart DT Project home">
+      <img
+        src="https://res.cloudinary.com/dmj9fqkrl/image/upload/v1779027460/logo-icon_lxo0z0.png"
+        class="header-logo-icon"
+        alt="Smart DT Project logo"
+        onerror="this.style.display='none'"
+      >
+      <span class="header-logo-text">Smart DT<br>Project</span>
+    </a>
+
+    <div class="header-right">
+
+      <!-- Language selector -->
+      <button class="lang-btn" id="lang-btn"
+              aria-label="Language — currently English">
+        <svg viewBox="0 0 24 24" fill="none"
+             stroke="var(--color-navy)" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round"
+             aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10
+                   15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <span class="language-label">English</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--color-text-mid)"
+             stroke-width="2" stroke-linecap="round" aria-hidden="true"
+             style="width:11px;height:11px">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </button>
+
+      <!-- Avatar + name → goes to profile.html on click -->
+      <div class="avatar-group" id="avatar-group"
+           role="button" tabindex="0"
+           aria-label="Go to My Profile"
+           aria-haspopup="false">
+        <!-- .header-avatar-initials → filled by _updateHeaderAvatar() in ui.js -->
+        <div class="header-avatar-initials" aria-hidden="true">S</div>
+        <!-- .header-avatar-name → filled by _updateHeaderAvatar() in ui.js -->
+        <span class="header-avatar-name">Student</span>
+        <svg class="avatar-chevron" viewBox="0 0 24 24" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9"/>
+        </svg>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- HERO SECTION ──────────────────────────────────────────
+       Text left · illustration right                         -->
+  <section class="hero-section" aria-label="Dashboard greeting">
+
+    <img
+      src="https://res.cloudinary.com/dmj9fqkrl/image/upload/v1779027463/dashboard-hero_wzkidr.png"
+      class="hero-img"
+      alt="Student holding a winding journey path"
+      onerror="this.style.display='none'"
+    >
+
+    <div class="hero-text">
+      <!-- .greeting-name → filled by renderDashboardPage() via _setText() -->
+      <p class="greeting">
+        Hello, <strong class="greeting-name">Student</strong>! 👋
+      </p>
+      <h1 class="headline">
+        Let's keep building<br>
+        <span class="orange">smarter</span> solutions.
+      </h1>
+      <p class="subtext">
+        You're doing great! Continue your Design Thinking journey.
+      </p>
+    </div>
+
+  </section>
+
+
+  <!-- MAIN SCROLLABLE CONTENT ───────────────────────────── -->
+  <main class="dash-content" role="main">
+
+
+    <!-- PROJECT CARD ────────────────────────────────────────
+         .project-title, .project-meta → renderDashboardPage()
+         .project-progress-pct         → renderProgressBar()
+         .progress-bar-fill width      → renderProgressBar()   -->
+    <div class="project-card" role="region" aria-label="Current project">
+
+      <div class="project-card-header">
+        <div class="project-card-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+               aria-hidden="true">
+            <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/>
+            <line x1="4" y1="22" x2="4" y2="15"/>
+          </svg>
+          Current Project
+        </div>
+        <div class="project-progress-pct" aria-label="Overall progress">0%</div>
+      </div>
+
+      <p class="project-title">My FYP Project</p>
+      <p class="project-meta">My Team · My Supervisor</p>
+
+      <div class="progress-bar-wrap"
+           role="progressbar"
+           aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+           aria-label="Overall project progress">
+        <div class="progress-bar-fill" style="width:0%"></div>
+      </div>
+
+      <div class="card-footer">
+        <span class="tag-in-progress">In Progress</span>
+        <span class="ts" id="dash-ts"></span>
+      </div>
+
+    </div><!-- /.project-card -->
+
+
+    <!-- STEPPER CARD ────────────────────────────────────────
+         .stepper             → renderStepper() rewrites innerHTML
+         [data-continue-phase]→ _updateContinueButton() wires click
+         .current-phase-label → _updateCurrentPhaseLabel() sets text -->
+    <div class="stepper-card" role="region" aria-label="Phase progress">
+
+      <!-- renderStepper() targets '.stepper' and replaces all children -->
+      <div class="stepper" aria-label="Design Thinking phases">
+        <!-- Static fallback — replaced by JS immediately on load -->
+        <div class="step-item">
+          <div class="step-circle active" aria-label="Phase 1: Empathize"></div>
+          <span class="step-label active">Empathize</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item">
+          <div class="step-circle pending" aria-label="Phase 2: Define"></div>
+          <span class="step-label">Define</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item">
+          <div class="step-circle pending" aria-label="Phase 3: Ideate"></div>
+          <span class="step-label">Ideate</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item">
+          <div class="step-circle pending" aria-label="Phase 4: Prototype"></div>
+          <span class="step-label">Prototype</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-item">
+          <div class="step-circle pending" aria-label="Phase 5: Test"></div>
+          <span class="step-label">Test</span>
+        </div>
+      </div>
+
+      <!-- _updateContinueButton() in ui.js adds a click listener to this -->
+      <div class="continue-row">
+        <button class="btn-primary"
+                data-continue-phase
+                aria-label="Continue to current phase">
+          Continue Current Phase
+          <svg width="18" height="18" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true"
+               style="flex-shrink:0">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- _updateCurrentPhaseLabel() writes into this element -->
+      <p class="current-phase-label" aria-live="polite">
+        You are in <span>Empathize Phase</span>
+      </p>
+
+    </div><!-- /.stepper-card -->
+
+
+    <!-- 5 ACCORDION ROWS ────────────────────────────────────
+         STRUCTURE RULE — initAccordions() requires:
+           row.nextElementSibling === body
+         So each .accordion-row must be the DIRECT previous
+         sibling of its .accordion-body. No wrapper divs
+         between them. No extra elements between them.        -->
+    <div class="accordion-wrap">
+      <div class="accordion-list">
+
+
+        <!-- 1. TASKS & TO-DO ──────────────────────────────── -->
+        <div class="accordion-row" id="row-tasks">
+          <div class="accordion-icon-circle orange" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+              <rect x="9" y="3" width="6" height="4" rx="1"/>
+              <line x1="9" y1="12" x2="15" y2="12"/>
+              <line x1="9" y1="16" x2="11" y2="16"/>
+            </svg>
+          </div>
+          <div class="accordion-text">
+            <p class="accordion-title">Tasks &amp; To-Do</p>
+            <p class="accordion-subtitle" id="tasks-sub">3 tasks pending</p>
+          </div>
+          <svg class="accordion-chevron" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+        <div class="accordion-body" aria-labelledby="row-tasks">
+          <ul class="body-list">
+            <li><span class="bdot orange" aria-hidden="true"></span>
+              Complete the Interview Guide (T01) for Phase 01 Empathy</li>
+            <li><span class="bdot orange" aria-hidden="true"></span>
+              Fill in the Empathy Map (T02) — interview at least 3 users</li>
+            <li><span class="bdot orange" aria-hidden="true"></span>
+              Submit Phase 01 before your next supervisor meeting</li>
+          </ul>
+        </div>
+
+
+        <!-- 2. RECENT ACTIVITY ────────────────────────────── -->
+        <div class="accordion-row" id="row-activity">
+          <div class="accordion-icon-circle teal" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
+          </div>
+          <div class="accordion-text">
+            <p class="accordion-title">Recent Activity</p>
+            <p class="accordion-subtitle">See latest updates and actions</p>
+          </div>
+          <svg class="accordion-chevron" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+        <div class="accordion-body" aria-labelledby="row-activity">
+          <ul class="body-list">
+            <li><span class="bdot teal" aria-hidden="true"></span>
+              Profile registered and saved successfully</li>
+            <li><span class="bdot teal" aria-hidden="true"></span>
+              Dashboard loaded for the first time</li>
+            <li><span class="bdot orange" aria-hidden="true"></span>
+              Phase 01 Empathy — not yet started</li>
+          </ul>
+        </div>
+
+
+        <!-- 3. EVIDENCE FILES ─────────────────────────────── -->
+        <div class="accordion-row" id="row-evidence">
+          <div class="accordion-icon-circle yellow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </div>
+          <div class="accordion-text">
+            <p class="accordion-title">Evidence Files</p>
+            <p class="accordion-subtitle">Photos, documents, links and more</p>
+          </div>
+          <svg class="accordion-chevron" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+        <div class="accordion-body" aria-labelledby="row-evidence">
+          <p class="body-empty">No evidence files uploaded yet.</p>
+          <p class="body-note">Tap the + button to add photos, documents or links.</p>
+        </div>
+
+
+        <!-- 4. SUPERVISOR FEEDBACK ───────────────────────── -->
+        <div class="accordion-row" id="row-feedback">
+          <div class="accordion-icon-circle teal" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <div class="accordion-text">
+            <p class="accordion-title">Supervisor Feedback</p>
+            <p class="accordion-subtitle">View feedback and approval status</p>
+          </div>
+          <svg class="accordion-chevron" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+        <div class="accordion-body" aria-labelledby="row-feedback">
+          <ul class="body-list">
+            <li>Gate 1 — after Phase 02 Define
+              <span class="status-pill pending">Pending</span></li>
+            <li>Gate 2 — after Phase 03 Ideation
+              <span class="status-pill pending">Pending</span></li>
+            <li>Gate 3 — after Phase 05 Test
+              <span class="status-pill pending">Pending</span></li>
+          </ul>
+          <p class="body-note">Gates unlock after each phase is submitted and reviewed.</p>
+        </div>
+
+
+        <!-- 5. TEAM MEMBERS ───────────────────────────────── -->
+        <div class="accordion-row" id="row-team">
+          <div class="accordion-icon-circle orange" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <div class="accordion-text">
+            <p class="accordion-title">Team Members</p>
+            <p class="accordion-subtitle">Manage and view your team</p>
+          </div>
+          <svg class="accordion-chevron" viewBox="0 0 24 24"
+               fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+        <div class="accordion-body" aria-labelledby="row-team">
+          <!-- Built by buildTeamBody() on DOMContentLoaded -->
+          <div id="team-body-inner">
+            <p class="body-empty">Loading team data…</p>
+          </div>
+        </div>
+
+
+      </div><!-- /.accordion-list -->
+    </div><!-- /.accordion-wrap -->
+
+  </main><!-- /.dash-content -->
+
+
+  <!-- FAB BUTTON ───────────────────────────────────────────
+       Large teal circle, fixed bottom-right.
+       .fab styles and positioning live in css/style.css.     -->
+  <button class="fab" id="fab-btn" aria-label="Add evidence or note">
+    <svg width="26" height="26" viewBox="0 0 24 24"
+         fill="none" stroke="#FFFFFF" stroke-width="2.5"
+         stroke-linecap="round" stroke-linejoin="round"
+         aria-hidden="true">
+      <line x1="12" y1="5" x2="12" y2="19"/>
+      <line x1="5"  y1="12" x2="19" y2="12"/>
+    </svg>
+  </button>
+
+
+  <!-- BOTTOM NAVIGATION ────────────────────────────────────
+       _setNavActive() in ui.js reads the current filename
+       and adds class 'active' to the matching nav item.
+       data-page="dashboard.html" on this page → Dashboard active. -->
+  <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+
+    <a href="dashboard.html" class="nav-item"
+       data-page="dashboard.html" aria-label="Dashboard">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </span>
+      <span class="nav-label">Dashboard</span>
+    </a>
+
+    <a href="dashboard.html" class="nav-item"
+       data-page="learn" aria-label="Learn">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M9 18h6M10 22h4"/>
+          <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
+        </svg>
+      </span>
+      <span class="nav-label">Learn</span>
+    </a>
+
+    <a href="phase01-empathy.html" class="nav-item"
+       data-page="projects" aria-label="Projects">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+      </span>
+      <span class="nav-label">Projects</span>
+    </a>
+
+    <a href="progress.html" class="nav-item"
+       data-page="progress.html" aria-label="Progress">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <polyline points="14 11 17 14 22 9"/>
+          <path d="M22 12v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/>
+        </svg>
+      </span>
+      <span class="nav-label">Progress</span>
+    </a>
+
+    <a href="profile.html" class="nav-item"
+       data-page="profile.html" aria-label="Profile">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </span>
+      <span class="nav-label">Profile</span>
+    </a>
+
+  </nav>
+
+</div><!-- /.app-container -->
+
+
+<!-- SCRIPTS ─────────────────────────────────────────────────
+     Order: data.js → ui.js → inline.
+     No async / defer — must be synchronous so window.DT and
+     window.UI are fully built before DOMContentLoaded fires. -->
+<script src="js/data.js"></script>
+<script src="js/ui.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  'use strict';
+
+  /* Guard ─────────────────────────────────────────────────── */
+  if (typeof window.DT === 'undefined' || typeof window.UI === 'undefined') {
+    /* ui.js already shows the red banner — nothing more needed */
+    return;
+  }
+
+  /* 1. Redirect if not registered ─────────────────────────── */
+  if (!window.DT.isRegistered()) {
+    window.location.replace('welcome.html');
+    return;
+  }
+
+  /* 2. Fill all dynamic content ───────────────────────────── */
+  /*
+     renderDashboardPage() in ui.js calls:
+       _setText('.greeting-name',  getFirstName())
+       _setText('.project-title',  student.projectName)
+       _setText('.project-meta',   team · supervisor)
+       renderProgressBar()   → .progress-bar-fill width + .project-progress-pct text
+       renderStepper()       → rewrites .stepper innerHTML + wires circle clicks
+       initAccordions()      → wires all 5 .accordion-row expand/collapse
+       _updateHeaderAvatar() → .header-avatar-initials + .header-avatar-name
+  */
+  window.UI.renderDashboardPage();
+
+  /* 3. Progress bar aria attribute ────────────────────────── */
+  var pct = window.DT.calculateOverallProgress();
+  var bar = document.querySelector('.progress-bar-wrap');
+  if (bar) bar.setAttribute('aria-valuenow', String(pct));
+
+  /* 4. Timestamp ──────────────────────────────────────────── */
+  var tsEl = document.getElementById('dash-ts');
+  if (tsEl) {
+    var now  = new Date();
+    var h    = now.getHours();
+    var m    = String(now.getMinutes()).padStart(2, '0');
+    var ap   = h >= 12 ? 'PM' : 'AM';
+    h        = h % 12 || 12;
+    tsEl.textContent = '\u00b7 Updated today, ' + h + ':' + m + ' ' + ap;
+  }
+
+  /* 5. Tasks subtitle ─────────────────────────────────────── */
+  var remaining = window.DT.getAllPhaseProgress()
+    .filter(function (p) { return !p.submitted; }).length;
+  var sub = document.getElementById('tasks-sub');
+  if (sub) {
+    sub.textContent = remaining + (remaining === 1 ? ' task' : ' tasks') + ' pending';
+  }
+
+  /* 6. Team accordion ─────────────────────────────────────── */
+  buildTeamBody();
+
+  /* 7. FAB ────────────────────────────────────────────────── */
+  var fab = document.getElementById('fab-btn');
+  if (fab) {
+    fab.addEventListener('click', function () {
+      window.UI.showToast('Evidence upload coming in a later milestone.', '');
+    });
+  }
+
+  /* 8. Avatar → profile.html ──────────────────────────────── */
+  var ag = document.getElementById('avatar-group');
+  if (ag) {
+    ag.addEventListener('click', function () {
+      window.location.href = 'profile.html';
+    });
+    ag.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        window.location.href = 'profile.html';
+      }
+    });
+  }
+
+  /* 9. Language selector ──────────────────────────────────── */
+  var lb = document.getElementById('lang-btn');
+  if (lb) lb.addEventListener('click', function () { /* later milestone */ });
+
+});
+
+
+/* buildTeamBody ──────────────────────────────────────────────
+   Populates #team-body-inner from localStorage data.
+   Called after renderDashboardPage() completes.              */
+function buildTeamBody () {
+  var el = document.getElementById('team-body-inner');
+  if (!el || typeof window.DT === 'undefined') return;
+
+  var s    = window.DT.getStudentData();
+  var html = '';
+
+  if (s.name) {
+    html += row(initials(s.name), false, s.name, 'Team Member (You)');
+  }
+  if (s.supervisor) {
+    html += row(initials(s.supervisor), true, s.supervisor, 'Supervisor');
+  }
+  if (!s.name && !s.supervisor) {
+    html = '<p class="body-empty">No team data yet — update your profile.</p>';
+  }
+  if (s.team) {
+    html += '<p class="body-note">Team: <strong>' + esc(s.team) + '</strong></p>';
+  }
+
+  el.innerHTML = html;
+}
+
+function row (init, isSup, name, role) {
+  return '<div class="member-row">' +
+    '<div class="member-avatar' + (isSup ? ' sup' : '') + '" aria-hidden="true">' +
+    esc(init) + '</div>' +
+    '<div><p class="member-name">' + esc(name) + '</p>' +
+    '<p class="member-role">' + role + '</p></div>' +
+    '</div>';
+}
+
+function initials (name) {
+  var p = String(name).trim().split(/\s+/).filter(Boolean);
+  if (!p.length) return 'S';
+  return (p.length === 1 ? p[0][0] : p[0][0] + p[p.length - 1][0]).toUpperCase();
+}
+
+function esc (s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+
+</body>
+</html>

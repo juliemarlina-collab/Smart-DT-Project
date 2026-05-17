@@ -1,0 +1,2221 @@
+/* =====================================================
+   Smart DT Project V3 — css/style.css
+   Complete shared stylesheet for all 11 HTML pages
+   Based on verified mockup screens — POLIPD 2026
+   =====================================================
+   WRITE ORDER (do not rearrange):
+   01. Google Fonts Import
+   02. CSS Variables (Design Tokens)
+   03. Reset & Base Styles
+   04. App Container & Page Layout
+   05. Typography Classes
+   06. Header Bar
+   07. Pink Blob Background Shape
+   08. Dot Grid Pattern
+   09. Bottom Navigation Bar
+   10. Buttons
+   11. Cards
+   12. Phase Number Badge
+   13. Phase Counter Pill
+   14. Hero Illustration
+   15. Carousel & Dot Indicators
+   16. Feature Row List
+   17. Phase Title & Tagline
+   18. Progress Bar
+   19. Phase Stepper
+   20. Accordion Rows
+   21. FAB Button
+   22. Form Inputs (Login)
+   23. Language Selector
+   24. Student Avatar in Header
+   25. Profile Card
+   26. Stats Row
+   27. Profile Menu Rows
+   28. Achievement Badge (Hexagonal)
+   29. Motivational Quote Box
+   30. Utility Classes & Toast
+   ===================================================== */
+
+
+/* =====================================================
+   01. GOOGLE FONTS IMPORT
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,700&display=swap');
+
+
+/* =====================================================
+   02. CSS VARIABLES (DESIGN TOKENS)
+   =====================================================
+   RULE: Never hardcode a colour anywhere else in this
+   file. Always use var(--color-...). If you need to
+   change a colour, change it ONLY here.
+   ===================================================== */
+
+:root {
+
+  /* ── BRAND COLOURS ─────────────────────────────── */
+  --color-navy:         #071B3D;   /* Primary — headings, CTA buttons, nav text */
+  --color-teal:         #14B8A6;   /* Accent — active nav, stepper, FAB, feature icons */
+  --color-orange:       #FF6A3D;   /* Secondary — phase numbers, Think pillar, accents */
+  --color-yellow:       #F5A623;   /* Third accent — badges, some feature icons, stars */
+  --color-pink-red:     #E05C7A;   /* Feature icon bg (Observe, Build-on each other) */
+  --color-green-tag:    #10B981;   /* 'In Progress' / 'Student' pill tags */
+
+  /* ── BACKGROUNDS ───────────────────────────────── */
+  --color-bg:           #FAFBFC;   /* Page background */
+  --color-card:         #FFFFFF;   /* Card backgrounds */
+  --color-blob:         #FFCCC5;   /* Pink/salmon decorative blob */
+  --color-dot-grid:     #D1D5DB;   /* Dot grid decoration */
+
+  /* ── TEXT ──────────────────────────────────────── */
+  --color-text-dark:    #1A1A2E;   /* Body text, headings */
+  --color-text-mid:     #6B7280;   /* Subtitles, placeholder, labels */
+  --color-text-light:   #A0A8B5;   /* Hints, timestamps, secondary info */
+
+  /* ── BORDERS ───────────────────────────────────── */
+  --color-border:       #E8EDF2;   /* Card borders, input borders, dividers */
+
+  /* ── SEMANTIC COLOURS ──────────────────────────── */
+  --color-success-bg:   #D1FAE5;   /* Green pill background */
+  --color-success-text: #065F46;   /* Green pill text */
+  --color-error:        #EF4444;   /* Error state, Log Out text */
+
+  /* ── TYPOGRAPHY ─────────────────────────────────── */
+  --font-main:          'Poppins', sans-serif;
+
+  /* ── LAYOUT ──────────────────────────────────────── */
+  --app-max-width:      480px;
+  --header-height:      60px;
+  --nav-height:         64px;
+
+  /* ── BORDER RADIUS ──────────────────────────────── */
+  --radius-xs:          6px;
+  --radius-sm:          8px;
+  --radius-md:          12px;
+  --radius-lg:          20px;
+  --radius-xl:          24px;
+  --radius-pill:        50px;
+  --radius-circle:      50%;
+
+  /* ── SHADOWS ──────────────────────────────────────── */
+  --shadow-card:        0 2px 16px rgba(7, 27, 61, 0.08);
+  --shadow-nav:         0 -2px 12px rgba(7, 27, 61, 0.06);
+  --shadow-fab:         0 4px 14px rgba(20, 184, 166, 0.40);
+  --shadow-header:      0 2px 8px rgba(7, 27, 61, 0.05);
+
+  /* ── TRANSITIONS ──────────────────────────────────── */
+  --transition-fast:    0.15s ease;
+  --transition-mid:     0.25s ease;
+  --transition-slow:    0.35s ease;
+
+}
+
+
+/* =====================================================
+   03. RESET & BASE STYLES
+   WHY: Removes all browser default margins, paddings
+   and inconsistencies so every device looks the same.
+   ===================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* padding counts inside the element width, not outside */
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family:             var(--font-main);
+  background-color:        var(--color-bg);
+  color:                   var(--color-text-dark);
+  font-size:               16px;
+  line-height:             1.6;
+  -webkit-font-smoothing:  antialiased; /* crisper text on Mac/iOS */
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x:              hidden;      /* prevents horizontal scroll on mobile */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: var(--font-main);
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+input,
+select,
+textarea {
+  font-family: var(--font-main);
+  font-size:   15px;
+  outline:     none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+
+/* =====================================================
+   04. APP CONTAINER & PAGE LAYOUT
+   ===================================================== */
+
+/* Outer wrapper — centres app, limits to 480px */
+.app-container {
+  max-width:        var(--app-max-width);
+  min-height:       100vh;
+  margin:           0 auto;
+  background-color: var(--color-card);
+  position:         relative;   /* needed for pink blob absolute positioning */
+  overflow-x:       hidden;
+}
+
+/* Main scrollable content area.
+   Padded so content never hides behind fixed header or fixed nav. */
+.page-content {
+  padding-top:    calc(var(--header-height) + 16px);
+  padding-bottom: calc(var(--nav-height) + 20px);
+  padding-left:   20px;
+  padding-right:  20px;
+  position:       relative; /* so z-index works correctly on children */
+  z-index:        1;
+}
+
+/* Pages without bottom nav (welcome, login) use this instead */
+.page-content--no-nav {
+  padding-top:    calc(var(--header-height) + 16px);
+  padding-bottom: 32px;
+  padding-left:   20px;
+  padding-right:  20px;
+  position:       relative;
+  z-index:        1;
+}
+
+/* Pages without any nav at all (login has no nav bar) */
+.page-content--bare {
+  padding:  24px 20px 32px 20px;
+  position: relative;
+  z-index:  1;
+}
+
+
+/* =====================================================
+   05. TYPOGRAPHY CLASSES
+   ===================================================== */
+
+/* Extra large headline — 'Welcome to Smart DT Project' */
+.heading-xl {
+  font-size:   36px;
+  font-weight: 700;
+  color:       var(--color-navy);
+  line-height: 1.15;
+}
+
+/* Script / italic headline — 'Hi there!' on login page */
+.heading-script {
+  font-size:   40px;
+  font-weight: 700;
+  font-style:  italic;  /* gives hand-lettered feel */
+  color:       var(--color-navy);
+  line-height: 1.1;
+}
+
+/* Large heading — phase titles, 'My Profile', dashboard 'Let's keep building' */
+.heading-lg {
+  font-size:   28px;
+  font-weight: 700;
+  color:       var(--color-navy);
+  line-height: 1.2;
+}
+
+/* Medium heading — section titles, card titles */
+.heading-md {
+  font-size:   20px;
+  font-weight: 600;
+  color:       var(--color-navy);
+  line-height: 1.3;
+}
+
+/* Small heading — accordion titles, feature row titles */
+.heading-sm {
+  font-size:   16px;
+  font-weight: 600;
+  color:       var(--color-navy);
+}
+
+/* Body text sizes */
+.body-lg {
+  font-size:   16px;
+  font-weight: 400;
+  color:       var(--color-text-dark);
+  line-height: 1.65;
+}
+
+.body-md {
+  font-size:   15px;
+  font-weight: 400;
+  color:       var(--color-text-dark);
+  line-height: 1.55;
+}
+
+.body-sm {
+  font-size:   13px;
+  font-weight: 400;
+  color:       var(--color-text-mid);
+  line-height: 1.5;
+}
+
+.body-xs {
+  font-size:   11px;
+  font-weight: 400;
+  color:       var(--color-text-light);
+  line-height: 1.4;
+}
+
+/* Colour text helpers */
+.text-orange { color: var(--color-orange); }
+.text-teal   { color: var(--color-teal);   }
+.text-navy   { color: var(--color-navy);   }
+.text-mid    { color: var(--color-text-mid); }
+.text-link   { color: var(--color-teal); font-weight: 500; cursor: pointer; }
+
+/* Phase tagline — bold 2-line text below phase description */
+.phase-tagline {
+  font-size:   16px;
+  font-weight: 700;
+  color:       var(--color-navy);
+  line-height: 1.5;
+  margin-top:  12px;
+}
+
+/* Orange decorative underline — below phase title and 'My Profile' title */
+.orange-underline {
+  width:            36px;
+  height:           3px;
+  background-color: var(--color-orange);
+  border-radius:    2px;
+  margin:           10px 0 14px 0;
+}
+
+/* Dashboard greeting — 'smarter' word highlight */
+.text-highlight-orange {
+  color:       var(--color-orange);
+  font-weight: 700;
+}
+
+/* 'You are in Ideate Phase' — teal phase name */
+.current-phase-label {
+  font-size:   14px;
+  font-weight: 500;
+  color:       var(--color-text-mid);
+  text-align:  center;
+  margin-top:  8px;
+}
+
+.current-phase-label span {
+  color:       var(--color-teal);
+  font-weight: 600;
+}
+
+
+/* =====================================================
+   06. HEADER BAR
+   Fixed at top, stays visible while page scrolls.
+   ===================================================== */
+
+.header {
+  position:         fixed;
+  top:              0;
+  left:             50%;
+  transform:        translateX(-50%); /* centres within app-container on wide screens */
+  width:            100%;
+  max-width:        var(--app-max-width);
+  height:           var(--header-height); /* 60px */
+  background-color: var(--color-card);
+  display:          flex;
+  align-items:      center;
+  justify-content:  space-between;
+  padding:          0 20px;
+  z-index:          100;
+  box-shadow:       var(--shadow-header);
+}
+
+/* Left side: logo icon + wordmark */
+.header-logo {
+  display:     flex;
+  align-items: center;
+  gap:         10px;
+  flex-shrink: 0;
+}
+
+.header-logo-icon {
+  width:  36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.header-logo-text {
+  font-size:   14px;
+  font-weight: 600;
+  color:       var(--color-navy);
+  line-height: 1.25;
+}
+
+/* Right side: flexible area — content varies per page */
+.header-right {
+  display:     flex;
+  align-items: center;
+  gap:         8px;
+}
+
+/* 'Welcome' label pill — welcome.html only */
+.header-label-pill {
+  background-color: var(--color-bg);
+  border:           1px solid var(--color-border);
+  border-radius:    var(--radius-pill);
+  padding:          6px 16px;
+  font-size:        14px;
+  font-weight:      500;
+  color:            var(--color-navy);
+}
+
+/* Hamburger ≡ menu button */
+.header-hamburger {
+  width:            36px;
+  height:           36px;
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  border-radius:    var(--radius-sm);
+  background-color: var(--color-bg);
+  border:           1px solid var(--color-border);
+  cursor:           pointer;
+  transition:       background-color var(--transition-fast);
+}
+
+.header-hamburger:hover {
+  background-color: var(--color-border);
+}
+
+.header-hamburger svg {
+  width:  20px;
+  height: 20px;
+  color:  var(--color-navy);
+}
+
+
+/* =====================================================
+   07. PINK BLOB BACKGROUND SHAPE
+   Decorative organic shape, top-left corner, every page.
+   MUST be placed immediately after <div class="app-container">
+   z-index: 0 — sits behind all content
+   ===================================================== */
+
+.pink-blob {
+  position:       absolute;
+  top:            0;
+  left:           0;
+  width:          200px;
+  height:         200px;
+  z-index:        0;           /* behind everything */
+  pointer-events: none;        /* cannot be clicked */
+  opacity:        0.55;
+  user-select:    none;
+}
+
+
+/* =====================================================
+   08. DOT GRID PATTERN
+   Small grey dots, top-right corner, phase pages +
+   dashboard + profile.
+   Two options: SVG image or CSS-only (pick one).
+   ===================================================== */
+
+/* Option A: SVG image */
+.dot-grid {
+  position:       absolute;
+  top:            24px;
+  right:          16px;
+  width:          96px;
+  height:         80px;
+  z-index:        0;
+  pointer-events: none;
+  opacity:        0.45;
+  user-select:    none;
+}
+
+/* Option B: CSS-only dot grid (no image file needed) */
+.dot-grid-css {
+  position:         absolute;
+  top:              24px;
+  right:            16px;
+  width:            96px;
+  height:           80px;
+  z-index:          0;
+  pointer-events:   none;
+  background-image: radial-gradient(
+    circle,
+    var(--color-dot-grid) 1.5px,
+    transparent 1.5px
+  );
+  background-size:  13px 13px;
+}
+
+
+/* =====================================================
+   09. BOTTOM NAVIGATION BAR
+   Fixed at bottom. 5 items. Active = Teal.
+   DO NOT show on welcome.html or login.html.
+   ===================================================== */
+
+.bottom-nav {
+  position:         fixed;
+  bottom:           0;
+  left:             50%;
+  transform:        translateX(-50%);
+  width:            100%;
+  max-width:        var(--app-max-width);
+  height:           var(--nav-height); /* 64px */
+  background-color: var(--color-card);
+  border-top:       1px solid var(--color-border);
+  box-shadow:       var(--shadow-nav);
+  display:          flex;
+  align-items:      center;
+  justify-content:  space-around;
+  z-index:          100;
+}
+
+/* Individual nav item */
+.nav-item {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  gap:             3px;
+  cursor:          pointer;
+  flex:            1;
+  padding:         8px 4px;
+  transition:      color var(--transition-fast);
+  text-decoration: none;
+}
+
+/* Nav icon (SVG or img) */
+.nav-icon {
+  width:  24px;
+  height: 24px;
+  color:  var(--color-text-mid); /* inactive state */
+  transition: color var(--transition-fast);
+}
+
+/* Nav label text */
+.nav-label {
+  font-size:   11px;
+  font-weight: 500;
+  color:       var(--color-text-mid);
+  transition:  color var(--transition-fast);
+  white-space: nowrap;
+}
+
+/* ACTIVE STATE — add class 'active' via JavaScript */
+.nav-item.active .nav-icon  { color: var(--color-teal); }
+.nav-item.active .nav-label { color: var(--color-teal); }
+
+
+/* =====================================================
+   10. BUTTONS
+   ===================================================== */
+
+/* ── Primary CTA Pill ─────────────────────────────
+   Full-width Navy pill: 'Let's Continue', 'Let's Get
+   Started', 'Continue Current Phase', 'Continue'      */
+.btn-primary {
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  gap:              10px;
+  width:            100%;
+  padding:          16px 24px;
+  background-color: var(--color-navy);
+  color:            #FFFFFF;
+  font-family:      var(--font-main);
+  font-size:        16px;
+  font-weight:      600;
+  border:           none;
+  border-radius:    var(--radius-pill);
+  cursor:           pointer;
+  transition:       opacity var(--transition-fast), transform var(--transition-fast);
+  white-space:      nowrap;
+}
+
+.btn-primary:hover  { opacity: 0.92; }
+.btn-primary:active { opacity: 0.85; transform: scale(0.99); }
+
+/* Right arrow icon inside button */
+.btn-primary .btn-arrow {
+  width:  18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* ── CTA Row ──────────────────────────────────────
+   Pill button + standalone arrow circle side by side */
+.cta-row {
+  display:     flex;
+  align-items: center;
+  gap:         10px;
+  margin:      24px 0 12px 0;
+}
+
+/* ── Standalone Arrow Circle Button ──────────────
+   Small circle with right arrow → beside CTA pill   */
+.btn-arrow-circle {
+  width:            48px;
+  height:           48px;
+  min-width:        48px;  /* prevents shrinking next to full-width pill */
+  border-radius:    var(--radius-circle);
+  background-color: var(--color-card);
+  border:           1px solid var(--color-border);
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  cursor:           pointer;
+  flex-shrink:      0;
+  transition:       border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.btn-arrow-circle:hover {
+  background-color: var(--color-bg);
+  border-color:     var(--color-teal);
+}
+
+.btn-arrow-circle svg {
+  width:  18px;
+  height: 18px;
+  color:  var(--color-navy);
+}
+
+/* ── Outline Button ───────────────────────────────
+   'Edit Profile' button and similar secondary actions */
+.btn-outline {
+  display:          flex;
+  align-items:      center;
+  gap:              6px;
+  padding:          8px 14px;
+  background-color: var(--color-card);
+  border:           1px solid var(--color-border);
+  border-radius:    var(--radius-sm);
+  font-family:      var(--font-main);
+  font-size:        13px;
+  font-weight:      500;
+  color:            var(--color-navy);
+  cursor:           pointer;
+  transition:       border-color var(--transition-fast);
+}
+
+.btn-outline:hover { border-color: var(--color-teal); }
+
+.btn-outline svg {
+  width:  14px;
+  height: 14px;
+  color:  var(--color-text-mid);
+}
+
+/* ── Teal Text Button ─────────────────────────────
+   'View All', 'Contact Support' links               */
+.btn-text-teal {
+  font-size:   14px;
+  font-weight: 500;
+  color:       var(--color-teal);
+  cursor:      pointer;
+  background:  none;
+  border:      none;
+  padding:     0;
+  font-family: var(--font-main);
+  transition:  opacity var(--transition-fast);
+}
+
+.btn-text-teal:hover { opacity: 0.75; }
+
+
+/* =====================================================
+   11. CARDS
+   ===================================================== */
+
+/* ── Base Card ────────────────────────────────────── */
+.card {
+  background-color: var(--color-card);
+  border-radius:    var(--radius-lg);
+  border:           1px solid var(--color-border);
+  box-shadow:       var(--shadow-card);
+  padding:          16px;
+}
+
+/* ── Project Card (dashboard.html) ───────────────── */
+.project-card {
+  background-color: var(--color-card);
+  border-radius:    var(--radius-lg);
+  border:           1px solid var(--color-border);
+  box-shadow:       var(--shadow-card);
+  padding:          16px 18px;
+  margin-bottom:    16px;
+}
+
+.project-card-header {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     flex-start;
+  margin-bottom:   8px;
+}
+
+.project-card-label {
+  display:     flex;
+  align-items: center;
+  gap:         6px;
+  font-size:   12px;
+  font-weight: 500;
+  color:       var(--color-text-mid);
+}
+
+.project-card-label svg {
+  width:  14px;
+  height: 14px;
+  color:  var(--color-teal);
+}
+
+.project-progress-pct {
+  font-size:   26px;
+  font-weight: 700;
+  color:       var(--color-teal);
+  line-height: 1;
+}
+
+.project-title {
+  font-size:     20px;
+  font-weight:   700;
+  color:         var(--color-navy);
+  margin-bottom: 4px;
+  line-height:   1.25;
+}
+
+.project-meta {
+  font-size:     13px;
+  color:         var(--color-text-mid);
+  margin-bottom: 10px;
+}
+
+/* 'In Progress' green pill tag */
+.tag-in-progress {
+  display:          inline-flex;
+  align-items:      center;
+  gap:              4px;
+  background-color: var(--color-success-bg);
+  color:            var(--color-success-text);
+  font-size:        11px;
+  font-weight:      600;
+  padding:          3px 10px;
+  border-radius:    var(--radius-pill);
+}
+
+.tag-timestamp {
+  font-size:   12px;
+  color:       var(--color-text-light);
+  margin-left: 8px;
+}
+
+/* ── Welcome Pillar Card (3 cols on welcome.html) ── */
+.pillars-row {
+  display:   grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:       10px;
+  margin:    20px 0;
+}
+
+.pillar-card {
+  background-color: var(--color-card);
+  border:           1px solid var(--color-border);
+  border-radius:    var(--radius-md);
+  padding:          14px 10px;
+  display:          flex;
+  flex-direction:   column;
+  align-items:      center;
+  gap:              8px;
+  text-align:       center;
+  box-shadow:       var(--shadow-card);
+}
+
+.pillar-icon-circle {
+  width:            44px;
+  height:           44px;
+  border-radius:    var(--radius-circle);
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  flex-shrink:      0;
+}
+
+/* Pillar icon circle colours */
+.pillar-icon-circle.orange { background-color: var(--color-orange); }
+.pillar-icon-circle.teal   { background-color: var(--color-teal);   }
+.pillar-icon-circle.yellow { background-color: var(--color-yellow); }
+
+.pillar-icon-circle svg {
+  width:  22px;
+  height: 22px;
+  color:  #FFFFFF;
+}
+
+.pillar-title {
+  font-size:   14px;
+  font-weight: 700;
+}
+
+/* Pillar title colours */
+.pillar-title.orange { color: var(--color-orange); }
+.pillar-title.teal   { color: var(--color-teal);   }
+.pillar-title.yellow { color: var(--color-yellow); }
+
+.pillar-desc {
+  font-size:   11px;
+  color:       var(--color-text-mid);
+  line-height: 1.4;
+}
+
+/* ── 'For Learners. By Doing.' Info Card ─────────── */
+.learners-card {
+  background-color: var(--color-card);
+  border:           1px solid var(--color-border);
+  border-radius:    var(--radius-md);
+  padding:          14px 16px;
+  display:          flex;
+  align-items:      center;
+  gap:              14px;
+  box-shadow:       var(--shadow-card);
+  margin:           16px 0;
+  cursor:           pointer;
+}
+
+.learners-card-icon {
+  width:            44px;
+  height:           44px;
+  min-width:        44px;
+  border-radius:    var(--radius-circle);
+  background-color: var(--color-teal);
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+}
+
+.learners-card-icon svg {
+  width:  24px;
+  height: 24px;
+  color:  #FFFFFF;
+}
+
+.learners-card-text { flex: 1; }
+
+.learners-card-title {
+  font-size:   15px;
+  font-weight: 700;
+  color:       var(--color-navy);
+  margin-bottom: 2px;
+}
+
+.learners-card-desc {
+  font-size:   13px;
+  color:       var(--color-text-mid);
+  line-height: 1.4;
+}
+
+.learners-card-arrow {
+  width:  20px;
+  height: 20px;
+  color:  var(--color-teal);
+  flex-shrink: 0;
+}
+
+
+/* =====================================================
+   12. PHASE NUMBER BADGE
+   Teal rounded square with white number (01, 02...)
+   Appears top-left on every phase page above title.
+   ===================================================== */
+
+.phase-badge {
+  display:          inline-flex;
+  align-items:      center;
+  justify-content:  center;
+  width:            44px;
+  height:           44px;
+  background-color: var(--color-teal);
+  border-radius:    var(--radius-md); /* rounded square, NOT a circle */
+  font-size:        18px;
+  font-weight:      700;
+  color:            #FFFFFF;
+  margin-bottom:    12px;
+  line-height:      1;
+}
+
+
+/* =====================================================
+   13. PHASE COUNTER PILL (01 / 05)
+   Top-right of header on every phase page.
+   '01' is Orange. '/ 05' is Navy.
+   ===================================================== */
+
+.phase-counter {
+  display:          flex;
+  align-items:      center;
+  gap:              1px;
+  background-color: var(--color-bg);
+  border:           1px solid var(--color-border);
+  border-radius:    var(--radius-pill);
+  padding:          6px 14px;
+}
+
+.phase-counter-current {
+  font-size:   15px;
+  font-weight: 700;
+  color:       var(--color-orange); /* e.g. '01' */
+}
+
+.phase-counter-sep {
+  font-size:   15px;
+  font-weight: 600;
+  color:       var(--color-text-mid);
+  margin:      0 1px;
+}
+
+.phase-counter-total {
+  font-size:   15px;
+  font-weight: 600;
+  color:       var(--color-navy); /* '05' */
+}
+
+
+/* =====================================================
+   14. HERO ILLUSTRATION
+   Large SVG image, top-right of page header area.
+   Sits behind header text (z-index: 1).
+   Header text uses padding-right to stay left of hero.
+   ===================================================== */
+
+/* Wrapper: absolutely positioned top-right */
+.hero-wrap {
+  position:       absolute;
+  top:            var(--header-height);
+  right:          0;
+  width:          220px;
+  z-index:        1;
+  pointer-events: none;
+  user-select:    none;
+}
+
+.hero-img {
+  width:  100%;
+  height: auto;
+  display: block;
+}
+
+/* Page header text — stays LEFT of hero image */
+.page-header-text {
+  position:    relative;
+  z-index:     2;           /* above hero, below fixed nav */
+  padding-right: 180px;     /* leaves space for hero on the right */
+  padding-top:   20px;
+  padding-bottom: 20px;
+  min-height:  200px;       /* ensures text block is tall enough */
+}
+
+/* For pages where hero is shorter, reduce the min-height */
+.page-header-text--compact {
+  min-height: 140px;
+}
+
+
+/* =====================================================
+   15. CAROUSEL & DOT INDICATORS
+   Swipeable 4-slide card on all phase pages and welcome.
+   Controlled by JavaScript (see js/app.js carousel init).
+   ===================================================== */
+
+/* Outer wrapper: hides overflow so only 1 slide visible */
+.carousel-wrap {
+  overflow:      hidden;
+  border-radius: var(--radius-lg);
+  margin-bottom: 6px;
+}
+
+/* Track: flexbox row of slides, moves on swipe/tap */
+.carousel-track {
+  display:    flex;
+  transition: transform var(--transition-slow);
+  will-change: transform;
+}
+
+/* Each individual slide */
+.carousel-slide {
+  min-width:        100%;    /* each slide = full card width */
+  background-color: var(--color-card);
+  border:           1px solid var(--color-border);
+  border-radius:    var(--radius-lg);
+  padding:          16px;
+  display:          flex;
+  align-items:      flex-start;
+  gap:              14px;
+  box-shadow:       var(--shadow-card);
+}
+
+/* Illustration image inside the slide (left side) */
+.carousel-slide-illustration {
+  width:       100px;
+  min-width:   100px;
+  flex-shrink: 0;
+  align-self:  center;
+}
+
+.carousel-slide-illustration img,
+.carousel-slide-illustration svg {
+  width:  100%;
+  height: auto;
+}
+
+/* Slide text content (right side) */
+.carousel-slide-content { flex: 1; }
+
+.carousel-slide-title {
+  font-size:     15px;
+  font-weight:   700;
+  color:         var(--color-navy);
+  margin-bottom: 6px;
+  line-height:   1.3;
+}
+
+.carousel-slide-text {
+  font-size:   13px;
+  color:       var(--color-text-mid);
+  line-height: 1.5;
+}
+
+/* ── Dot Indicators ──────────────────────────────── */
+.dot-row {
+  display:         flex;
+  justify-content: center;
+  align-items:     center;
+  gap:             6px;
+  margin-top:      10px;
+  margin-bottom:   4px;
+}
+
+.dot {
+  width:            8px;
+  height:           8px;
+  border-radius:    var(--radius-circle);
+  background-color: var(--color-border);
+  cursor:           pointer;
+  transition:       background-color var(--transition-mid), width var(--transition-mid), border-radius var(--transition-mid);
+}
+
+/* Active dot: wider pill shape, filled with Orange */
+.dot.active {
+  background-color: var(--color-orange);
+  width:            20px;
+  border-radius:    4px;
+}
+
+
+/* =====================================================
+   16. FEATURE ROW LIST
+   3 rows on right side of every phase page.
+   Each has a coloured icon box + title + description.
+   ===================================================== */
+
+.feature-list {
+  display:        flex;
+  flex-direction: column;
+  gap:            8px;
+}
+
+.feature-row {
+  display:          flex;
+  align-items:      flex-start;
+  gap:              12px;
+  padding:          10px 12px;
+  background-color: var(--color-card);
+  border:           1px solid var(--color-border);
+  border-radius:    var(--radius-md);
+  box-shadow:       var(--shadow-card);
+}
+
+/* Icon box: rounded square with coloured background */
+.feature-icon-box {
+  width:           40px;
+  height:          40px;
+  min-width:       40px;
+  border-radius:   var(--radius-sm);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+}
+
+.feature-icon-box svg {
+  width:  20px;
+  height: 20px;
+  color:  #FFFFFF; /* all feature icons are white */
+}
+
+/* Specific icon background colours per phase feature */
+.feature-icon-box.teal     { background-color: var(--color-teal);     }
+.feature-icon-box.orange   { background-color: var(--color-orange);   }
+.feature-icon-box.yellow   { background-color: var(--color-yellow);   }
+.feature-icon-box.pink-red { background-color: var(--color-pink-red); }
+
+.feature-text { flex: 1; }
+
+.feature-text-title {
+  font-size:     14px;
+  font-weight:   600;
+  color:         var(--color-navy);
+  margin-bottom: 2px;
+}
+
+.feature-text-desc {
+  font-size:   12px;
+  color:       var(--color-text-mid);
+  line-height: 1.4;
+}
+
+/* Phase content area: carousel left + feature list right */
+.phase-content-grid {
+  display:               grid;
+  grid-template-columns: 1fr 1fr;
+  gap:                   12px;
+  margin-top:            20px;
+  margin-bottom:         16px;
+}
+
+/* On narrow screens, stack carousel above features */
+@media (max-width: 400px) {
+  .phase-content-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =====================================================
+   17. PHASE TITLE & TAGLINE
+   'Empathy' = orange, 'Phase' = navy, on two lines.
+   Orange underline below. Bold tagline below that.
+   ===================================================== */
+
+.phase-title-area {
+  margin-bottom: 16px;
+}
+
+/* Phase title: rendered on TWO lines using two <p> tags */
+.phase-title-line {
+  font-size:   36px;
+  font-weight: 700;
+  line-height: 1.1;
+  display:     block;
+}
+
+/* First word of title (Empathy, Define, Ideation...) */
+.phase-title-line .word-accent {
+  color: var(--color-orange);
+}
+
+/* Second line: 'Phase' */
+.phase-title-line .word-phase {
+  color: var(--color-navy);
+}
+
+/* Short description below title */
+.phase-description {
+  font-size:   15px;
+  font-weight: 400;
+  color:       var(--color-text-dark);
+  margin-top:  8px;
+  margin-bottom: 2px;
+  max-width:   200px;   /* keeps text left while hero is on the right */
+  line-height: 1.55;
+}
+
+/* Teal progress line — short horizontal bar below CTA area */
+.phase-progress-line {
+  display:   flex;
+  gap:       5px;
+  margin-top: 10px;
+}
+
+.phase-progress-line .line-segment {
+  height:           3px;
+  border-radius:    2px;
+  flex:             1;
+  background-color: var(--color-border);
+}
+
+.phase-progress-line .line-segment.done {
+  background-color: var(--color-teal);
+}
+
+
+/* =====================================================
+   18. PROGRESS BAR
+   Teal fill bar for overall progress %.
+   Width is set by JavaScript: element.style.width = '60%'
+   ===================================================== */
+
+.progress-bar-wrap {
+  width:            100%;
+  height:           8px;
+  background-color: var(--color-border);
+  border-radius:    var(--radius-pill);
+  overflow:         hidden;
+  margin:           8px 0;
+}
+
+.progress-bar-fill {
+  height:           100%;
+  background-color: var(--color-teal);
+  border-radius:    var(--radius-pill);
+  transition:       width 0.5s ease;
+  min-width:        4px; /* visible even at 0% */
+}
+
+
+/* =====================================================
+   19. PHASE STEPPER (dashboard.html)
+   5 circles linked by horizontal lines.
+   Empathize / Define / Ideate / Prototype / Test
+   ===================================================== */
+
+.stepper {
+  display:         flex;
+  align-items:     flex-start;
+  justify-content: space-between;
+  margin:          16px 0;
+  position:        relative;
+}
+
+.step-item {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            6px;
+  position:       relative;
+  flex:           1;
+}
+
+/* The circle */
+.step-circle {
+  width:            30px;
+  height:           30px;
+  border-radius:    var(--radius-circle);
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  font-size:        13px;
+  font-weight:      600;
+  z-index:          2;
+  position:         relative;
+  background-color: var(--color-card);
+  flex-shrink:      0;
+}
+
+/* COMPLETE: teal filled, white tick inside */
+.step-circle.complete {
+  background-color: var(--color-teal);
+  border:           none;
+  color:            #FFFFFF;
+}
+
+.step-circle.complete::after {
+  content:     '✓';
+  font-size:   14px;
+  font-weight: 700;
+  color:       #FFFFFF;
+}
+
+/* ACTIVE: teal outline, white fill */
+.step-circle.active {
+  background-color: var(--color-card);
+  border:           2px solid var(--color-teal);
+  color:            var(--color-teal);
+}
+
+/* PENDING: grey outline */
+.step-circle.pending {
+  background-color: var(--color-card);
+  border:           2px solid var(--color-border);
+  color:            var(--color-text-light);
+}
+
+/* Step label below each circle */
+.step-label {
+  font-size:   10px;
+  font-weight: 500;
+  color:       var(--color-text-mid);
+  text-align:  center;
+  line-height: 1.2;
+}
+
+.step-label.complete { color: var(--color-teal); }
+.step-label.active   { color: var(--color-teal); font-weight: 600; }
+
+/* Connecting line between step circles */
+.step-line {
+  flex:             1;
+  height:           2px;
+  background-color: var(--color-border); /* grey — pending */
+  margin-top:       15px; /* aligns with centre of 30px circle */
+  transition:       background-color var(--transition-mid);
+}
+
+.step-line.complete { background-color: var(--color-teal); }
+
+
+/* =====================================================
+   20. ACCORDION ROWS (dashboard.html)
+   5 accordion sections: Tasks, Activity, Evidence,
+   Feedback, Team Members.
+   ===================================================== */
+
+.accordion-list { margin-top: 8px; }
+
+.accordion-row {
+  display:          flex;
+  align-items:      center;
+  gap:              12px;
+  padding:          14px 0;
+  border-bottom:    1px solid var(--color-border);
+  cursor:           pointer;
+  user-select:      none;
+  transition:       background-color var(--transition-fast);
+}
+
+/* Coloured circle icon (filled, not outlined) */
+.accordion-icon-circle {
+  width:           42px;
+  height:          42px;
+  min-width:       42px;
+  border-radius:   var(--radius-circle);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+}
+
+.accordion-icon-circle svg {
+  width:  20px;
+  height: 20px;
+  color:  #FFFFFF;
+}
+
+/* Colours per accordion row (from mockup) */
+.accordion-icon-circle.orange { background-color: var(--color-orange); } /* Tasks, Team */
+.accordion-icon-circle.teal   { background-color: var(--color-teal);   } /* Activity, Feedback */
+.accordion-icon-circle.yellow { background-color: var(--color-yellow); } /* Evidence */
+
+/* Text area */
+.accordion-text { flex: 1; }
+
+.accordion-title {
+  font-size:   15px;
+  font-weight: 600;
+  color:       var(--color-navy);
+}
+
+.accordion-subtitle {
+  font-size:   12px;
+  color:       var(--color-text-mid);
+  margin-top:  2px;
+}
+
+/* Chevron arrow — rotates when open */
+.accordion-chevron {
+  width:      20px;
+  height:     20px;
+  color:      var(--color-text-mid);
+  flex-shrink: 0;
+  transition: transform var(--transition-mid);
+}
+
+.accordion-chevron.open { transform: rotate(180deg); }
+
+/* Body: hidden by default, shown when .open is added by JS */
+.accordion-body {
+  display:     none;
+  padding:     12px 0 14px 54px;  /* indented to align with text, not icon */
+  border-bottom: 1px solid var(--color-border);
+}
+
+.accordion-body.open { display: block; }
+
+
+/* =====================================================
+   21. FAB BUTTON (Floating Action Button)
+   Large teal circle with white + sign.
+   Bottom-right, overlaps content above nav bar.
+   ===================================================== */
+
+.fab {
+  position:         fixed;
+  bottom:           calc(var(--nav-height) + 16px); /* above nav bar */
+  right:            20px;
+  width:            52px;
+  height:           52px;
+  border-radius:    var(--radius-circle);
+  background-color: var(--color-teal);
+  color:            #FFFFFF;
+  font-size:        28px;
+  font-weight:      300;
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  box-shadow:       var(--shadow-fab);
+  cursor:           pointer;
+  z-index:          90;
+  border:           none;
+  transition:       transform var(--transition-fast), box-shadow var(--transition-fast);
+  line-height:      1;
+}
+
+.fab:hover  { transform: scale(1.08); }
+.fab:active { transform: scale(0.96); }
+
+/* On wide screens (> 480px), FAB stays inside app container */
+@media (min-width: 481px) {
+  .fab {
+    right: calc(50% - var(--app-max-width) / 2 + 20px);
+  }
+}
+
+
+/* =====================================================
+   22. FORM INPUTS (login.html)
+   3 fields: Email, Registration No., Class dropdown.
+   ===================================================== */
+
+.form-field {
+  display:          flex;
+  align-items:      center;
+  gap:              12px;
+  width:            100%;
+  padding:          14px 16px;
+  background-color: var(--color-card);
+  border:           1.5px solid var(--color-border);
+  border-radius:    var(--radius-md);
+  margin-bottom:    12px;
+  transition:       border-color var(--transition-fast);
+}
+
+/* Focus state: teal border when field is active */
+.form-field:focus-within {
+  border-color: var(--color-teal);
+}
+
+/* Left icon */
+.form-field-icon {
+  width:       20px;
+  height:      20px;
+  min-width:   20px;
+  color:       var(--color-text-mid);
+  flex-shrink: 0;
+}
+
+/* Text input inside field */
+.form-field input {
+  flex:        1;
+  border:      none;
+  outline:     none;
+  background:  transparent;
+  font-family: var(--font-main);
+  font-size:   15px;
+  color:       var(--color-text-dark);
+}
+
+.form-field input::placeholder { color: var(--color-text-mid); }
+
+/* Select dropdown inside field */
+.form-field select {
+  flex:              1;
+  border:            none;
+  outline:           none;
+  background:        transparent;
+  font-family:       var(--font-main);
+  font-size:         15px;
+  color:             var(--color-text-dark);
+  appearance:        none; /* removes default browser arrow */
+  -webkit-appearance: none;
+  cursor:            pointer;
+}
+
+/* Custom chevron for select */
+.form-field-chevron {
+  width:       16px;
+  height:      16px;
+  color:       var(--color-text-mid);
+  flex-shrink: 0;
+  pointer-events: none; /* click passes through to the select */
+}
+
+/* Login Think/Test/Improve column card */
+.login-pillars-card {
+  background-color: var(--color-card);
+  border:           1px solid var(--color-border);
+  border-radius:    var(--radius-lg);
+  padding:          16px;
+  box-shadow:       var(--shadow-card);
+}
+
+.login-pillar-row {
+  display:       flex;
+  align-items:   flex-start;
+  gap:           12px;
+  padding:       10px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.login-pillar-row:last-child { border-bottom: none; }
+
+.login-pillar-icon {
+  width:           36px;
+  height:          36px;
+  min-width:       36px;
+  border-radius:   var(--radius-circle);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+}
+
+.login-pillar-icon svg {
+  width:  18px;
+  height: 18px;
+  color:  #FFFFFF;
+}
+
+.login-pillar-icon.orange { background-color: var(--color-orange); }
+.login-pillar-icon.teal   { background-color: var(--color-teal);   }
+.login-pillar-icon.yellow { background-color: var(--color-yellow); }
+
+.login-pillar-title {
+  font-size:   14px;
+  font-weight: 700;
+}
+
+.login-pillar-title.orange { color: var(--color-orange); }
+.login-pillar-title.teal   { color: var(--color-teal);   }
+.login-pillar-title.yellow { color: var(--color-yellow); }
+
+.login-pillar-desc {
+  font-size:   12px;
+  color:       var(--color-text-mid);
+  line-height: 1.4;
+  margin-top:  2px;
+}
+
+/* Login page footer bar */
+.login-footer {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+  margin-top:      24px;
+  padding-top:     16px;
+  border-top:      1px solid var(--color-border);
+}
+
+.login-footer-secure {
+  display:     flex;
+  align-items: center;
+  gap:         8px;
+  font-size:   13px;
+  color:       var(--color-text-mid);
+}
+
+.login-footer-secure svg {
+  width:  18px;
+  height: 18px;
+  color:  var(--color-teal);
+}
+
+.login-footer-support {
+  font-size: 13px;
+  color:     var(--color-text-mid);
+}
+
+.login-footer-support a { color: var(--color-teal); font-weight: 500; }
+
+
+/* =====================================================
+   23. LANGUAGE SELECTOR
+   Globe icon + 'English' + chevron dropdown.
+   Appears in: login header, dashboard header, profile.
+   ===================================================== */
+
+.language-selector {
+  display:          flex;
+  align-items:      center;
+  gap:              6px;
+  padding:          6px 12px;
+  background-color: var(--color-card);
+  border:           1px solid var(--color-border);
+  border-radius:    var(--radius-pill);
+  cursor:           pointer;
+  font-family:      var(--font-main);
+  font-size:        13px;
+  font-weight:      500;
+  color:            var(--color-navy);
+  transition:       border-color var(--transition-fast);
+}
+
+.language-selector:hover { border-color: var(--color-teal); }
+
+.language-globe-icon {
+  width:  15px;
+  height: 15px;
+  color:  var(--color-navy);
+}
+
+.language-chevron {
+  width:  12px;
+  height: 12px;
+  color:  var(--color-text-mid);
+}
+
+
+/* =====================================================
+   24. STUDENT AVATAR IN HEADER (dashboard.html)
+   Circular avatar + student first name + dropdown arrow.
+   ===================================================== */
+
+.header-avatar-group {
+  display:     flex;
+  align-items: center;
+  gap:         6px;
+  cursor:      pointer;
+}
+
+.header-avatar {
+  width:         32px;
+  height:        32px;
+  border-radius: var(--radius-circle);
+  object-fit:    cover;
+  border:        2px solid var(--color-teal);
+  flex-shrink:   0;
+  background-color: var(--color-bg); /* fallback before image loads */
+}
+
+/* Avatar placeholder initials (shown before photo is set) */
+.header-avatar-initials {
+  width:            32px;
+  height:           32px;
+  border-radius:    var(--radius-circle);
+  background-color: var(--color-teal);
+  color:            #FFFFFF;
+  font-size:        12px;
+  font-weight:      600;
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  flex-shrink:      0;
+}
+
+.header-avatar-name {
+  font-size:   13px;
+  font-weight: 600;
+  color:       var(--color-navy);
+  max-width:   70px;
+  overflow:    hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.header-avatar-chevron {
+  width:  12px;
+  height: 12px;
+  color:  var(--color-text-mid);
+}
+
+
+/* =====================================================
+   25. PROFILE CARD (profile.html)
+   ===================================================== */
+
+.profile-card {
+  background-color: var(--color-card);
+  border:           1px solid var(--color-border);
+  border-radius:    var(--radius-lg);
+  padding:          20px;
+  margin-bottom:    16px;
+  box-shadow:       var(--shadow-card);
+}
+
+.profile-card-top {
+  display:         flex;
+  align-items:     flex-start;
+  gap:             16px;
+  margin-bottom:   14px;
+}
+
+/* Avatar column */
+.profile-avatar-wrap {
+  position:    relative;
+  flex-shrink: 0;
+}
+
+.profile-avatar {
+  width:         72px;
+  height:        72px;
+  border-radius: var(--radius-circle);
+  object-fit:    cover;
+  border:        3px solid var(--color-teal);
+  background-color: var(--color-bg);
+  display:       block;
+}
+
+/* Camera icon overlay — bottom of avatar circle */
+.avatar-camera-btn {
+  position:         absolute;
+  bottom:           2px;
+  right:            2px;
+  width:            22px;
+  height:           22px;
+  border-radius:    var(--radius-circle);
+  background-color: var(--color-navy);
+  border:           2px solid var(--color-card);
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  cursor:           pointer;
+}
+
+.avatar-camera-btn svg {
+  width:  11px;
+  height: 11px;
+  color:  #FFFFFF;
+}
+
+/* Name + role + edit button area */
+.profile-info { flex: 1; }
+
+.profile-name {
+  font-size:     18px;
+  font-weight:   700;
+  color:         var(--color-navy);
+  margin-bottom: 5px;
+  line-height:   1.2;
+}
+
+/* 'Student' green pill badge */
+.profile-role-badge {
+  display:          inline-block;
+  background-color: var(--color-success-bg);
+  color:            var(--color-success-text);
+  font-size:        11px;
+  font-weight:      600;
+  padding:          3px 10px;
+  border-radius:    var(--radius-pill);
+  margin-bottom:    10px;
+}
+
+/* Edit Profile button — top-right of profile card */
+.profile-edit-btn {
+  margin-left: auto;
+  align-self:  flex-start;
+  flex-shrink: 0;
+}
+
+/* Profile field rows: icon + label + value */
+.profile-fields { margin-top: 4px; }
+
+.profile-field-row {
+  display:       flex;
+  align-items:   center;
+  gap:           10px;
+  margin-bottom: 8px;
+}
+
+.profile-field-icon {
+  width:       18px;
+  height:      18px;
+  min-width:   18px;
+  color:       var(--color-text-mid);
+  flex-shrink: 0;
+}
+
+.profile-field-label {
+  font-size: 13px;
+  color:     var(--color-text-mid);
+  min-width: 110px;
+}
+
+.profile-field-value {
+  font-size:   13px;
+  font-weight: 500;
+  color:       var(--color-navy);
+}
+
+
+/* =====================================================
+   26. STATS ROW (profile.html)
+   5 stats: Projects / Tasks / Evidence / Feedback / Badges
+   Icon is ABOVE the number, number ABOVE the label.
+   ===================================================== */
+
+.stats-row {
+  display:          flex;
+  justify-content:  space-between;
+  background-color: var(--color-card);
+  border:           1px solid var(--color-border);
+  border-radius:    var(--radius-lg);
+  padding:          14px 8px;
+  margin-bottom:    16px;
+  box-shadow:       var(--shadow-card);
+}
+
+.stat-item {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            4px;
+  flex:           1;
+  text-align:     center;
+}
+
+/* Stat icon — above number */
+.stat-icon {
+  width:  28px;
+  height: 28px;
+}
+
+/* Large number */
+.stat-number {
+  font-size:   22px;
+  font-weight: 700;
+  color:       var(--color-navy);
+  line-height: 1;
+}
+
+/* Label (e.g. 'Active') */
+.stat-label {
+  font-size:   11px;
+  color:       var(--color-text-mid);
+  font-weight: 500;
+}
+
+/* Sub-label (e.g. 'Projects') above the number */
+.stat-category {
+  font-size:   10px;
+  color:       var(--color-text-light);
+}
+
+/* Stat icon colours (from mockup) */
+.stat-icon.teal     { color: var(--color-teal);     }
+.stat-icon.orange   { color: var(--color-orange);   }
+.stat-icon.yellow   { color: var(--color-yellow);   }
+.stat-icon.orange-red { color: #FF4757; }
+
+/* Vertical divider between stat items */
+.stat-item + .stat-item {
+  border-left: 1px solid var(--color-border);
+}
+
+
+/* =====================================================
+   27. PROFILE MENU ROWS (profile.html)
+   6 rows: Personal Info / Team & Roles / My Reflections /
+   Achievements / Settings / Log Out
+   ===================================================== */
+
+.menu-list { margin-top: 4px; }
+
+.menu-row {
+  display:       flex;
+  align-items:   center;
+  gap:           14px;
+  padding:       14px 0;
+  border-bottom: 1px solid var(--color-border);
+  cursor:        pointer;
+  transition:    background-color var(--transition-fast);
+}
+
+.menu-row:hover {
+  background-color: var(--color-bg);
+  margin-left:  -4px;
+  padding-left:  4px;
+}
+
+/* Coloured icon circle */
+.menu-row-icon-circle {
+  width:           40px;
+  height:          40px;
+  min-width:       40px;
+  border-radius:   var(--radius-circle);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  flex-shrink:     0;
+}
+
+.menu-row-icon-circle svg {
+  width:  18px;
+  height: 18px;
+  color:  #FFFFFF;
+}
+
+/* Icon circle backgrounds per row */
+.menu-row-icon-circle.teal-bg {
+  background-color: #CCFBF1; /* light teal */
+}
+.menu-row-icon-circle.teal-bg svg { color: var(--color-teal); }
+
+.menu-row-icon-circle.orange-bg {
+  background-color: #FFE4D6;
+}
+.menu-row-icon-circle.orange-bg svg { color: var(--color-orange); }
+
+.menu-row-icon-circle.yellow-bg {
+  background-color: #FEF3C7;
+}
+.menu-row-icon-circle.yellow-bg svg { color: #D97706; }
+
+.menu-row-icon-circle.red-bg {
+  background-color: #FEE2E2;
+}
+.menu-row-icon-circle.red-bg svg { color: var(--color-error); }
+
+/* Menu row text */
+.menu-row-text { flex: 1; }
+
+.menu-row-title {
+  font-size:   15px;
+  font-weight: 600;
+  color:       var(--color-navy);
+}
+
+.menu-row-subtitle {
+  font-size:   12px;
+  color:       var(--color-text-mid);
+  margin-top:  2px;
+}
+
+/* Right chevron › */
+.menu-row-chevron {
+  width:       18px;
+  height:      18px;
+  color:       var(--color-text-mid);
+  flex-shrink: 0;
+}
+
+/* LOG OUT row — red text override */
+.menu-row.logout .menu-row-title { color: var(--color-error); }
+
+
+/* =====================================================
+   28. ACHIEVEMENT BADGE — HEXAGONAL
+   Hexagonal teal shape + gold ribbon + name + date.
+   CSS clip-path creates the 6-sided shape.
+   ===================================================== */
+
+.achievement-section { margin-top: 16px; }
+
+.achievement-header {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+  margin-bottom:   14px;
+}
+
+.achievement-title {
+  font-size:   16px;
+  font-weight: 700;
+  color:       var(--color-navy);
+}
+
+.badge-card {
+  background-color: var(--color-card);
+  border:           1px solid var(--color-border);
+  border-radius:    var(--radius-lg);
+  padding:          24px 20px 20px;
+  display:          flex;
+  flex-direction:   column;
+  align-items:      center;
+  text-align:       center;
+  box-shadow:       var(--shadow-card);
+}
+
+/* Hexagonal shape using clip-path polygon */
+.badge-hex {
+  width:            90px;
+  height:           90px;
+  background-color: var(--color-teal);
+  clip-path:        polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  margin-bottom:    4px;
+  position:         relative;
+}
+
+.badge-hex-icon {
+  width:  44px;
+  height: 44px;
+  color:  #FFFFFF;
+}
+
+/* Gold ribbon below the hexagon */
+.badge-ribbon {
+  display:       flex;
+  gap:           3px;
+  margin-bottom: 12px;
+}
+
+.badge-ribbon-stripe {
+  width:            18px;
+  height:           26px;
+  background-color: var(--color-yellow);
+  /* trapezoid shape — wider at top, narrow at bottom */
+  clip-path:        polygon(8% 0%, 92% 0%, 100% 100%, 0% 100%);
+}
+
+.badge-name {
+  font-size:     16px;
+  font-weight:   700;
+  color:         var(--color-navy);
+  margin-bottom: 4px;
+}
+
+.badge-desc {
+  font-size:   12px;
+  color:       var(--color-text-mid);
+  line-height: 1.45;
+  margin-bottom: 4px;
+}
+
+.badge-date {
+  font-size: 11px;
+  color:     var(--color-text-light);
+}
+
+/* Locked badge — grey, not yet earned */
+.badge-card.locked .badge-hex {
+  background-color: var(--color-border);
+  filter:           grayscale(1);
+}
+
+.badge-card.locked .badge-ribbon-stripe {
+  background-color: var(--color-border);
+}
+
+.badge-card.locked .badge-name {
+  color: var(--color-text-mid);
+}
+
+
+/* =====================================================
+   29. MOTIVATIONAL QUOTE BOX (profile.html)
+   Large orange decorative quotation marks + text.
+   ===================================================== */
+
+.quote-box {
+  background-color: var(--color-card);
+  border:           1px solid var(--color-border);
+  border-radius:    var(--radius-lg);
+  padding:          20px;
+  margin-top:       16px;
+  box-shadow:       var(--shadow-card);
+}
+
+/* Large decorative " quotation mark */
+.quote-mark {
+  font-size:     52px;
+  font-weight:   700;
+  color:         var(--color-orange);
+  line-height:   1;
+  margin-bottom: -12px;  /* overlaps with title slightly */
+  display:       block;
+}
+
+.quote-title {
+  font-size:     16px;
+  font-weight:   700;
+  color:         var(--color-navy);
+  margin-bottom: 6px;
+}
+
+.quote-text {
+  font-size:   13px;
+  color:       var(--color-text-mid);
+  line-height: 1.6;
+}
+
+
+/* =====================================================
+   30. UTILITY CLASSES & TOAST NOTIFICATION
+   ===================================================== */
+
+/* ── Display ──────────────────────────────────────── */
+.hidden          { display: none !important; }
+.d-flex          { display: flex; }
+.flex-center     { display: flex; align-items: center; justify-content: center; }
+.flex-between    { display: flex; align-items: center; justify-content: space-between; }
+.flex-start      { display: flex; align-items: flex-start; }
+.flex-col        { display: flex; flex-direction: column; }
+.flex-wrap       { flex-wrap: wrap; }
+
+/* ── Gap ──────────────────────────────────────────── */
+.gap-xs  { gap: 4px;  }
+.gap-sm  { gap: 8px;  }
+.gap-md  { gap: 12px; }
+.gap-lg  { gap: 16px; }
+.gap-xl  { gap: 24px; }
+
+/* ── Margin ───────────────────────────────────────── */
+.mt-xs   { margin-top:    4px;  }
+.mt-sm   { margin-top:    8px;  }
+.mt-md   { margin-top:    16px; }
+.mt-lg   { margin-top:    24px; }
+.mb-xs   { margin-bottom: 4px;  }
+.mb-sm   { margin-bottom: 8px;  }
+.mb-md   { margin-bottom: 16px; }
+.mb-lg   { margin-bottom: 24px; }
+
+/* ── Text alignment ───────────────────────────────── */
+.text-center { text-align: center; }
+.text-left   { text-align: left;   }
+.text-right  { text-align: right;  }
+
+/* ── Overflow ─────────────────────────────────────── */
+.truncate {
+  white-space:   nowrap;
+  overflow:      hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Full width ───────────────────────────────────── */
+.w-full  { width:   100%; }
+.h-full  { height:  100%; }
+
+/* ── Cursor ───────────────────────────────────────── */
+.pointer { cursor: pointer; }
+
+/* ── No select ────────────────────────────────────── */
+.no-select { user-select: none; }
+
+/* ── Z-INDEX LAYERS (use consistently) ───────────────
+   z-index: 0   = blob, dot grid (behind content)
+   z-index: 1   = hero image
+   z-index: 2   = page text (above blob and hero)
+   z-index: 90  = FAB button
+   z-index: 100 = header + bottom nav
+   z-index: 200 = modals, overlays
+   ─────────────────────────────────────────────────── */
+
+/* ── DIVIDER LINE ─────────────────────────────────── */
+.divider {
+  width:            100%;
+  height:           1px;
+  background-color: var(--color-border);
+  margin:           12px 0;
+}
+
+/* ── TOAST NOTIFICATION ───────────────────────────── */
+.toast {
+  position:         fixed;
+  bottom:           calc(var(--nav-height) + 16px);
+  left:             50%;
+  transform:        translateX(-50%);
+  max-width:        calc(var(--app-max-width) - 40px);
+  background-color: var(--color-navy);
+  color:            #FFFFFF;
+  padding:          12px 24px;
+  border-radius:    var(--radius-pill);
+  font-family:      var(--font-main);
+  font-size:        14px;
+  font-weight:      500;
+  z-index:          200;
+  opacity:          0;
+  pointer-events:   none;
+  white-space:      nowrap;
+  transition:       opacity 0.3s ease, bottom 0.3s ease;
+}
+
+.toast.show {
+  opacity:       1;
+  pointer-events: auto;
+  bottom:        calc(var(--nav-height) + 28px);
+}
+
+.toast.success { background-color: var(--color-teal);  }
+.toast.error   { background-color: var(--color-error); }
+.toast.warning { background-color: var(--color-orange); }
+
+/* ── LOADING SPINNER ──────────────────────────────── */
+.spinner {
+  width:         24px;
+  height:        24px;
+  border:        3px solid var(--color-border);
+  border-top:    3px solid var(--color-teal);
+  border-radius: var(--radius-circle);
+  animation:     spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── OVERLAY SCRIM ────────────────────────────────── */
+.scrim {
+  position:         fixed;
+  inset:            0;
+  background-color: rgba(7, 27, 61, 0.45);
+  z-index:          150;
+  display:          none;
+}
+
+.scrim.show { display: block; }
+
+/* ── SECTION SPACER ───────────────────────────────── */
+.section-gap { margin-bottom: 24px; }
+
+/* ── SUBTLE SECTION LABEL ─────────────────────────── */
+.section-label {
+  font-size:     11px;
+  font-weight:   600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color:          var(--color-text-light);
+  margin-bottom:  8px;
+}
+
+
+/* =====================================================
+   END OF css/style.css
+   Smart DT Project V3 — POLIPD 2026
+   =====================================================
+   REMINDERS:
+   - Link this file in EVERY HTML page
+   - Change colours ONLY inside :root variables
+   - Add new component styles above Utility Classes
+   - Test on 390px screen width after every change
+   - Never paste CSS directly inside HTML pages
+   ===================================================== */

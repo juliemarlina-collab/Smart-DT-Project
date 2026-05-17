@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Smart DT Project — Phase 01: Empathy">
+  <title>Phase 01: Empathy — Smart DT Project</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body { background-color: var(--color-bg); overflow-x: hidden; }
+
+    .hamburger-btn {
+      width:36px; height:36px; display:flex; align-items:center;
+      justify-content:center; border-radius:var(--radius-sm);
+      background-color:var(--color-bg); border:1px solid var(--color-border);
+      cursor:pointer; flex-shrink:0;
+    }
+    .hamburger-btn svg {
+      width:20px; height:20px; stroke:var(--color-navy); fill:none;
+      stroke-width:2; stroke-linecap:round;
+    }
+    .phase-header {
+      position:relative; padding:calc(var(--header-height) + 16px) 20px 0;
+      overflow:hidden; min-height:240px;
+    }
+    .phase-content {
+      padding:16px 20px calc(var(--nav-height) + 24px);
+      position:relative; z-index:2;
+    }
+    .back-link {
+      display:inline-flex; align-items:center; gap:6px; font-size:13px;
+      font-weight:500; color:var(--color-text-mid); text-decoration:none;
+      margin-bottom:8px; position:relative; z-index:2;
+    }
+    .back-link:hover { color:var(--color-navy); }
+    .back-link svg {
+      width:16px; height:16px; stroke:currentColor; fill:none;
+      stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
+    }
+    .nav-icon svg {
+      width:24px; height:24px; fill:none; stroke:currentColor;
+      stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
+    }
+  </style>
+</head>
+
+<body data-dots="true">
+<div class="app-container">
+
+  <img src="https://res.cloudinary.com/dmj9fqkrl/image/upload/v1779027549/pink-blob_jakcn5.png"
+       class="pink-blob" alt="" aria-hidden="true"
+       onerror="this.style.display='none'">
+
+  <!-- HEADER -->
+  <header class="header" role="banner">
+    <a href="dashboard.html" class="header-logo"
+       aria-label="Smart DT Project — back to dashboard">
+      <img src="https://res.cloudinary.com/dmj9fqkrl/image/upload/v1779027460/logo-icon_lxo0z0.png" class="header-logo-icon"
+           alt="Smart DT Project logo" onerror="this.style.display='none'">
+      <span class="header-logo-text">Smart DT<br>Project</span>
+    </a>
+    <div class="header-right">
+      <div class="phase-counter" aria-label="Phase 01 of 5">
+        <span class="phase-counter-current">01</span>
+        <span class="phase-counter-sep"> / </span>
+        <span class="phase-counter-total">05</span>
+      </div>
+      <button class="hamburger-btn" id="hamburger-btn"
+              aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <line x1="3" y1="6"  x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- PHASE HEADER -->
+  <section class="phase-header" aria-label="Empathy phase introduction">
+    <div class="hero-wrap" aria-hidden="true">
+      <img src="https://res.cloudinary.com/dmj9fqkrl/image/upload/v1779027465/empathy-hero_x0oyec.png" class="hero-img"
+           alt="Student pointing at a phone interface" onerror="this.style.display='none'">
+    </div>
+    <div class="page-header-text">
+      <a href="dashboard.html" class="back-link" aria-label="Back to dashboard">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        Dashboard
+      </a>
+      <div class="phase-badge" aria-hidden="true">01</div>
+      <div class="phase-title-area">
+        <p class="phase-title-line"><span class="word-accent">Empathy</span></p>
+        <p class="phase-title-line"><span class="word-phase">Phase</span></p>
+        <p class="phase-description">Understand people deeply to discover real needs before we solve.</p>
+        <div class="orange-underline" aria-hidden="true"></div>
+        <p class="phase-tagline">Smarter Learning.<br>Better Solutions.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="phase-content" role="main">
+
+    <!-- TAB BAR -->
+    <div class="tab-bar" role="tablist" aria-label="Phase navigation">
+      <button class="tab-btn active" data-tab="info"
+              id="tab-btn-info" role="tab"
+              aria-selected="true" aria-controls="tab-info">
+        Quick Info
+      </button>
+      <button class="tab-btn" data-tab="quiz"
+              id="tab-btn-quiz" role="tab"
+              aria-selected="false" aria-controls="tab-quiz">
+        Quiz
+      </button>
+      <button class="tab-btn locked" data-tab="templates"
+              id="tab-btn-templates" role="tab"
+              aria-selected="false" aria-controls="tab-templates"
+              aria-describedby="templates-lock-hint">
+        Templates
+      </button>
+    </div>
+    <p id="templates-lock-hint" class="tab-lock-hint">
+      Pass the quiz to unlock Templates
+    </p>
+
+
+    <!-- TAB 1: QUICK INFO -->
+    <div class="tab-panel" id="tab-info"
+         role="tabpanel" aria-labelledby="tab-btn-info">
+
+      <div class="phase-content-grid">
+
+        <!-- Carousel -->
+        <div>
+          <div class="carousel-wrap" id="phase-carousel"
+               aria-label="Empathy phase information slides">
+            <div class="carousel-track" id="carousel-track">
+              
+            <div class="carousel-slide"
+                 role="group" aria-roledescription="slide"
+                 aria-label="Slide 1 of 4: Empathy is the first step">
+              <div class="carousel-slide-illustration" aria-hidden="true">
+                <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"
+                     style="display:block;width:80px;height:80px">
+                  <circle cx="40" cy="22" r="12" fill="#14B8A6" opacity=".2"/><path d="M28 50c0-6.6 5.4-12 12-12s12 5.4 12 12" fill="none" stroke="#14B8A6" stroke-width="2"/><path d="M40 68c0 0-14-9-14-18a8 8 0 0 1 14-5.3A8 8 0 0 1 54 50c0 9-14 18-14 18z" fill="#FF6A3D" opacity=".7"/>
+                </svg>
+              </div>
+              <div class="carousel-slide-content">
+                <p class="carousel-slide-title">Empathy is the first step</p>
+                <p class="carousel-slide-text">Listen, observe and understand your users' world before thinking about solutions.</p>
+              </div>
+            </div>
+            <div class="carousel-slide"
+                 role="group" aria-roledescription="slide"
+                 aria-label="Slide 2 of 4: Why empathy matters"
+                 aria-hidden="true">
+              <div class="carousel-slide-illustration" aria-hidden="true">
+                <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"
+                     style="display:block;width:80px;height:80px">
+                  <circle cx="40" cy="40" r="28" fill="#14B8A6" opacity=".12"/><path d="M50 32a12 12 0 1 0-12 20v8" stroke="#14B8A6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="38" cy="62" r="2" fill="#14B8A6"/>
+                </svg>
+              </div>
+              <div class="carousel-slide-content">
+                <p class="carousel-slide-title">Why empathy matters</p>
+                <p class="carousel-slide-text">Without understanding real user feelings, you risk building solutions nobody needs.</p>
+              </div>
+            </div>
+            <div class="carousel-slide"
+                 role="group" aria-roledescription="slide"
+                 aria-label="Slide 3 of 4: Your empathy tools"
+                 aria-hidden="true">
+              <div class="carousel-slide-illustration" aria-hidden="true">
+                <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"
+                     style="display:block;width:80px;height:80px">
+                  <rect x="10" y="10" width="60" height="60" rx="8" fill="#F5A623" opacity=".15"/><line x1="40" y1="10" x2="40" y2="70" stroke="#F5A623" stroke-width="1.5" stroke-dasharray="3 2"/><line x1="10" y1="40" x2="70" y2="40" stroke="#F5A623" stroke-width="1.5" stroke-dasharray="3 2"/>
+                </svg>
+              </div>
+              <div class="carousel-slide-content">
+                <p class="carousel-slide-title">Your empathy tools</p>
+                <p class="carousel-slide-text">Use the Empathy Map to capture what users Say, Think, Do and Feel.</p>
+              </div>
+            </div>
+            <div class="carousel-slide"
+                 role="group" aria-roledescription="slide"
+                 aria-label="Slide 4 of 4: Your goal this phase"
+                 aria-hidden="true">
+              <div class="carousel-slide-illustration" aria-hidden="true">
+                <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"
+                     style="display:block;width:80px;height:80px">
+                  <circle cx="40" cy="40" r="28" fill="#FF6A3D" opacity=".12"/><circle cx="40" cy="40" r="18" stroke="#FF6A3D" stroke-width="2" fill="none"/><circle cx="40" cy="40" r="8" fill="#FF6A3D" opacity=".5"/><circle cx="40" cy="40" r="3" fill="#FF6A3D"/>
+                </svg>
+              </div>
+              <div class="carousel-slide-content">
+                <p class="carousel-slide-title">Your goal this phase</p>
+                <p class="carousel-slide-text">Interview at least 3 real users and complete all 4 Empathy templates.</p>
+              </div>
+            </div>
+            </div>
+          </div>
+          <div class="dot-row" id="carousel-dots"
+               role="tablist" aria-label="Slide navigation">
+            <div class="dot active" role="tab" aria-selected="true"  aria-label="Slide 1"></div>
+            <div class="dot"        role="tab" aria-selected="false" aria-label="Slide 2"></div>
+            <div class="dot"        role="tab" aria-selected="false" aria-label="Slide 3"></div>
+            <div class="dot"        role="tab" aria-selected="false" aria-label="Slide 4"></div>
+          </div>
+        </div>
+
+        <!-- Feature rows -->
+        <div class="feature-list" aria-label="Empathy phase key skills">
+          
+        <div class="feature-row">
+          <div class="feature-icon-box teal" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 8a6 6 0 1 1 12 0c0 3-2 4-3 6H9c-1-2-3-3-3-6z"/><path d="M9 20a3 3 0 0 0 6 0"/><line x1="12" y1="14" x2="12" y2="20"/>
+            </svg>
+          </div>
+          <div class="feature-text">
+            <p class="feature-text-title">Listen actively</p>
+            <p class="feature-text-desc">Hear what users say.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon-box pink-red" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+            </svg>
+          </div>
+          <div class="feature-text">
+            <p class="feature-text-title">Observe closely</p>
+            <p class="feature-text-desc">See what users do.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon-box yellow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.781.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </div>
+          <div class="feature-text">
+            <p class="feature-text-title">Understand deeply</p>
+            <p class="feature-text-desc">Feel what users feel.</p>
+          </div>
+        </div>
+        </div>
+
+      </div><!-- /.phase-content-grid -->
+
+      <!-- CTA -->
+      <div class="cta-row">
+        <button class="btn-primary" id="cta-btn"
+                aria-label="Let's Get Started with Phase 01 Empathy">
+          Let's Get Started
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5"
+               stroke-linecap="round" stroke-linejoin="round"
+               aria-hidden="true" style="flex-shrink:0">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+        <button class="btn-arrow-circle" id="cta-arrow-btn"
+                aria-label="Let's Get Started">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="2.5" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Progress line -->
+      <div class="phase-progress-line" aria-label="Phase progress indicator">
+        
+      <div class="line-segment done" aria-label="Phase 1"></div>
+      <div class="line-segment" aria-label="Phase 2"></div>
+      <div class="line-segment" aria-label="Phase 3"></div>
+      <div class="line-segment" aria-label="Phase 4"></div>
+      <div class="line-segment" aria-label="Phase 5"></div>
+      </div>
+
+    </div><!-- /#tab-info -->
+
+
+    <!-- TAB 2: QUIZ -->
+    <div class="tab-panel hidden" id="tab-quiz"
+         role="tabpanel" aria-labelledby="tab-btn-quiz">
+      <!--
+        phase-engine.js renders the quiz here.
+        initQuiz(01) builds one question at a time inside this div.
+      -->
+      <div id="quiz-container"></div>
+    </div><!-- /#tab-quiz -->
+
+
+    <!-- TAB 3: TEMPLATES -->
+    <div class="tab-panel hidden" id="tab-templates"
+         role="tabpanel" aria-labelledby="tab-btn-templates">
+      <!--
+        Auto-saved every 500ms by phase-engine.js initTemplateForm().
+        namespace = "df_p01_" — all localStorage keys prefixed here.
+      -->
+      <form id="template-form" novalidate>
+        
+          <section class="template-section" aria-label="T01 Interview Guide">
+            <div class="template-section-header">
+              <span class="template-badge">T01</span>
+              <h3 class="template-section-title">Interview Guide</h3>
+            </div>
+            
+            <label class="form-label" for="t01_date">Interview Date</label>
+            <input id="t01_date" name="t01_date" type="date" class="form-input">
+            <label class="form-label" for="t01_location">Location / Method</label>
+            <input id="t01_location" name="t01_location" type="text" class="form-input"
+                   placeholder="e.g. Canteen, Google Meet">
+            <label class="form-label" for="t01_participant">Participant Name / Code</label>
+            <input id="t01_participant" name="t01_participant" type="text" class="form-input"
+                   placeholder="e.g. User A">
+            <label class="form-label" for="t01_q1">Q1 — Describe your typical experience with this problem.</label>
+            <textarea id="t01_q1" name="t01_q1" class="form-input"
+                      rows="3" placeholder=""></textarea>
+            <label class="form-label" for="t01_q2">Q2 — How does it make you feel when this happens?</label>
+            <textarea id="t01_q2" name="t01_q2" class="form-input"
+                      rows="3" placeholder=""></textarea>
+            <label class="form-label" for="t01_q3">Q3 — What have you tried to solve it?</label>
+            <textarea id="t01_q3" name="t01_q3" class="form-input"
+                      rows="3" placeholder=""></textarea>
+            <label class="form-label" for="t01_notes">Additional Notes</label>
+            <textarea id="t01_notes" name="t01_notes" class="form-input"
+                      rows="3" placeholder=""></textarea>
+          </section>
+          <section class="template-section" aria-label="T02 Empathy Map">
+            <div class="template-section-header">
+              <span class="template-badge">T02</span>
+              <h3 class="template-section-title">Empathy Map</h3>
+            </div>
+            
+            <label class="form-label" for="t02_says">SAYS — Quotes and key phrases from the user</label>
+            <textarea id="t02_says" name="t02_says" class="form-input"
+                      rows="3" placeholder=""></textarea>
+            <label class="form-label" for="t02_thinks">THINKS — What they might be thinking but not saying</label>
+            <textarea id="t02_thinks" name="t02_thinks" class="form-input"
+                      rows="3" placeholder=""></textarea>
+            <label class="form-label" for="t02_does">DOES — Actions and behaviours observed</label>
+            <textarea id="t02_does" name="t02_does" class="form-input"
+                      rows="3" placeholder=""></textarea>
+            <label class="form-label" for="t02_feels">FEELS — Emotions and feelings expressed or implied</label>
+            <textarea id="t02_feels" name="t02_feels" class="form-input"
+                      rows="3" placeholder=""></textarea>
+          </section>
+          <section class="template-section" aria-label="T03 User Persona">
+            <div class="template-section-header">
+              <span class="template-badge">T03</span>
+              <h3 class="template-section-title">User Persona</h3>
+            </div>
+            
+            <label class="form-label" for="t03_name">Persona Name</label>
+            <input id="t03_name" name="t03_name" type="text" class="form-input"
+                   placeholder="e.g. Aina the Busy Student">
+            <label class="form-label" for="t03_age">Age / Background</label>
+            <input id="t03_age" name="t03_age" type="text" class="form-input"
+                   placeholder="e.g. 20, Diploma Semester 3">
+            <label class="form-label" for="t03_goals">Goals — What does this person want to achieve?</label>
+            <textarea id="t03_goals" name="t03_goals" class="form-input"
+                      rows="3" placeholder=""></textarea>
+            <label class="form-label" for="t03_pains">Pain Points — What frustrates or blocks them?</label>
+            <textarea id="t03_pains" name="t03_pains" class="form-input"
+                      rows="3" placeholder=""></textarea>
+            <label class="form-label" for="t03_quote">Key Quote — One sentence that captures their situation</label>
+            <textarea id="t03_quote" name="t03_quote" class="form-input"
+                      rows="3" placeholder=""></textarea>
+          </section>
+          <section class="template-section" aria-label="T04 User Needs Summary">
+            <div class="template-section-header">
+              <span class="template-badge">T04</span>
+              <h3 class="template-section-title">User Needs Summary</h3>
+            </div>
+            
+            <label class="form-label" for="t04_needs">Core User Needs — List 3–5 real needs discovered</label>
+            <textarea id="t04_needs" name="t04_needs" class="form-input"
+                      rows="3" placeholder=""></textarea>
+            <label class="form-label" for="t04_insights">Key Insights — What surprised you most?</label>
+            <textarea id="t04_insights" name="t04_insights" class="form-input"
+                      rows="3" placeholder=""></textarea>
+            <label class="form-label" for="t04_hmw">First How Might We… Question</label>
+            <textarea id="t04_hmw" name="t04_hmw" class="form-input"
+                      rows="3" placeholder="How might we help [user] to…"></textarea>
+          </section>
+
+        <!-- Submit phase button -->
+        <div style="margin-top:24px">
+          <button type="button" class="btn-primary"
+                  onclick="PhaseEngine.submitPhase(1, '', ['df_p01_'])"
+                  aria-label="Submit Phase 01 Empathy">
+            Submit Phase 01
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.5"
+                 stroke-linecap="round" stroke-linejoin="round"
+                 aria-hidden="true" style="flex-shrink:0">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </button>
+        </div>
+
+      </form><!-- /#template-form -->
+
+      
+
+    </div><!-- /#tab-templates -->
+
+  </main><!-- /.phase-content -->
+
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+    <a href="dashboard.html" class="nav-item"
+       data-page="dashboard.html" aria-label="Dashboard">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </span>
+      <span class="nav-label">Dashboard</span>
+    </a>
+    <a href="dashboard.html" class="nav-item"
+       data-page="learn" aria-label="Learn">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M9 18h6M10 22h4"/>
+          <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
+        </svg>
+      </span>
+      <span class="nav-label">Learn</span>
+    </a>
+    <a href="phase01-empathy.html" class="nav-item"
+       data-page="projects" aria-label="Projects">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+      </span>
+      <span class="nav-label">Projects</span>
+    </a>
+    <a href="progress.html" class="nav-item"
+       data-page="progress.html" aria-label="Progress">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <polyline points="14 11 17 14 22 9"/>
+          <path d="M22 12v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/>
+        </svg>
+      </span>
+      <span class="nav-label">Progress</span>
+    </a>
+    <a href="profile.html" class="nav-item"
+       data-page="profile.html" aria-label="Profile">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </span>
+      <span class="nav-label">Profile</span>
+    </a>
+  </nav>
+
+</div><!-- /.app-container -->
+
+
+<!-- SCRIPTS — data.js → ui.js → phase-engine.js → inline -->
+<script src="js/data.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/phase-engine.js"></script>
+
+<script>
+  'use strict';
+
+  /* PhaseEngine.init() queues its own DOMContentLoaded internally.
+     Calling it here (synchronously) is correct — it registers the
+     handler before the DOM fires, so nothing is missed.            */
+  PhaseEngine.init({
+    phaseNum:  1,
+      hasGate:   false,
+    namespace: 'df_p01_',
+    sheetUrl:  '',
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+
+    /* CTA → switch to Quiz tab */
+    var cta   = document.getElementById('cta-btn');
+    var arrow = document.getElementById('cta-arrow-btn');
+    function goToQuiz() {
+      var quizTab = document.querySelector('.tab-btn[data-tab="quiz"]');
+      if (quizTab) quizTab.click();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    if (cta)   cta.addEventListener('click', goToQuiz);
+    if (arrow) arrow.addEventListener('click', goToQuiz);
+
+    /* Hamburger */
+    var hbtn = document.getElementById('hamburger-btn');
+    if (hbtn) {
+      hbtn.addEventListener('click', function () {
+        var exp = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!exp));
+      });
+    }
+
+  });
+</script>
+
+</body>
+</html>

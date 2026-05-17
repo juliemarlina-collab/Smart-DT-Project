@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Smart DT Project — My Progress">
+  <title>Progress — Smart DT Project</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body { background-color: var(--color-bg); overflow-x: hidden; }
+
+    /* ── Page header ──────────────────────────────────────── */
+    .progress-header {
+      padding: calc(var(--header-height) + 20px) 20px 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .page-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--color-navy);
+      margin-bottom: 4px;
+    }
+
+    .page-subtitle {
+      font-size: 13px;
+      color: var(--color-text-mid);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* ── Scrollable content ───────────────────────────────── */
+    .progress-content {
+      padding: 0 20px calc(var(--nav-height) + 24px);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ── Overall progress card ────────────────────────────── */
+    .overall-card {
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    .overall-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .overall-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-text-mid);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .overall-pct {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--color-teal);
+      line-height: 1;
+    }
+
+    .overall-pct-small {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-mid);
+    }
+
+    /* ── Section heading ──────────────────────────────────── */
+    .section-heading {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-navy);
+      margin: 20px 0 10px;
+    }
+
+    /* ── Phase progress cards ─────────────────────────────── */
+    .phase-card {
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: box-shadow var(--transition-fast);
+    }
+
+    .phase-card:hover { box-shadow: 0 4px 20px rgba(7,27,61,0.13); }
+
+    /* Phase number badge — matches .phase-badge from style.css size
+       but smaller here for list context                            */
+    .phase-card-badge {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      border-radius: var(--radius-sm);
+      background-color: var(--color-teal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: #FFFFFF;
+      flex-shrink: 0;
+    }
+
+    .phase-card-badge.locked { background-color: var(--color-border); }
+    .phase-card-badge.done   { background-color: var(--color-teal);   }
+
+    .phase-card-body { flex: 1; min-width: 0; }
+
+    .phase-card-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-navy);
+      margin-bottom: 4px;
+    }
+
+    /* Mini status row: quiz · templates · submitted */
+    .phase-card-stats {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mini-tag {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      white-space: nowrap;
+    }
+
+    .mini-tag.pass    { background: var(--color-success-bg); color: var(--color-success-text); }
+    .mini-tag.pending { background: #FEF3C7; color: #92400E; }
+    .mini-tag.done    { background: #DBEAFE; color: #1E40AF; }
+    .mini-tag.locked  { background: var(--color-bg); color: var(--color-text-light);
+                        border: 1px solid var(--color-border); }
+
+    .phase-card-chevron {
+      width: 18px;
+      height: 18px;
+      color: var(--color-text-mid);
+      flex-shrink: 0;
+    }
+
+    /* ── Gate status row ──────────────────────────────────── */
+    .gate-row {
+      background: var(--color-card);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-card);
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .gate-icon-circle {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border-radius: var(--radius-circle);
+      background: var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .gate-icon-circle.approved { background: var(--color-success-bg); }
+
+    .gate-icon-circle svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .gate-text { flex: 1; }
+
+    .gate-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-navy);
+    }
+
+    .gate-subtitle {
+      font-size: 11px;
+      color: var(--color-text-mid);
+      margin-top: 2px;
+    }
+
+    .gate-status {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      flex-shrink: 0;
+    }
+
+    .gate-status.pending  { background: #FEF3C7; color: #92400E; }
+    .gate-status.approved { background: var(--color-success-bg); color: var(--color-success-text); }
+
+    /* ── Badge grid ───────────────────────────────────────── */
+    .badge-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    /* .badge-card and .badge-card.locked already in style.css */
+    /* Smaller version for grid layout */
+    .badge-card {
+      padding: 16px 12px 14px;
+    }
+
+    .badge-hex {
+      width: 64px;
+      height: 64px;
+    }
+
+    .badge-hex-icon {
+      width: 30px;
+      height: 30px;
+    }
+
+    /* ── Nav inline SVG ───────────────────────────────────── */
+    .nav-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  </style>
+</head>
+
+<body data-dots="true">
+<div class="app-container">
+
+  <img src="https://res.cloudinary.com/dmj9fqkrl/image/upload/v1779027549/pink-blob_jakcn5.png"
+       class="pink-blob" alt="" aria-hidden="true"
+       onerror="this.style.display='none'">
+
+
+  <!-- HEADER ────────────────────────────────────────────── -->
+  <header class="header" role="banner">
+    <a href="dashboard.html" class="header-logo"
+       aria-label="Smart DT Project home">
+      <img src="https://res.cloudinary.com/dmj9fqkrl/image/upload/v1779027460/logo-icon_lxo0z0.png"
+           class="header-logo-icon" alt="Smart DT Project logo"
+           onerror="this.style.display='none'">
+      <span class="header-logo-text">Smart DT<br>Project</span>
+    </a>
+    <div class="header-right">
+      <!-- Avatar → profile.html -->
+      <div class="header-avatar-initials" id="header-initials"
+           aria-hidden="true" style="cursor:pointer"
+           onclick="window.location.href='profile.html'"
+           title="My Profile">S</div>
+    </div>
+  </header>
+
+
+  <!-- PAGE HEADER ───────────────────────────────────────── -->
+  <div class="progress-header">
+    <h1 class="page-title">My Progress</h1>
+    <p class="page-subtitle">
+      Track your Design Thinking journey phase by phase.
+    </p>
+  </div>
+
+
+  <!-- MAIN CONTENT ──────────────────────────────────────── -->
+  <main class="progress-content" role="main">
+
+
+    <!-- OVERALL PROGRESS CARD ──────────────────────────── -->
+    <div class="overall-card" role="region" aria-label="Overall progress">
+      <div class="overall-card-header">
+        <div>
+          <p class="overall-label">Overall Progress</p>
+          <p style="font-size:13px;color:var(--color-text-mid);margin-top:2px"
+             id="phases-complete-text">0 of 5 phases complete</p>
+        </div>
+        <div style="text-align:right">
+          <p class="overall-pct" id="overall-pct">0%</p>
+          <p class="overall-pct-small">completed</p>
+        </div>
+      </div>
+
+      <!-- Progress bar — width set by JS -->
+      <div class="progress-bar-wrap"
+           role="progressbar"
+           aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+           aria-label="Overall progress">
+        <div class="progress-bar-fill" id="overall-bar" style="width:0%"></div>
+      </div>
+    </div><!-- /.overall-card -->
+
+
+    <!-- PHASE CARDS ────────────────────────────────────── -->
+    <p class="section-heading">Phase Progress</p>
+
+    <!-- Phase cards built by renderPhaseCards() below -->
+    <div id="phase-cards-container">
+      <!-- Filled by JS -->
+    </div>
+
+
+    <!-- SUPERVISOR GATES ──────────────────────────────── -->
+    <p class="section-heading">Supervisor Gates</p>
+
+    <div id="gate-container">
+      <!-- Filled by JS -->
+    </div>
+
+
+    <!-- BADGES ─────────────────────────────────────────── -->
+    <div class="achievement-section">
+      <div class="achievement-header">
+        <p class="achievement-title">Achievements</p>
+        <a href="profile.html" class="btn-text-teal"
+           aria-label="View all achievements on profile">View All</a>
+      </div>
+      <div class="badge-grid" id="badge-grid">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+
+
+  </main><!-- /.progress-content -->
+
+
+  <!-- BOTTOM NAV ─────────────────────────────────────────
+       _setNavActive() marks data-page="progress.html" active -->
+  <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+
+    <a href="dashboard.html" class="nav-item"
+       data-page="dashboard.html" aria-label="Dashboard">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </span>
+      <span class="nav-label">Dashboard</span>
+    </a>
+
+    <a href="dashboard.html" class="nav-item"
+       data-page="learn" aria-label="Learn">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M9 18h6M10 22h4"/>
+          <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
+        </svg>
+      </span>
+      <span class="nav-label">Learn</span>
+    </a>
+
+    <a href="phase01-empathy.html" class="nav-item"
+       data-page="projects" aria-label="Projects">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+      </span>
+      <span class="nav-label">Projects</span>
+    </a>
+
+    <a href="progress.html" class="nav-item"
+       data-page="progress.html" aria-label="Progress">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <polyline points="14 11 17 14 22 9"/>
+          <path d="M22 12v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/>
+        </svg>
+      </span>
+      <span class="nav-label">Progress</span>
+    </a>
+
+    <a href="profile.html" class="nav-item"
+       data-page="profile.html" aria-label="Profile">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </span>
+      <span class="nav-label">Profile</span>
+    </a>
+
+  </nav>
+
+</div><!-- /.app-container -->
+
+
+<script src="js/data.js"></script>
+<script src="js/ui.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  'use strict';
+
+  if (typeof window.DT === 'undefined' || typeof window.UI === 'undefined') {
+    return;
+  }
+
+  if (!window.DT.isRegistered()) {
+    window.location.replace('welcome.html');
+    return;
+  }
+
+  /* Update header initials */
+  var initEl = document.getElementById('header-initials');
+  if (initEl) initEl.textContent = window.DT.getInitials();
+
+  /* Overall progress */
+  var pct      = window.DT.calculateOverallProgress();
+  var submitted = window.DT.getAllPhaseProgress().filter(function(p){ return p.submitted; }).length;
+
+  var pctEl  = document.getElementById('overall-pct');
+  var barEl  = document.getElementById('overall-bar');
+  var txtEl  = document.getElementById('phases-complete-text');
+  var barWrap = document.querySelector('.progress-bar-wrap');
+
+  if (pctEl)   pctEl.textContent   = pct + '%';
+  if (barEl)   barEl.style.width   = pct + '%';
+  if (txtEl)   txtEl.textContent   = submitted + ' of 5 phases complete';
+  if (barWrap) barWrap.setAttribute('aria-valuenow', String(pct));
+
+  /* Phase cards */
+  renderPhaseCards();
+
+  /* Gate rows */
+  renderGates();
+
+  /* Badge grid */
+  renderBadgeGrid();
+
+});
+
+
+/* ── Phase meta ─────────────────────────────────────────── */
+var PHASE_META = [
+  { num:1, label:'Empathize', page:'phase01-empathy.html'  },
+  { num:2, label:'Define',    page:'phase02-define.html'    },
+  { num:3, label:'Ideate',    page:'phase03-ideation.html'  },
+  { num:4, label:'Prototype', page:'phase04-prototype.html' },
+  { num:5, label:'Test',      page:'phase05-test.html'      },
+];
+
+
+/* ── renderPhaseCards() ─────────────────────────────────── */
+function renderPhaseCards() {
+  var container = document.getElementById('phase-cards-container');
+  if (!container) return;
+
+  var html = '';
+  PHASE_META.forEach(function(phase) {
+    var p    = window.DT.getPhaseProgress(phase.num);
+    var pad  = phase.num < 10 ? '0' + phase.num : '' + phase.num;
+
+    /* Badge class */
+    var badgeCls = p.submitted ? 'done' : '';
+
+    /* Status tags */
+    var quizTag = p.quizPassed
+      ? '<span class="mini-tag pass">Quiz ✓</span>'
+      : '<span class="mini-tag locked">Quiz pending</span>';
+
+    var submitTag = p.submitted
+      ? '<span class="mini-tag done">Submitted</span>'
+      : '<span class="mini-tag pending">Not submitted</span>';
+
+    html += '<a href="' + phase.page + '" class="phase-card" '
+      + 'aria-label="Phase ' + phase.num + ': ' + phase.label + '">'
+      + '<div class="phase-card-badge ' + badgeCls + '">' + pad + '</div>'
+      + '<div class="phase-card-body">'
+      + '<p class="phase-card-name">Phase ' + pad + ' — ' + phase.label + '</p>'
+      + '<div class="phase-card-stats">' + quizTag + submitTag + '</div>'
+      + '</div>'
+      + '<svg class="phase-card-chevron" viewBox="0 0 24 24" fill="none" '
+      + 'stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+      + 'stroke-linejoin="round" aria-hidden="true">'
+      + '<polyline points="9 18 15 12 9 6"/></svg>'
+      + '</a>';
+  });
+
+  container.innerHTML = html;
+}
+
+
+/* ── renderGates() ──────────────────────────────────────── */
+function renderGates() {
+  var container = document.getElementById('gate-container');
+  if (!container) return;
+
+  var gates = [
+    { num:1, label:'Gate 1', desc:'After Phase 02 Define' },
+    { num:2, label:'Gate 2', desc:'After Phase 03 Ideation' },
+    { num:3, label:'Gate 3', desc:'After Phase 05 Test' },
+  ];
+
+  var html = '';
+  gates.forEach(function(g) {
+    var approved = window.DT.isGateApproved(g.num);
+    var circleCls = approved ? 'approved' : '';
+    var statusCls = approved ? 'approved' : 'pending';
+    var statusTxt = approved ? 'Approved ✓' : 'Pending';
+
+    /* Lock icon (pending) or checkmark (approved) */
+    var iconSvg = approved
+      ? '<svg viewBox="0 0 24 24" fill="none" stroke="var(--color-green-tag)" '
+        + 'stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
+        + '<polyline points="20 6 9 17 4 12"/></svg>'
+      : '<svg viewBox="0 0 24 24" fill="none" stroke="var(--color-text-mid)" '
+        + 'stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+        + '<rect x="3" y="11" width="18" height="11" rx="2"/>'
+        + '<path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+
+    html += '<div class="gate-row">'
+      + '<div class="gate-icon-circle ' + circleCls + '">' + iconSvg + '</div>'
+      + '<div class="gate-text">'
+      + '<p class="gate-title">' + g.label + '</p>'
+      + '<p class="gate-subtitle">' + g.desc + '</p>'
+      + '</div>'
+      + '<span class="gate-status ' + statusCls + '">' + statusTxt + '</span>'
+      + '</div>';
+  });
+
+  container.innerHTML = html;
+}
+
+
+/* ── renderBadgeGrid() ──────────────────────────────────── */
+function renderBadgeGrid() {
+  var container = document.getElementById('badge-grid');
+  if (!container) return;
+
+  var BADGES = [
+    { key: window.DT.KEYS.BADGE_EXPLORER,  name:'DT Explorer',      desc:'3 of 5 phases submitted'   },
+    { key: window.DT.KEYS.BADGE_EMPATHY,   name:'Empathy Champion', desc:'Empathy Map completed'      },
+    { key: window.DT.KEYS.BADGE_FRAMER,    name:'Problem Framer',   desc:'Gate 1 approved'            },
+    { key: window.DT.KEYS.BADGE_IDEAS,     name:'Idea Generator',   desc:'20+ ideas in brainstorm'    },
+    { key: window.DT.KEYS.BADGE_BUILDER,   name:'Prototype Builder',desc:'2+ iterations logged'       },
+    { key: window.DT.KEYS.BADGE_TESTER,    name:'User Tester',      desc:'3+ feedback forms submitted'},
+    { key: window.DT.KEYS.BADGE_GRADUATE,  name:'DT Graduate',      desc:'All phases + Gate 3'        },
+    { key: window.DT.KEYS.BADGE_PORTFOLIO, name:'Full Portfolio',   desc:'Portfolio submitted'        },
+  ];
+
+  var html = '';
+  BADGES.forEach(function(b) {
+    var earned  = window.DT.hasBadge(b.key);
+    var lockedCls = earned ? '' : ' locked';
+    var dateTxt = earned ? 'Earned ' + todayStr() : 'Not yet earned';
+
+    html += '<div class="badge-card' + lockedCls + '">'
+      + '<div class="badge-hex">'
+      + '<svg class="badge-hex-icon" viewBox="0 0 24 24" fill="none" '
+      + 'stroke="currentColor" stroke-width="1.5" stroke-linecap="round" '
+      + 'stroke-linejoin="round" aria-hidden="true">'
+      + '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25'
+      + 'L7 14.14 2 9.27l6.91-1.01L12 2z"/>'
+      + '</svg></div>'
+      + '<div class="badge-ribbon">'
+      + '<div class="badge-ribbon-stripe"></div>'
+      + '<div class="badge-ribbon-stripe"></div>'
+      + '</div>'
+      + '<p class="badge-name">' + b.name + '</p>'
+      + '<p class="badge-desc">' + b.desc + '</p>'
+      + '<p class="badge-date">' + dateTxt + '</p>'
+      + '</div>';
+  });
+
+  container.innerHTML = html;
+}
+
+
+/* ── Helpers ─────────────────────────────────────────────── */
+function todayStr() {
+  var d = new Date();
+  return d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear();
+}
+</script>
+
+</body>
+</html>
