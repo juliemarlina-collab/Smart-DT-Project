@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Smart DT Project — Phase 05: Test">
+  <title>Phase 05: Test — Smart DT Project</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body { background-color: var(--color-bg); overflow-x: hidden; }
+
+    .hamburger-btn {
+      width:36px; height:36px;
+      display:flex; align-items:center; justify-content:center;
+      border-radius:var(--radius-sm);
+      background-color:var(--color-bg);
+      border:1px solid var(--color-border);
+      cursor:pointer; flex-shrink:0;
+    }
+    .hamburger-btn svg {
+      width:20px; height:20px;
+      stroke:var(--color-navy); fill:none;
+      stroke-width:2; stroke-linecap:round;
+    }
+
+    .phase-header {
+      position:relative;
+      padding:calc(var(--header-height) + 16px) 20px 0;
+      overflow:hidden;
+      min-height:240px;
+    }
+
+    .phase-content {
+      padding:16px 20px calc(var(--nav-height) + 24px);
+      position:relative; z-index:2;
+    }
+
+    .nav-icon svg {
+      width:24px; height:24px;
+      fill:none; stroke:currentColor;
+      stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
+    }
+
+    .back-link {
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:13px; font-weight:500;
+      color:var(--color-text-mid); text-decoration:none;
+      margin-bottom:8px; position:relative; z-index:2;
+    }
+    .back-link:hover { color:var(--color-navy); }
+    .back-link svg {
+      width:16px; height:16px;
+      stroke:currentColor; fill:none;
+      stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
+    }
+  </style>
+</head>
+
+<body data-dots="true">
+<div class="app-container">
+
+  <img src="assets/shared/pink-blob.png"
+       class="pink-blob" alt="" aria-hidden="true"
+       onerror="this.style.display='none'">
+
+
+  <!-- HEADER -->
+  <header class="header" role="banner">
+    <a href="dashboard.html" class="header-logo"
+       aria-label="Smart DT Project — back to dashboard">
+      <img src="assets/brand/logo-icon.png"
+           class="header-logo-icon" alt="Smart DT Project logo"
+           onerror="this.style.display='none'">
+      <span class="header-logo-text">Smart DT<br>Project</span>
+    </a>
+    <div class="header-right">
+      <div class="phase-counter" aria-label="Phase 05 of 5">
+        <span class="phase-counter-current">05</span>
+        <span class="phase-counter-sep"> / </span>
+        <span class="phase-counter-total">05</span>
+      </div>
+      <button class="hamburger-btn" id="hamburger-btn"
+              aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <line x1="3" y1="6"  x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+
+  <!-- PHASE HEADER -->
+  <section class="phase-header" aria-label="Test phase introduction">
+
+    <div class="hero-wrap" aria-hidden="true">
+      <img src="assets/heroes/testing-hero.png"
+           class="hero-img" alt="Student pointing up at a star on a tall bar"
+           onerror="this.style.display='none'">
+    </div>
+
+    <div class="page-header-text">
+
+      <a href="dashboard.html" class="back-link" aria-label="Back to dashboard">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        Dashboard
+      </a>
+
+      <div class="phase-badge" aria-hidden="true">05</div>
+
+      <div class="phase-title-area">
+        <p class="phase-title-line">
+          <span class="word-accent">Test</span>
+        </p>
+        <p class="phase-title-line">
+          <span class="word-phase">Phase</span>
+        </p>
+        <p class="phase-description">Test with real users to validate solutions, gather feedback, and ensure it meets user needs.</p>
+        <div class="orange-underline" aria-hidden="true"></div>
+        <p class="phase-tagline">Real Feedback.<br>Stronger Solutions.</p>
+      </div>
+
+    </div>
+  </section>
+  <!-- TAB BAR -->
+  <div class="tab-bar" role="tablist" aria-label="Phase navigation">
+    <button class="tab-btn active" data-tab="info"
+            role="tab" aria-selected="true" aria-controls="tab-info">
+      Quick Info
+    </button>
+    <button class="tab-btn" data-tab="quiz"
+            role="tab" aria-selected="false" aria-controls="tab-quiz">
+      Quiz
+      <span class="tab-badge" aria-hidden="true">5 Qs</span>
+    </button>
+    <button class="tab-btn locked" data-tab="templates"
+            role="tab" aria-selected="false" aria-controls="tab-templates"
+            title="Pass the quiz to unlock templates">
+      Templates
+      <span class="tab-lock-icon" aria-label="locked">🔒</span>
+    </button>
+  </div>
+
+  <!-- TAB PANEL: QUICK INFO -->
+  <div class="tab-panel" id="tab-info" role="tabpanel">
+
+  <main class="phase-content" role="main">
+
+    <div class="phase-content-grid">
+
+      <!-- Carousel -->
+      <div>
+        <div class="carousel-wrap" id="phase-carousel"
+             aria-label="Test phase information slides">
+          <div class="carousel-track" id="carousel-track">
+            
+            <!-- Slide 1 -->
+            <div class="carousel-slide"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="Slide 1 of 4: Validate with real users">
+              <div class="carousel-slide-illustration" aria-hidden="true">
+                <svg viewBox="0 0 80 80" fill="none"
+                     xmlns="http://www.w3.org/2000/svg"
+                     style="display:block;width:80px;height:80px">
+                  <rect x="26" y="8" width="28" height="52" rx="4" fill="#14B8A6" opacity=".15" stroke="#14B8A6" stroke-width="1.5"/>
+           <rect x="30" y="14" width="20" height="36" rx="2" fill="#14B8A6" opacity=".1"/>
+           <circle cx="40" cy="64" r="2" fill="#14B8A6" opacity=".5"/>
+           <circle cx="40" cy="32" r="10" stroke="#14B8A6" stroke-width="2" fill="none"/>
+           <path d="M40 32 L40 22 A10 10 0 0 1 50 32 Z" fill="#14B8A6" opacity=".5"/>
+           <path d="M40 32 L50 32 A10 10 0 0 1 40 42 Z" fill="#F5A623" opacity=".5"/>
+                </svg>
+              </div>
+              <div class="carousel-slide-content">
+                <p class="carousel-slide-title">Validate with real users</p>
+                <p class="carousel-slide-text">Test your solution in real-world scenarios to see what actually works.</p>
+              </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="carousel-slide"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="Slide 2 of 4: Observe — don't explain"
+                 aria-hidden="true">
+              <div class="carousel-slide-illustration" aria-hidden="true">
+                <svg viewBox="0 0 80 80" fill="none"
+                     xmlns="http://www.w3.org/2000/svg"
+                     style="display:block;width:80px;height:80px">
+                  <circle cx="40" cy="40" r="26" fill="#FF6A3D" opacity=".08"/>
+           <path d="M14 40 C20 28 30 22 40 22 C50 22 60 28 66 40 C60 52 50 58 40 58 C30 58 20 52 14 40 Z" stroke="#FF6A3D" stroke-width="2" fill="none"/>
+           <circle cx="40" cy="40" r="8" stroke="#FF6A3D" stroke-width="2" fill="none"/>
+           <circle cx="40" cy="40" r="3" fill="#FF6A3D"/>
+                </svg>
+              </div>
+              <div class="carousel-slide-content">
+                <p class="carousel-slide-title">Observe — don't explain</p>
+                <p class="carousel-slide-text">Let users interact with your prototype without explaining it. Their struggle is the data.</p>
+              </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="carousel-slide"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="Slide 3 of 4: Your Test tools"
+                 aria-hidden="true">
+              <div class="carousel-slide-illustration" aria-hidden="true">
+                <svg viewBox="0 0 80 80" fill="none"
+                     xmlns="http://www.w3.org/2000/svg"
+                     style="display:block;width:80px;height:80px">
+                  <rect x="18" y="12" width="44" height="56" rx="4" fill="#F5A623" opacity=".1" stroke="#F5A623" stroke-width="1.5"/>
+           <polyline points="26,28 30,32 38,24" stroke="#14B8A6" stroke-width="2" fill="none" stroke-linecap="round"/>
+           <line x1="42" y1="28" x2="54" y2="28" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round"/>
+           <polyline points="26,40 30,44 38,36" stroke="#14B8A6" stroke-width="2" fill="none" stroke-linecap="round"/>
+           <line x1="42" y1="40" x2="54" y2="40" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round"/>
+           <circle cx="28" cy="54" r="4" stroke="#F5A623" stroke-width="1.5" fill="none"/>
+           <line x1="42" y1="54" x2="54" y2="54" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="carousel-slide-content">
+                <p class="carousel-slide-title">Your Test tools</p>
+                <p class="carousel-slide-text">Use User Feedback Forms, the Improvement Plan, and Final Reflection to capture everything.</p>
+              </div>
+            </div>
+            <!-- Slide 4 -->
+            <div class="carousel-slide"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="Slide 4 of 4: Your goal this phase"
+                 aria-hidden="true">
+              <div class="carousel-slide-illustration" aria-hidden="true">
+                <svg viewBox="0 0 80 80" fill="none"
+                     xmlns="http://www.w3.org/2000/svg"
+                     style="display:block;width:80px;height:80px">
+                  <rect x="16" y="10" width="44" height="58" rx="4" fill="#14B8A6" opacity=".1" stroke="#14B8A6" stroke-width="1.5"/>
+           <line x1="24" y1="24" x2="52" y2="24" stroke="#14B8A6" stroke-width="1.5" stroke-linecap="round"/>
+           <line x1="24" y1="32" x2="52" y2="32" stroke="#14B8A6" stroke-width="1.5" stroke-linecap="round"/>
+           <line x1="24" y1="40" x2="52" y2="40" stroke="#14B8A6" stroke-width="1.5" stroke-linecap="round"/>
+           <line x1="24" y1="48" x2="40" y2="48" stroke="#14B8A6" stroke-width="1.5" stroke-linecap="round"/>
+           <path d="M46 52 L54 44 L60 50 L52 58 Z" fill="#FF6A3D" opacity=".5"/>
+                </svg>
+              </div>
+              <div class="carousel-slide-content">
+                <p class="carousel-slide-title">Your goal this phase</p>
+                <p class="carousel-slide-text">Test with at least 3 users, collect feedback, write an improvement plan, and reflect.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dot-row" id="carousel-dots"
+             role="tablist" aria-label="Slide navigation">
+          <div class="dot active" aria-label="Slide 1" role="tab" aria-selected="true"></div>
+          <div class="dot"        aria-label="Slide 2" role="tab" aria-selected="false"></div>
+          <div class="dot"        aria-label="Slide 3" role="tab" aria-selected="false"></div>
+          <div class="dot"        aria-label="Slide 4" role="tab" aria-selected="false"></div>
+        </div>
+      </div>
+
+      <!-- Feature rows -->
+      <div class="feature-list" aria-label="Test phase key skills">
+        
+        <div class="feature-row">
+          <div class="feature-icon-box orange" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="#FFFFFF" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <div class="feature-text">
+            <p class="feature-text-title">Gather feedback</p>
+            <p class="feature-text-desc">Listen to users and collect honest feedback.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon-box teal" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="#FFFFFF" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6"  y1="20" x2="6"  y2="14"/>
+            </svg>
+          </div>
+          <div class="feature-text">
+            <p class="feature-text-title">Analyze results</p>
+            <p class="feature-text-desc">Identify what is working and what can improve.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon-box yellow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="#FFFFFF" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+            </svg>
+          </div>
+          <div class="feature-text">
+            <p class="feature-text-title">Refine & improve</p>
+            <p class="feature-text-desc">Use insights to make your solution even better.</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.phase-content-grid -->
+
+
+    <!-- CTA row -->
+    <div class="cta-row">
+      <button class="btn-primary" id="cta-btn"
+              aria-label="Let's Continue with Phase 05 Test">
+        Let's Continue
+        <svg width="18" height="18" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor"
+             stroke-width="2.5" stroke-linecap="round"
+             stroke-linejoin="round" aria-hidden="true"
+             style="flex-shrink:0">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </button>
+      <button class="btn-arrow-circle" id="cta-arrow-btn" aria-label="Let's Continue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.5" stroke-linecap="round"
+             stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </button>
+    </div>
+
+
+    <!-- Progress line -->
+    <div class="phase-progress-line" aria-label="Phase progress indicator">
+      
+      <div class="line-segment done" aria-label="Phase 1"></div>
+      <div class="line-segment done" aria-label="Phase 2"></div>
+      <div class="line-segment done" aria-label="Phase 3"></div>
+      <div class="line-segment done" aria-label="Phase 4"></div>
+      <div class="line-segment done" aria-label="Phase 5"></div>
+    </div>
+
+  </main>
+
+  </div><!-- /#tab-info -->
+  <!-- TAB PANEL: QUIZ -->
+  <div class="tab-panel hidden" id="tab-quiz" role="tabpanel">
+    <div class="phase-content">
+      <div class="quiz-intro">
+        <p class="quiz-intro-title">Quick Check Quiz</p>
+        <p class="quiz-intro-sub">
+          Answer 5 questions about the Test phase.
+          Score <strong>3 out of 5</strong> to unlock your templates.
+        </p>
+      </div>
+      <div id="quiz-container"></div>
+    </div>
+  </div><!-- /#tab-quiz -->
+  <!-- TAB PANEL: TEMPLATES -->
+  <div class="tab-panel hidden" id="tab-templates" role="tabpanel">
+    <div class="phase-content">
+      <form id="template-form" novalidate>
+
+        <!-- ═══════════════════════════════════════════════════
+             T14 — USER FEEDBACK FORM
+             Capture feedback from at least 3 real users.
+             namespace: df_p05_  keys: t14_*
+             ═══════════════════════════════════════════════════ -->
+        <section class="template-section" aria-label="T14 User Feedback Form">
+          <div class="template-section-header">
+            <span class="template-badge">T14</span>
+            <p class="template-title">User Feedback Form</p>
+          </div>
+
+          <div style="background:rgba(20,184,166,.08);border:1px solid rgba(20,184,166,.25);border-radius:var(--radius-md);padding:12px 14px;margin-bottom:16px">
+            <p style="font-size:12px;font-weight:700;color:var(--color-teal);margin-bottom:6px">🧪 Testing Rule</p>
+            <p style="font-size:12px;color:var(--color-text-dark);line-height:1.55">
+              Test with at least 3 real users. Observe what they do before explaining. Their confusion, questions, and reactions are your data.
+            </p>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label" for="t14_test_date">Test Date</label>
+              <input id="t14_test_date" name="df_p05_t14_test_date" type="date" class="form-input">
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label" for="t14_location">Test Location</label>
+              <input id="t14_location" name="df_p05_t14_location" type="text" class="form-input" placeholder="e.g. Canteen / classroom / online">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t14_prototype_tested">Prototype Tested</label>
+            <input id="t14_prototype_tested" name="df_p05_t14_prototype_tested" type="text" class="form-input" placeholder="e.g. V2 mobile mockup / paper prototype / working demo">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t14_test_task">Task Given to Users</label>
+            <textarea id="t14_test_task" name="df_p05_t14_test_task" class="form-textarea" style="min-height:70px" placeholder="e.g. Please use this prototype to check canteen queue status and decide where to eat."></textarea>
+          </div>
+
+          <p class="form-label" style="margin-top:12px">Feedback From 3 Users</p>
+          <div class="form-numbered-list">
+            <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">1</span><textarea name="df_p05_t14_user01_feedback" class="form-textarea" style="min-height:80px" placeholder="User 1 code + what they said + what you observed..."></textarea></div>
+            <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">2</span><textarea name="df_p05_t14_user02_feedback" class="form-textarea" style="min-height:80px" placeholder="User 2 code + what they said + what you observed..."></textarea></div>
+            <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">3</span><textarea name="df_p05_t14_user03_feedback" class="form-textarea" style="min-height:80px" placeholder="User 3 code + what they said + what you observed..."></textarea></div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t14_key_patterns">Key Feedback Patterns</label>
+            <textarea id="t14_key_patterns" name="df_p05_t14_key_patterns" class="form-textarea" placeholder="What feedback appeared more than once? What did users struggle with most?"></textarea>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="form-group">
+              <label class="form-label" for="t14_usefulness_rating">Usefulness Rating</label>
+              <select id="t14_usefulness_rating" name="df_p05_t14_usefulness_rating" class="form-input">
+                <option value="">Select 1–5</option><option>1 - Not useful</option><option>2 - Slightly useful</option><option>3 - Useful</option><option>4 - Very useful</option><option>5 - Excellent</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="t14_ease_rating">Ease of Use Rating</label>
+              <select id="t14_ease_rating" name="df_p05_t14_ease_rating" class="form-input">
+                <option value="">Select 1–5</option><option>1 - Difficult</option><option>2 - Somewhat difficult</option><option>3 - Okay</option><option>4 - Easy</option><option>5 - Very easy</option>
+              </select>
+            </div>
+          </div>
+        </section><!-- /T14 -->
+
+
+        <!-- ═══════════════════════════════════════════════════
+             T15 — IMPROVEMENT PLAN
+             Decide what to improve after testing.
+             namespace: df_p05_  keys: t15_*
+             ═══════════════════════════════════════════════════ -->
+        <section class="template-section" aria-label="T15 Improvement Plan">
+          <div class="template-section-header">
+            <span class="template-badge">T15</span>
+            <p class="template-title">Improvement Plan</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t15_problem_found">Main Problem Found During Testing</label>
+            <textarea id="t15_problem_found" name="df_p05_t15_problem_found" class="form-textarea" style="min-height:80px" placeholder="Describe the biggest issue users faced while testing the prototype."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Top Improvements to Make</label>
+            <div class="form-numbered-list">
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">1</span><input type="text" name="df_p05_t15_improvement01" class="form-input" placeholder="Most important improvement..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">2</span><input type="text" name="df_p05_t15_improvement02" class="form-input" placeholder="Second improvement..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">3</span><input type="text" name="df_p05_t15_improvement03" class="form-input" placeholder="Third improvement..."></div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="form-group">
+              <label class="form-label" for="t15_priority">Improvement Priority</label>
+              <select id="t15_priority" name="df_p05_t15_priority" class="form-input">
+                <option value="">Select priority</option><option>High</option><option>Medium</option><option>Low</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="t15_owner">Person in Charge</label>
+              <input id="t15_owner" name="df_p05_t15_owner" type="text" class="form-input" placeholder="Team member name">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t15_action_steps">Action Steps</label>
+            <textarea id="t15_action_steps" name="df_p05_t15_action_steps" class="form-textarea" placeholder="Step 1: ...&#10;Step 2: ...&#10;Step 3: ..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t15_expected_result">Expected Result After Improvement</label>
+            <textarea id="t15_expected_result" name="df_p05_t15_expected_result" class="form-textarea" placeholder="How will this improvement make the solution better for users?"></textarea>
+          </div>
+        </section><!-- /T15 -->
+
+
+        <!-- ═══════════════════════════════════════════════════
+             T16 — FINAL REFLECTION
+             Summarise final learning and submit evidence.
+             namespace: df_p05_  keys: t16_*
+             ═══════════════════════════════════════════════════ -->
+        <section class="template-section" aria-label="T16 Final Reflection">
+          <div class="template-section-header">
+            <span class="template-badge">T16</span>
+            <p class="template-title">Final Reflection</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t16_solution_summary">Final Solution Summary</label>
+            <textarea id="t16_solution_summary" name="df_p05_t16_solution_summary" class="form-textarea" style="min-height:90px" placeholder="Briefly describe your final solution and who it helps."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t16_learning">What Did Your Team Learn?</label>
+            <textarea id="t16_learning" name="df_p05_t16_learning" class="form-textarea" placeholder="What did testing reveal about your users, your prototype, or your assumptions?"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t16_changes_made">Changes Made After Testing</label>
+            <textarea id="t16_changes_made" name="df_p05_t16_changes_made" class="form-textarea" placeholder="List the changes your team made after collecting user feedback."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t16_final_drive_link">Final Evidence / Submission Link</label>
+            <input id="t16_final_drive_link" name="df_p05_t16_final_drive_link" type="url" class="form-input" placeholder="https://drive.google.com/drive/folders/...">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t16_next_step">Recommended Next Step</label>
+            <select id="t16_next_step" name="df_p05_t16_next_step" class="form-input">
+              <option value="">Select final decision</option>
+              <option>Ready for final FYP presentation</option>
+              <option>Needs one more prototype improvement</option>
+              <option>Needs more user testing</option>
+              <option>Needs supervisor consultation</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Final Submission Checklist</label>
+            <div class="form-checklist">
+              <label class="form-check-item"><input type="checkbox" name="df_p05_t16_chk_3users" class="t16-checklist"> We tested with at least 3 users</label>
+              <label class="form-check-item"><input type="checkbox" name="df_p05_t16_chk_feedback" class="t16-checklist"> We recorded clear user feedback</label>
+              <label class="form-check-item"><input type="checkbox" name="df_p05_t16_chk_improvement" class="t16-checklist"> We created an improvement plan</label>
+              <label class="form-check-item"><input type="checkbox" name="df_p05_t16_chk_evidence" class="t16-checklist"> Final evidence link is included and tested</label>
+              <label class="form-check-item"><input type="checkbox" name="df_p05_t16_chk_supervisor" class="t16-checklist"> We are ready for Supervisor Gate 3 review</label>
+            </div>
+          </div>
+        </section><!-- /T16 -->
+
+      </form><!-- /#template-form -->
+
+      <!-- PHASE SUBMIT ────────────────────────────────────────────── -->
+      <div class="phase-submit-section">
+        <p class="phase-submit-title">Ready to Submit Phase 05?</p>
+        <p class="phase-submit-sub">
+          Complete T14, T15 and T16 before submitting. This will mark the Test phase complete and prepare your work for Supervisor Gate 3 final review.
+        </p>
+        <button class="btn-primary"
+                onclick="PhaseEngine.submitPhase(5,
+                  'https://script.google.com/macros/s/AKfycbyM-5GQKEQCZlYUHeN46I0BaYIPeMo9mHpSPQTbd5VZqT6uu3oXraHKHgHZPKa8A8Y/exec',
+                  ['df_p05_'])"
+                aria-label="Submit Phase 05 Test">
+          Submit Phase 05 — Test →
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5"
+               stroke-linecap="round" stroke-linejoin="round"
+               aria-hidden="true" style="flex-shrink:0">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Checklist restore script ────────────────────────────── -->
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          ['t16-checklist'].forEach(function (cls) {
+            document.querySelectorAll('.' + cls).forEach(function (cb) {
+              var key = cb.name;
+              if (localStorage.getItem(key) === 'true') cb.checked = true;
+              cb.addEventListener('change', function () {
+                localStorage.setItem(key, cb.checked ? 'true' : 'false');
+              });
+            });
+          });
+        });
+      </script>
+
+      <!-- SUPERVISOR GATE 3 — rendered by phase-engine.js -->
+      <div id="gate-container"></div>
+    </div>
+  </div><!-- /#tab-templates -->
+
+
+    <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+
+    <a href="dashboard.html" class="nav-item"
+       data-page="dashboard.html" aria-label="Dashboard">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </span>
+      <span class="nav-label">Dashboard</span>
+    </a>
+
+    <a href="dashboard.html" class="nav-item"
+       data-page="learn" aria-label="Learn">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M9 18h6M10 22h4"/>
+          <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
+        </svg>
+      </span>
+      <span class="nav-label">Learn</span>
+    </a>
+
+    <a href="phase05-test.html" class="nav-item"
+       data-page="projects" aria-label="Projects">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+      </span>
+      <span class="nav-label">Projects</span>
+    </a>
+
+    <a href="progress.html" class="nav-item"
+       data-page="progress.html" aria-label="Progress">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <polyline points="14 11 17 14 22 9"/>
+          <path d="M22 12v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/>
+        </svg>
+      </span>
+      <span class="nav-label">Progress</span>
+    </a>
+
+    <a href="profile.html" class="nav-item"
+       data-page="profile.html" aria-label="Profile">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </span>
+      <span class="nav-label">Profile</span>
+    </a>
+
+  </nav>
+
+</div><!-- /.app-container -->
+
+
+<script src="js/app.js"></script>
+<script src="js/data.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/phase-engine.js"></script>
+
+<script>
+  'use strict';
+
+  
+  /* ── Safe init: waits for all scripts to fully load before calling
+     PhaseEngine.init(). Prevents 'PhaseEngine is not defined' errors
+     that occur when a script fails silently or loads slowly.          */
+  window.addEventListener('load', function () {
+    if (typeof window.PhaseEngine === 'undefined') {
+      console.error('Smart DT: phase-engine.js did not load. Check that js/phase-engine.js exists in your project folder.');
+      return;
+    }
+    PhaseEngine.init({
+    phaseNum:  5,
+    namespace: 'df_p05_',
+    hasGate:   true,
+    gateNum:   3,
+    sheetUrl:  'https://script.google.com/macros/s/AKfycbyM-5GQKEQCZlYUHeN46I0BaYIPeMo9mHpSPQTbd5VZqT6uu3oXraHKHgHZPKa8A8Y/exec',
+  });
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    'use strict';
+
+    var cta   = document.getElementById('cta-btn');
+    var arrow = document.getElementById('cta-arrow-btn');
+    function goToQuiz() {
+      var t = document.querySelector('.tab-btn[data-tab="quiz"]');
+      if (t) t.click();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    if (cta)   cta.addEventListener('click', goToQuiz);
+    if (arrow) arrow.addEventListener('click', goToQuiz);
+
+    var hbtn = document.getElementById('hamburger-btn');
+    if (hbtn) {
+      hbtn.addEventListener('click', function () {
+        var e = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!e));
+      });
+    }
+    /* Gate 3 card */
+    if (typeof PhaseEngine !== 'undefined') {
+      PhaseEngine.initGateCard('#gate-container', 3, 5, '');
+    }
+  });
+</script>
+
+</body>
+</html>

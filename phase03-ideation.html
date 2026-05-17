@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="Smart DT Project — Phase 03: Ideation">
+  <title>Phase 03: Ideation — Smart DT Project</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body { background-color: var(--color-bg); overflow-x: hidden; }
+
+    .hamburger-btn {
+      width:36px; height:36px;
+      display:flex; align-items:center; justify-content:center;
+      border-radius:var(--radius-sm);
+      background-color:var(--color-bg);
+      border:1px solid var(--color-border);
+      cursor:pointer; flex-shrink:0;
+    }
+    .hamburger-btn svg {
+      width:20px; height:20px;
+      stroke:var(--color-navy); fill:none;
+      stroke-width:2; stroke-linecap:round;
+    }
+
+    .phase-header {
+      position:relative;
+      padding:calc(var(--header-height) + 16px) 20px 0;
+      overflow:hidden;
+      min-height:240px;
+    }
+
+    .phase-content {
+      padding:16px 20px calc(var(--nav-height) + 24px);
+      position:relative; z-index:2;
+    }
+
+    .nav-icon svg {
+      width:24px; height:24px;
+      fill:none; stroke:currentColor;
+      stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
+    }
+
+    .back-link {
+      display:inline-flex; align-items:center; gap:6px;
+      font-size:13px; font-weight:500;
+      color:var(--color-text-mid); text-decoration:none;
+      margin-bottom:8px; position:relative; z-index:2;
+    }
+    .back-link:hover { color:var(--color-navy); }
+    .back-link svg {
+      width:16px; height:16px;
+      stroke:currentColor; fill:none;
+      stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
+    }
+  </style>
+</head>
+
+<body data-dots="true">
+<div class="app-container">
+
+  <img src="assets/shared/pink-blob.png"
+       class="pink-blob" alt="" aria-hidden="true"
+       onerror="this.style.display='none'">
+
+
+  <!-- HEADER -->
+  <header class="header" role="banner">
+    <a href="dashboard.html" class="header-logo"
+       aria-label="Smart DT Project — back to dashboard">
+      <img src="assets/brand/logo-icon.png"
+           class="header-logo-icon" alt="Smart DT Project logo"
+           onerror="this.style.display='none'">
+      <span class="header-logo-text">Smart DT<br>Project</span>
+    </a>
+    <div class="header-right">
+      <div class="phase-counter" aria-label="Phase 03 of 5">
+        <span class="phase-counter-current">03</span>
+        <span class="phase-counter-sep"> / </span>
+        <span class="phase-counter-total">05</span>
+      </div>
+      <button class="hamburger-btn" id="hamburger-btn"
+              aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <line x1="3" y1="6"  x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+
+  <!-- PHASE HEADER -->
+  <section class="phase-header" aria-label="Ideation phase introduction">
+
+    <div class="hero-wrap" aria-hidden="true">
+      <img src="assets/heroes/ideate-hero.png"
+           class="hero-img" alt="Student holding two gears"
+           onerror="this.style.display='none'">
+    </div>
+
+    <div class="page-header-text">
+
+      <a href="dashboard.html" class="back-link" aria-label="Back to dashboard">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+        Dashboard
+      </a>
+
+      <div class="phase-badge" aria-hidden="true">03</div>
+
+      <div class="phase-title-area">
+        <p class="phase-title-line">
+          <span class="word-accent">Ideation</span>
+        </p>
+        <p class="phase-title-line">
+          <span class="word-phase">Phase</span>
+        </p>
+        <p class="phase-description">Generate creative ideas and explore multiple possible solutions.</p>
+        <div class="orange-underline" aria-hidden="true"></div>
+        <p class="phase-tagline">More Ideas.<br>Stronger Solutions.</p>
+      </div>
+
+    </div>
+  </section>
+  <!-- TAB BAR -->
+  <div class="tab-bar" role="tablist" aria-label="Phase navigation">
+    <button class="tab-btn active" data-tab="info"
+            role="tab" aria-selected="true" aria-controls="tab-info">
+      Quick Info
+    </button>
+    <button class="tab-btn" data-tab="quiz"
+            role="tab" aria-selected="false" aria-controls="tab-quiz">
+      Quiz
+      <span class="tab-badge" aria-hidden="true">5 Qs</span>
+    </button>
+    <button class="tab-btn locked" data-tab="templates"
+            role="tab" aria-selected="false" aria-controls="tab-templates"
+            title="Pass the quiz to unlock templates">
+      Templates
+      <span class="tab-lock-icon" aria-label="locked">🔒</span>
+    </button>
+  </div>
+
+  <!-- TAB PANEL: QUICK INFO -->
+  <div class="tab-panel" id="tab-info" role="tabpanel">
+
+  <main class="phase-content" role="main">
+
+    <div class="phase-content-grid">
+
+      <!-- Carousel -->
+      <div>
+        <div class="carousel-wrap" id="phase-carousel"
+             aria-label="Ideation phase information slides">
+          <div class="carousel-track" id="carousel-track">
+            
+            <!-- Slide 1 -->
+            <div class="carousel-slide"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="Slide 1 of 4: Explore without limits">
+              <div class="carousel-slide-illustration" aria-hidden="true">
+                <svg viewBox="0 0 80 80" fill="none"
+                     xmlns="http://www.w3.org/2000/svg"
+                     style="display:block;width:80px;height:80px">
+                  <rect x="24" y="44" width="32" height="24" rx="3" fill="#14B8A6" opacity=".2" stroke="#14B8A6" stroke-width="1.5"/>
+           <path d="M24 44 L40 36 L56 44" stroke="#14B8A6" stroke-width="1.5" fill="none"/>
+           <circle cx="32" cy="26" r="6" fill="#FF6A3D" opacity=".5"/>
+           <circle cx="48" cy="20" r="5" fill="#F5A623" opacity=".6"/>
+           <circle cx="40" cy="12" r="4" fill="#14B8A6" opacity=".5"/>
+                </svg>
+              </div>
+              <div class="carousel-slide-content">
+                <p class="carousel-slide-title">Explore without limits</p>
+                <p class="carousel-slide-text">Brainstorm freely and welcome every perspective — no idea is too wild at this stage.</p>
+              </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="carousel-slide"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="Slide 2 of 4: Why quantity matters"
+                 aria-hidden="true">
+              <div class="carousel-slide-illustration" aria-hidden="true">
+                <svg viewBox="0 0 80 80" fill="none"
+                     xmlns="http://www.w3.org/2000/svg"
+                     style="display:block;width:80px;height:80px">
+                  <circle cx="40" cy="40" r="26" fill="#F5A623" opacity=".1"/>
+           <path d="M30 38a10 10 0 1 1 20 0c0 5-3 7-5 10H35c-2-3-5-5-5-10z" stroke="#F5A623" stroke-width="2" fill="none"/>
+           <line x1="35" y1="50" x2="45" y2="50" stroke="#F5A623" stroke-width="2" stroke-linecap="round"/>
+           <line x1="36" y1="54" x2="44" y2="54" stroke="#F5A623" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="carousel-slide-content">
+                <p class="carousel-slide-title">Why quantity matters</p>
+                <p class="carousel-slide-text">The more ideas you generate, the higher the chance of finding a great solution.</p>
+              </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="carousel-slide"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="Slide 3 of 4: Your Ideation tools"
+                 aria-hidden="true">
+              <div class="carousel-slide-illustration" aria-hidden="true">
+                <svg viewBox="0 0 80 80" fill="none"
+                     xmlns="http://www.w3.org/2000/svg"
+                     style="display:block;width:80px;height:80px">
+                  <circle cx="40" cy="40" r="28" fill="#E05C7A" opacity=".08"/>
+           <text x="40" y="32" text-anchor="middle" font-size="9" fill="#E05C7A" font-family="sans-serif" font-weight="700">SCAMPER</text>
+           <line x1="20" y1="36" x2="60" y2="36" stroke="#E05C7A" stroke-width="1" opacity=".5"/>
+           <text x="25" y="46" font-size="7" fill="#E05C7A" font-family="sans-serif">Substitute</text>
+           <text x="25" y="54" font-size="7" fill="#E05C7A" font-family="sans-serif">Combine</text>
+           <text x="25" y="62" font-size="7" fill="#E05C7A" font-family="sans-serif">Adapt...</text>
+                </svg>
+              </div>
+              <div class="carousel-slide-content">
+                <p class="carousel-slide-title">Your Ideation tools</p>
+                <p class="carousel-slide-text">Use Brainstorming, SCAMPER, and the Idea Selection Matrix to find your best idea.</p>
+              </div>
+            </div>
+            <!-- Slide 4 -->
+            <div class="carousel-slide"
+                 role="group"
+                 aria-roledescription="slide"
+                 aria-label="Slide 4 of 4: Your goal this phase"
+                 aria-hidden="true">
+              <div class="carousel-slide-illustration" aria-hidden="true">
+                <svg viewBox="0 0 80 80" fill="none"
+                     xmlns="http://www.w3.org/2000/svg"
+                     style="display:block;width:80px;height:80px">
+                  <rect x="14" y="14" width="52" height="52" rx="4" fill="#14B8A6" opacity=".08" stroke="#14B8A6" stroke-width="1.5"/>
+           <line x1="30" y1="14" x2="30" y2="66" stroke="#14B8A6" stroke-width="1" opacity=".4"/>
+           <line x1="46" y1="14" x2="46" y2="66" stroke="#14B8A6" stroke-width="1" opacity=".4"/>
+           <line x1="14" y1="30" x2="66" y2="30" stroke="#14B8A6" stroke-width="1" opacity=".4"/>
+           <line x1="14" y1="46" x2="66" y2="46" stroke="#14B8A6" stroke-width="1" opacity=".4"/>
+           <circle cx="22" cy="22" r="4" fill="#14B8A6" opacity=".6"/>
+           <circle cx="38" cy="22" r="3" fill="#14B8A6" opacity=".4"/>
+           <circle cx="54" cy="22" r="5" fill="#F5A623" opacity=".6"/>
+                </svg>
+              </div>
+              <div class="carousel-slide-content">
+                <p class="carousel-slide-title">Your goal this phase</p>
+                <p class="carousel-slide-text">Generate 20+ ideas, apply SCAMPER, and select the top idea using a scoring matrix.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dot-row" id="carousel-dots"
+             role="tablist" aria-label="Slide navigation">
+          <div class="dot active" aria-label="Slide 1" role="tab" aria-selected="true"></div>
+          <div class="dot"        aria-label="Slide 2" role="tab" aria-selected="false"></div>
+          <div class="dot"        aria-label="Slide 3" role="tab" aria-selected="false"></div>
+          <div class="dot"        aria-label="Slide 4" role="tab" aria-selected="false"></div>
+        </div>
+      </div>
+
+      <!-- Feature rows -->
+      <div class="feature-list" aria-label="Ideation phase key skills">
+        
+        <div class="feature-row">
+          <div class="feature-icon-box teal" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="#FFFFFF" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/>
+            </svg>
+          </div>
+          <div class="feature-text">
+            <p class="feature-text-title">Brainstorm widely</p>
+            <p class="feature-text-desc">Generate as many ideas as possible.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon-box pink-red" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="#FFFFFF" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="8" cy="12" r="4"/><circle cx="16" cy="12" r="4"/><line x1="8" y1="8" x2="16" y2="8"/>
+            </svg>
+          </div>
+          <div class="feature-text">
+            <p class="feature-text-title">Build on each other</p>
+            <p class="feature-text-desc">Combine ideas to spark better solutions.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-icon-box yellow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"
+                 stroke="#FFFFFF" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+          </div>
+          <div class="feature-text">
+            <p class="feature-text-title">Evaluate opportunities</p>
+            <p class="feature-text-desc">Identify the most promising ideas to move forward.</p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.phase-content-grid -->
+
+
+    <!-- CTA row -->
+    <div class="cta-row">
+      <button class="btn-primary" id="cta-btn"
+              aria-label="Let's Continue with Phase 03 Ideation">
+        Let's Continue
+        <svg width="18" height="18" viewBox="0 0 24 24"
+             fill="none" stroke="currentColor"
+             stroke-width="2.5" stroke-linecap="round"
+             stroke-linejoin="round" aria-hidden="true"
+             style="flex-shrink:0">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </button>
+      <button class="btn-arrow-circle" id="cta-arrow-btn" aria-label="Let's Continue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.5" stroke-linecap="round"
+             stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </button>
+    </div>
+
+
+    <!-- Progress line -->
+    <div class="phase-progress-line" aria-label="Phase progress indicator">
+      
+      <div class="line-segment done" aria-label="Phase 1"></div>
+      <div class="line-segment done" aria-label="Phase 2"></div>
+      <div class="line-segment done" aria-label="Phase 3"></div>
+      <div class="line-segment" aria-label="Phase 4"></div>
+      <div class="line-segment" aria-label="Phase 5"></div>
+    </div>
+
+  </main>
+
+  </div><!-- /#tab-info -->
+  <!-- TAB PANEL: QUIZ -->
+  <div class="tab-panel hidden" id="tab-quiz" role="tabpanel">
+    <div class="phase-content">
+      <div class="quiz-intro">
+        <p class="quiz-intro-title">Quick Check Quiz</p>
+        <p class="quiz-intro-sub">
+          Answer 5 questions about the Ideation phase.
+          Score <strong>3 out of 5</strong> to unlock your templates.
+        </p>
+      </div>
+      <div id="quiz-container"></div>
+    </div>
+  </div><!-- /#tab-quiz -->
+  <!-- TAB PANEL: TEMPLATES -->
+  <div class="tab-panel hidden" id="tab-templates" role="tabpanel">
+    <div class="phase-content">
+      <form id="template-form" novalidate>
+
+        <!-- ═══════════════════════════════════════════════════
+             T07 — BRAINSTORMING SHEET
+             Rules · HMW reference · Session info ·
+             20 idea slots · Top 5 after team voting
+             namespace: df_p03_  keys: t07_*
+             ═══════════════════════════════════════════════════ -->
+        <section class="template-section" aria-label="T07 Brainstorming Sheet">
+          <div class="template-section-header">
+            <span class="template-badge">T07</span>
+            <p class="template-title">Brainstorming Sheet</p>
+          </div>
+
+          <!-- Brainstorm rules banner -->
+          <div style="background:rgba(20,184,166,.08);border:1px solid rgba(20,184,166,.25);
+                      border-radius:var(--radius-md);padding:12px 14px;margin-bottom:16px">
+            <p style="font-size:12px;font-weight:700;color:var(--color-teal);margin-bottom:6px">
+              📋 Brainstorm Rules — Everyone Must Follow These
+            </p>
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <p style="font-size:12px;color:var(--color-text-dark);line-height:1.5">
+                ✅ No judging — every idea is valid during brainstorming
+              </p>
+              <p style="font-size:12px;color:var(--color-text-dark);line-height:1.5">
+                ✅ Quantity first — aim for 20 or more ideas
+              </p>
+              <p style="font-size:12px;color:var(--color-text-dark);line-height:1.5">
+                ✅ Build on each other's ideas — say "Yes, and…"
+              </p>
+              <p style="font-size:12px;color:var(--color-text-dark);line-height:1.5">
+                ✅ Wild ideas are welcome — they spark better ones
+              </p>
+            </div>
+          </div>
+
+          <!-- Session info -->
+          <div class="form-group">
+            <label class="form-label" for="t07_hmw_ref">
+              HMW Question You Are Answering
+              <span class="form-label-hint">(copy your best HMW from T06)</span>
+            </label>
+            <textarea id="t07_hmw_ref" name="df_p03_t07_hmw_ref" class="form-textarea"
+                      style="min-height:56px"
+                      placeholder="How might we…"></textarea>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label" for="t07_date">Session Date</label>
+              <input id="t07_date" name="df_p03_t07_date" type="date" class="form-input">
+            </div>
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label" for="t07_team">Team Members Present</label>
+              <input id="t07_team" name="df_p03_t07_team" type="text"
+                     class="form-input" placeholder="e.g. Ali, Siti, Raj">
+            </div>
+          </div>
+
+          <!-- 20 idea slots -->
+          <div class="form-group">
+            <label class="form-label">
+              20 Ideas
+              <span class="form-label-hint">(write one idea per box — no filtering yet)</span>
+            </label>
+            <div class="form-numbered-list">
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">1</span><input type="text" name="df_p03_t07_idea01" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">2</span><input type="text" name="df_p03_t07_idea02" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">3</span><input type="text" name="df_p03_t07_idea03" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">4</span><input type="text" name="df_p03_t07_idea04" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">5</span><input type="text" name="df_p03_t07_idea05" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">6</span><input type="text" name="df_p03_t07_idea06" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">7</span><input type="text" name="df_p03_t07_idea07" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">8</span><input type="text" name="df_p03_t07_idea08" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">9</span><input type="text" name="df_p03_t07_idea09" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">10</span><input type="text" name="df_p03_t07_idea10" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">11</span><input type="text" name="df_p03_t07_idea11" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">12</span><input type="text" name="df_p03_t07_idea12" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">13</span><input type="text" name="df_p03_t07_idea13" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">14</span><input type="text" name="df_p03_t07_idea14" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">15</span><input type="text" name="df_p03_t07_idea15" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">16</span><input type="text" name="df_p03_t07_idea16" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">17</span><input type="text" name="df_p03_t07_idea17" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">18</span><input type="text" name="df_p03_t07_idea18" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">19</span><input type="text" name="df_p03_t07_idea19" class="form-input" placeholder="Write one idea here..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">20</span><input type="text" name="df_p03_t07_idea20" class="form-input" placeholder="Write one idea here..."></div>
+            </div>
+          </div>
+
+          <!-- Top 5 after voting -->
+          <div class="form-group">
+            <label class="form-label">
+              Top 5 Ideas After Team Voting
+              <span class="form-label-hint">(each team member votes — copy the top 5 here)</span>
+            </label>
+            <div class="form-numbered-list">
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">1</span><input type="text" name="df_p03_t07_top1" class="form-input" placeholder="Copy the idea your team voted for..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">2</span><input type="text" name="df_p03_t07_top2" class="form-input" placeholder="Copy the idea your team voted for..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">3</span><input type="text" name="df_p03_t07_top3" class="form-input" placeholder="Copy the idea your team voted for..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">4</span><input type="text" name="df_p03_t07_top4" class="form-input" placeholder="Copy the idea your team voted for..."></div>
+              <div class="form-numbered-item"><span class="form-number-badge" aria-hidden="true">5</span><input type="text" name="df_p03_t07_top5" class="form-input" placeholder="Copy the idea your team voted for..."></div>
+            </div>
+          </div>
+
+        </section><!-- /T07 -->
+
+
+        <!-- ═══════════════════════════════════════════════════
+             T08 — SCAMPER PROMPT SHEET
+             7 lenses to stretch your thinking beyond the obvious.
+             namespace: df_p03_  keys: t08_*
+             ═══════════════════════════════════════════════════ -->
+        <section class="template-section" aria-label="T08 SCAMPER Sheet">
+          <div class="template-section-header">
+            <span class="template-badge">T08</span>
+            <p class="template-title">SCAMPER Sheet</p>
+          </div>
+
+          <div style="background:rgba(245,166,35,.08);border:1px solid rgba(245,166,35,.3);
+                      border-radius:var(--radius-md);padding:10px 14px;margin-bottom:14px">
+            <p style="font-size:12px;color:var(--color-text-dark);line-height:1.55">
+              <strong>SCAMPER</strong> helps you find new ideas by looking at your current
+              thinking from 7 different angles. Work through each lens and write at least
+              one idea for each.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t08_substitute">
+              <span style="display:inline-flex;align-items:center;justify-content:center;
+                width:22px;height:22px;border-radius:50%;background:#14B8A6;
+                color:#fff;font-size:11px;font-weight:700;margin-right:6px;
+                flex-shrink:0;vertical-align:middle">S</span>
+              Substitute
+              <span class="form-label-hint">(replace or swap a part of your solution)</span>
+            </label>
+            <textarea id="t08_substitute" name="df_p03_t08_substitute" class="form-textarea"
+                      placeholder="e.g. What if we replaced the physical queue board with a digital phone notification?"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="t08_combine">
+              <span style="display:inline-flex;align-items:center;justify-content:center;
+                width:22px;height:22px;border-radius:50%;background:#FF6A3D;
+                color:#fff;font-size:11px;font-weight:700;margin-right:6px;
+                flex-shrink:0;vertical-align:middle">C</span>
+              Combine
+              <span class="form-label-hint">(merge two ideas or functions together)</span>
+            </label>
+            <textarea id="t08_combine" name="df_p03_t08_combine" class="form-textarea"
+                      placeholder="e.g. What if we combined the canteen menu display with a pre-order feature?"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="t08_adapt">
+              <span style="display:inline-flex;align-items:center;justify-content:center;
+                width:22px;height:22px;border-radius:50%;background:#F5A623;
+                color:#fff;font-size:11px;font-weight:700;margin-right:6px;
+                flex-shrink:0;vertical-align:middle">A</span>
+              Adapt
+              <span class="form-label-hint">(borrow ideas from another context)</span>
+            </label>
+            <textarea id="t08_adapt" name="df_p03_t08_adapt" class="form-textarea"
+                      placeholder="e.g. How could we adapt the concept of a cinema seat booking system to canteen queues?"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="t08_modify">
+              <span style="display:inline-flex;align-items:center;justify-content:center;
+                width:22px;height:22px;border-radius:50%;background:#E05C7A;
+                color:#fff;font-size:11px;font-weight:700;margin-right:6px;
+                flex-shrink:0;vertical-align:middle">M</span>
+              Modify
+              <span class="form-label-hint">(change the size, shape, or process)</span>
+            </label>
+            <textarea id="t08_modify" name="df_p03_t08_modify" class="form-textarea"
+                      placeholder="e.g. What if we made the ordering process shorter — just 2 taps instead of 5?"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="t08_put_to_use">
+              <span style="display:inline-flex;align-items:center;justify-content:center;
+                width:22px;height:22px;border-radius:50%;background:#8B5CF6;
+                color:#fff;font-size:11px;font-weight:700;margin-right:6px;
+                flex-shrink:0;vertical-align:middle">P</span>
+              Put to Other Use
+              <span class="form-label-hint">(use existing resources in a new way)</span>
+            </label>
+            <textarea id="t08_put_to_use" name="df_p03_t08_put_to_use" class="form-textarea"
+                      placeholder="e.g. Could we use the existing canteen TV screens to display real-time queue data?"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="t08_eliminate">
+              <span style="display:inline-flex;align-items:center;justify-content:center;
+                width:22px;height:22px;border-radius:50%;background:#0EA5E9;
+                color:#fff;font-size:11px;font-weight:700;margin-right:6px;
+                flex-shrink:0;vertical-align:middle">E</span>
+              Eliminate
+              <span class="form-label-hint">(remove steps or features)</span>
+            </label>
+            <textarea id="t08_eliminate" name="df_p03_t08_eliminate" class="form-textarea"
+                      placeholder="e.g. What if we eliminated the need to physically go to the canteen to know what is available?"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="t08_reverse">
+              <span style="display:inline-flex;align-items:center;justify-content:center;
+                width:22px;height:22px;border-radius:50%;background:#10B981;
+                color:#fff;font-size:11px;font-weight:700;margin-right:6px;
+                flex-shrink:0;vertical-align:middle">R</span>
+              Reverse
+              <span class="form-label-hint">(reverse the process or flip the assumption)</span>
+            </label>
+            <textarea id="t08_reverse" name="df_p03_t08_reverse" class="form-textarea"
+                      placeholder="e.g. Instead of students going to food, what if food information comes to students?"></textarea>
+          </div>
+
+          <!-- Best SCAMPER idea -->
+          <div class="form-group" style="margin-top:6px">
+            <label class="form-label" for="t08_best">
+              Best SCAMPER Idea
+              <span class="form-label-hint">(which lens gave you the strongest new idea?)</span>
+            </label>
+            <textarea id="t08_best" name="df_p03_t08_best" class="form-textarea"
+                      placeholder="Describe the best idea that SCAMPER helped you discover."></textarea>
+          </div>
+
+        </section><!-- /T08 -->
+
+
+        <!-- ═══════════════════════════════════════════════════
+             T09 — IDEA SELECTION MATRIX
+             5 ideas scored on Feasibility · Impact · Novelty ·
+             Cost Fit (each 1–5). Totals calculated automatically.
+             namespace: df_p03_  keys: t09_*
+             ═══════════════════════════════════════════════════ -->
+        <section class="template-section" aria-label="T09 Idea Selection Matrix">
+          <div class="template-section-header">
+            <span class="template-badge">T09</span>
+            <p class="template-title">Idea Selection Matrix</p>
+          </div>
+
+          <div style="background:rgba(7,27,61,.04);border:1px solid var(--color-border);
+                      border-radius:var(--radius-md);padding:10px 14px;margin-bottom:14px">
+            <p style="font-size:12px;color:var(--color-text-dark);line-height:1.55">
+              Score your top 5 ideas on 4 criteria. Use <strong>1 = Very low</strong> to
+              <strong>5 = Very high</strong>. The idea with the highest total is your strongest candidate.
+            </p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:8px">
+              <p style="font-size:11px;color:var(--color-text-mid)">📊 <strong>Feasibility</strong> — Can you build it?</p>
+              <p style="font-size:11px;color:var(--color-text-mid)">🎯 <strong>Impact</strong> — Does it solve the problem?</p>
+              <p style="font-size:11px;color:var(--color-text-mid)">💡 <strong>Novelty</strong> — Is it creative?</p>
+              <p style="font-size:11px;color:var(--color-text-mid)">💰 <strong>Cost Fit</strong> — Is it affordable?</p>
+            </div>
+          </div>
+
+          <!-- Idea 1 -->
+          <div class="form-paired-group" id="matrix-idea-1">
+            <p class="form-paired-label">Idea 1</p>
+            <input type="text" name="df_p03_t09_idea1" class="form-input"
+                   placeholder="Name this idea briefly..."
+                   style="margin-bottom:10px"
+                   oninput="PE_calcTotal(1)">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+              <div>
+                <label class="form-label" style="font-size:11px">Feasibility (1–5)</label>
+                <input type="number" name="df_p03_t09_feas1" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(1)" style="text-align:center">
+              </div>
+              <div>
+                <label class="form-label" style="font-size:11px">Impact (1–5)</label>
+                <input type="number" name="df_p03_t09_impact1" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(1)" style="text-align:center">
+              </div>
+              <div>
+                <label class="form-label" style="font-size:11px">Novelty (1–5)</label>
+                <input type="number" name="df_p03_t09_novelty1" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(1)" style="text-align:center">
+              </div>
+              <div>
+                <label class="form-label" style="font-size:11px">Cost Fit (1–5)</label>
+                <input type="number" name="df_p03_t09_cost1" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(1)" style="text-align:center">
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;
+                        padding:8px 12px;background:var(--color-bg);
+                        border-radius:var(--radius-md);border:1px solid var(--color-border)">
+              <span style="font-size:12px;font-weight:600;color:var(--color-navy)">Total Score</span>
+              <span id="total-1" style="font-size:18px;font-weight:700;color:var(--color-teal)">—</span>
+              <!-- Hidden field stores the total so it's picked up by template autosave -->
+              <input type="hidden" name="df_p03_t09_score1" id="score-1">
+            </div>
+          </div>
+          <!-- Idea 2 -->
+          <div class="form-paired-group" id="matrix-idea-2">
+            <p class="form-paired-label">Idea 2</p>
+            <input type="text" name="df_p03_t09_idea2" class="form-input"
+                   placeholder="Name this idea briefly..."
+                   style="margin-bottom:10px"
+                   oninput="PE_calcTotal(2)">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+              <div>
+                <label class="form-label" style="font-size:11px">Feasibility (1–5)</label>
+                <input type="number" name="df_p03_t09_feas2" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(2)" style="text-align:center">
+              </div>
+              <div>
+                <label class="form-label" style="font-size:11px">Impact (1–5)</label>
+                <input type="number" name="df_p03_t09_impact2" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(2)" style="text-align:center">
+              </div>
+              <div>
+                <label class="form-label" style="font-size:11px">Novelty (1–5)</label>
+                <input type="number" name="df_p03_t09_novelty2" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(2)" style="text-align:center">
+              </div>
+              <div>
+                <label class="form-label" style="font-size:11px">Cost Fit (1–5)</label>
+                <input type="number" name="df_p03_t09_cost2" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(2)" style="text-align:center">
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;
+                        padding:8px 12px;background:var(--color-bg);
+                        border-radius:var(--radius-md);border:1px solid var(--color-border)">
+              <span style="font-size:12px;font-weight:600;color:var(--color-navy)">Total Score</span>
+              <span id="total-2" style="font-size:18px;font-weight:700;color:var(--color-teal)">—</span>
+              <!-- Hidden field stores the total so it's picked up by template autosave -->
+              <input type="hidden" name="df_p03_t09_score2" id="score-2">
+            </div>
+          </div>
+          <!-- Idea 3 -->
+          <div class="form-paired-group" id="matrix-idea-3">
+            <p class="form-paired-label">Idea 3</p>
+            <input type="text" name="df_p03_t09_idea3" class="form-input"
+                   placeholder="Name this idea briefly..."
+                   style="margin-bottom:10px"
+                   oninput="PE_calcTotal(3)">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+              <div>
+                <label class="form-label" style="font-size:11px">Feasibility (1–5)</label>
+                <input type="number" name="df_p03_t09_feas3" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(3)" style="text-align:center">
+              </div>
+              <div>
+                <label class="form-label" style="font-size:11px">Impact (1–5)</label>
+                <input type="number" name="df_p03_t09_impact3" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(3)" style="text-align:center">
+              </div>
+              <div>
+                <label class="form-label" style="font-size:11px">Novelty (1–5)</label>
+                <input type="number" name="df_p03_t09_novelty3" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(3)" style="text-align:center">
+              </div>
+              <div>
+                <label class="form-label" style="font-size:11px">Cost Fit (1–5)</label>
+                <input type="number" name="df_p03_t09_cost3" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(3)" style="text-align:center">
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;
+                        padding:8px 12px;background:var(--color-bg);
+                        border-radius:var(--radius-md);border:1px solid var(--color-border)">
+              <span style="font-size:12px;font-weight:600;color:var(--color-navy)">Total Score</span>
+              <span id="total-3" style="font-size:18px;font-weight:700;color:var(--color-teal)">—</span>
+              <!-- Hidden field stores the total so it's picked up by template autosave -->
+              <input type="hidden" name="df_p03_t09_score3" id="score-3">
+            </div>
+          </div>
+          <!-- Idea 4 -->
+          <div class="form-paired-group" id="matrix-idea-4">
+            <p class="form-paired-label">Idea 4</p>
+            <input type="text" name="df_p03_t09_idea4" class="form-input"
+                   placeholder="Name this idea briefly..."
+                   style="margin-bottom:10px"
+                   oninput="PE_calcTotal(4)">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+              <div>
+                <label class="form-label" style="font-size:11px">Feasibility (1–5)</label>
+                <input type="number" name="df_p03_t09_feas4" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(4)" style="text-align:center">
+              </div>
+              <div>
+                <label class="form-label" style="font-size:11px">Impact (1–5)</label>
+                <input type="number" name="df_p03_t09_impact4" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(4)" style="text-align:center">
+              </div>
+              <div>
+                <label class="form-label" style="font-size:11px">Novelty (1–5)</label>
+                <input type="number" name="df_p03_t09_novelty4" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(4)" style="text-align:center">
+              </div>
+              <div>
+                <label class="form-label" style="font-size:11px">Cost Fit (1–5)</label>
+                <input type="number" name="df_p03_t09_cost4" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(4)" style="text-align:center">
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;
+                        padding:8px 12px;background:var(--color-bg);
+                        border-radius:var(--radius-md);border:1px solid var(--color-border)">
+              <span style="font-size:12px;font-weight:600;color:var(--color-navy)">Total Score</span>
+              <span id="total-4" style="font-size:18px;font-weight:700;color:var(--color-teal)">—</span>
+              <!-- Hidden field stores the total so it's picked up by template autosave -->
+              <input type="hidden" name="df_p03_t09_score4" id="score-4">
+            </div>
+          </div>
+          <!-- Idea 5 -->
+          <div class="form-paired-group" id="matrix-idea-5">
+            <p class="form-paired-label">Idea 5</p>
+            <input type="text" name="df_p03_t09_idea5" class="form-input"
+                   placeholder="Name this idea briefly..."
+                   style="margin-bottom:10px"
+                   oninput="PE_calcTotal(5)">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+              <div>
+                <label class="form-label" style="font-size:11px">Feasibility (1–5)</label>
+                <input type="number" name="df_p03_t09_feas5" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(5)" style="text-align:center">
+              </div>
+              <div>
+                <label class="form-label" style="font-size:11px">Impact (1–5)</label>
+                <input type="number" name="df_p03_t09_impact5" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(5)" style="text-align:center">
+              </div>
+              <div>
+                <label class="form-label" style="font-size:11px">Novelty (1–5)</label>
+                <input type="number" name="df_p03_t09_novelty5" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(5)" style="text-align:center">
+              </div>
+              <div>
+                <label class="form-label" style="font-size:11px">Cost Fit (1–5)</label>
+                <input type="number" name="df_p03_t09_cost5" class="form-input"
+                       min="1" max="5" placeholder="1–5"
+                       oninput="PE_calcTotal(5)" style="text-align:center">
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;
+                        padding:8px 12px;background:var(--color-bg);
+                        border-radius:var(--radius-md);border:1px solid var(--color-border)">
+              <span style="font-size:12px;font-weight:600;color:var(--color-navy)">Total Score</span>
+              <span id="total-5" style="font-size:18px;font-weight:700;color:var(--color-teal)">—</span>
+              <!-- Hidden field stores the total so it's picked up by template autosave -->
+              <input type="hidden" name="df_p03_t09_score5" id="score-5">
+            </div>
+          </div>
+
+          <!-- Decision -->
+          <div class="form-group" style="margin-top:6px">
+            <label class="form-label" for="t09_decision">
+              Team Decision
+              <span class="form-label-hint">(which idea did the team choose and why?)</span>
+            </label>
+            <textarea id="t09_decision" name="df_p03_t09_decision" class="form-textarea"
+                      placeholder="e.g. We chose Idea 3 because it scored the highest overall (18/20) and directly addresses the core user need identified in our problem statement."></textarea>
+          </div>
+
+        </section><!-- /T09 -->
+
+
+        <!-- ═══════════════════════════════════════════════════
+             T10 — FINAL IDEA JUSTIFICATION
+             Document the chosen idea completely before moving
+             to prototyping. Links idea back to user research.
+             namespace: df_p03_  keys: t10_*
+             ═══════════════════════════════════════════════════ -->
+        <section class="template-section" aria-label="T10 Final Idea Justification">
+          <div class="template-section-header">
+            <span class="template-badge">T10</span>
+            <p class="template-title">Final Idea Justification</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t10_idea_name">Idea Name
+              <span class="form-label-hint">(short, memorable title for your chosen idea)</span>
+            </label>
+            <input id="t10_idea_name" name="df_p03_t10_idea_name" type="text"
+                   class="form-input"
+                   placeholder="e.g. CanteeNow — Live Canteen Status App">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t10_description">Idea Description
+              <span class="form-label-hint">(explain what it is and how it works in 3–5 sentences)</span>
+            </label>
+            <textarea id="t10_description" name="df_p03_t10_description"
+                      class="form-textarea" style="min-height:100px"
+                      placeholder="e.g. CanteeNow is a mobile web app that shows students which canteen stalls are open and the estimated current queue length. Students check the app before leaving their classroom. Stall operators update their status through a simple dashboard. No payment is involved — it is purely an information tool."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t10_rationale">Why This Idea?
+              <span class="form-label-hint">(what made this idea stand out above the others?)</span>
+            </label>
+            <textarea id="t10_rationale" name="df_p03_t10_rationale" class="form-textarea"
+                      placeholder="Explain why this idea scored the highest and why the team believes it will work."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t10_link_problem">
+              Link to Problem Statement
+              <span class="form-label-hint">(how does this idea solve the problem from T05?)</span>
+            </label>
+            <textarea id="t10_link_problem" name="df_p03_t10_link_problem" class="form-textarea"
+                      placeholder="e.g. Our problem statement says students need to know stall availability before walking to the canteen. CanteeNow directly solves this by showing live status on their phone."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t10_resources">Resources Needed
+              <span class="form-label-hint">(tools, materials, software, people)</span>
+            </label>
+            <textarea id="t10_resources" name="df_p03_t10_resources" class="form-textarea"
+                      placeholder="e.g. Figma for wireframes, paper and markers for lo-fi prototype, 3 team members for user testing."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t10_timeline">Estimated Timeline
+              <span class="form-label-hint">(how long will prototype + testing take?)</span>
+            </label>
+            <input id="t10_timeline" name="df_p03_t10_timeline" type="text"
+                   class="form-input"
+                   placeholder="e.g. 2 weeks — Week 1: prototype, Week 2: user testing">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="t10_challenges">Anticipated Challenges
+              <span class="form-label-hint">(what might make this difficult to build or test?)</span>
+            </label>
+            <textarea id="t10_challenges" name="df_p03_t10_challenges" class="form-textarea"
+                      placeholder="e.g. Getting canteen operators to update the app in real time. We plan to simulate this in our prototype testing."></textarea>
+          </div>
+
+          <!-- Checklist -->
+          <div class="form-group">
+            <label class="form-label">Pre-Gate 2 Checklist</label>
+            <div class="form-checklist">
+              <label class="form-check-item">
+                <input type="checkbox" name="t10_chk_20ideas" class="t10-checklist">
+                We generated at least 20 ideas in T07
+              </label>
+              <label class="form-check-item">
+                <input type="checkbox" name="t10_chk_scamper" class="t10-checklist">
+                We completed all 7 SCAMPER lenses in T08
+              </label>
+              <label class="form-check-item">
+                <input type="checkbox" name="t10_chk_matrix" class="t10-checklist">
+                We scored 5 ideas in the T09 matrix objectively
+              </label>
+              <label class="form-check-item">
+                <input type="checkbox" name="t10_chk_team_agree" class="t10-checklist">
+                The whole team agrees with the chosen idea
+              </label>
+              <label class="form-check-item">
+                <input type="checkbox" name="t10_chk_no_solution_jump" class="t10-checklist">
+                Our chosen idea directly addresses the problem statement
+              </label>
+            </div>
+          </div>
+
+        </section><!-- /T10 -->
+
+      </form><!-- /#template-form -->
+
+
+      <!-- PHASE SUBMIT ──────────────────────────────────────────────
+           PhaseEngine.submitPhase() validates, sends to Sheets,
+           marks phase done, then redirects to dashboard.          -->
+      <div class="phase-submit-section">
+        <p class="phase-submit-title">Ready to Submit Phase 03?</p>
+        <p class="phase-submit-sub">
+          Complete all 4 templates and tick the Pre-Gate 2 checklist
+          before submitting. Your supervisor will review your chosen idea.
+        </p>
+        <button class="btn-primary"
+                onclick="PhaseEngine.submitPhase(3,
+                  'https://script.google.com/macros/s/AKfycbyM-5GQKEQCZlYUHeN46I0BaYIPeMo9mHpSPQTbd5VZqT6uu3oXraHKHgHZPKa8A8Y/exec',
+                  ['df_p03_'])"
+                aria-label="Submit Phase 03 Ideation">
+          Submit Phase 03 — Ideation →
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2.5"
+               stroke-linecap="round" stroke-linejoin="round"
+               aria-hidden="true" style="flex-shrink:0">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Auto-total script for T09 matrix ──────────────────────
+           Calculates Feasibility + Impact + Novelty + Cost Fit
+           and writes the result to the hidden score field so the
+           phase-engine template autosave picks it up.            -->
+      <script>
+        function PE_calcTotal(n) {
+          var feas    = parseInt(document.querySelector('[name="df_p03_t09_feas'    + n + '"]')?.value || 0);
+          var impact  = parseInt(document.querySelector('[name="df_p03_t09_impact'  + n + '"]')?.value || 0);
+          var novelty = parseInt(document.querySelector('[name="df_p03_t09_novelty' + n + '"]')?.value || 0);
+          var cost    = parseInt(document.querySelector('[name="df_p03_t09_cost'    + n + '"]')?.value || 0);
+          var total   = feas + impact + novelty + cost;
+          var display = document.getElementById('total-'  + n);
+          var hidden  = document.getElementById('score-'  + n);
+          if (display) display.textContent = (feas || impact || novelty || cost) ? total + ' / 20' : '—';
+          if (hidden)  hidden.value = total || '';
+        }
+
+        /* Restore checklist states from localStorage on page load */
+        document.addEventListener('DOMContentLoaded', function () {
+          document.querySelectorAll('.t10-checklist').forEach(function (cb) {
+            var key = 'df_p03_' + cb.name;
+            if (localStorage.getItem(key) === 'true') cb.checked = true;
+            cb.addEventListener('change', function () {
+              localStorage.setItem(key, cb.checked ? 'true' : 'false');
+            });
+          });
+        });
+      </script>
+
+      <!-- SUPERVISOR GATE 2 — rendered by phase-engine.js -->
+      <div id="gate-container"></div>
+    </div>
+  </div><!-- /#tab-templates -->
+
+
+    <nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+
+    <a href="dashboard.html" class="nav-item"
+       data-page="dashboard.html" aria-label="Dashboard">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </span>
+      <span class="nav-label">Dashboard</span>
+    </a>
+
+    <a href="dashboard.html" class="nav-item"
+       data-page="learn" aria-label="Learn">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M9 18h6M10 22h4"/>
+          <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
+        </svg>
+      </span>
+      <span class="nav-label">Learn</span>
+    </a>
+
+    <a href="phase03-ideation.html" class="nav-item"
+       data-page="projects" aria-label="Projects">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+      </span>
+      <span class="nav-label">Projects</span>
+    </a>
+
+    <a href="progress.html" class="nav-item"
+       data-page="progress.html" aria-label="Progress">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <polyline points="14 11 17 14 22 9"/>
+          <path d="M22 12v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/>
+        </svg>
+      </span>
+      <span class="nav-label">Progress</span>
+    </a>
+
+    <a href="profile.html" class="nav-item"
+       data-page="profile.html" aria-label="Profile">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </span>
+      <span class="nav-label">Profile</span>
+    </a>
+
+  </nav>
+
+</div><!-- /.app-container -->
+
+
+<script src="js/app.js"></script>
+<script src="js/data.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/phase-engine.js"></script>
+
+<script>
+  'use strict';
+
+  
+  /* ── Safe init: waits for all scripts to fully load before calling
+     PhaseEngine.init(). Prevents 'PhaseEngine is not defined' errors
+     that occur when a script fails silently or loads slowly.          */
+  window.addEventListener('load', function () {
+    if (typeof window.PhaseEngine === 'undefined') {
+      console.error('Smart DT: phase-engine.js did not load. Check that js/phase-engine.js exists in your project folder.');
+      return;
+    }
+    PhaseEngine.init({
+    phaseNum:  3,
+    namespace: 'df_p03_',
+    hasGate:   true,
+    gateNum:   2,
+    sheetUrl:  'https://script.google.com/macros/s/AKfycbyM-5GQKEQCZlYUHeN46I0BaYIPeMo9mHpSPQTbd5VZqT6uu3oXraHKHgHZPKa8A8Y/exec',
+  });
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    'use strict';
+
+    var cta   = document.getElementById('cta-btn');
+    var arrow = document.getElementById('cta-arrow-btn');
+    function goToQuiz() {
+      var t = document.querySelector('.tab-btn[data-tab="quiz"]');
+      if (t) t.click();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    if (cta)   cta.addEventListener('click', goToQuiz);
+    if (arrow) arrow.addEventListener('click', goToQuiz);
+
+    var hbtn = document.getElementById('hamburger-btn');
+    if (hbtn) {
+      hbtn.addEventListener('click', function () {
+        var e = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!e));
+      });
+    }
+    /* Gate 2 card is rendered by PhaseEngine.init() — no duplicate call needed */
+  });
+</script>
+
+</body>
+</html>
